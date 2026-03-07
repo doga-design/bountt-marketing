@@ -8,9 +8,9 @@
 ## What is Bountt?
 
 Bountt is a group expense tracking app built for the group chat & high-trust friend groups. 
-It's designed for friends, roommates, and anyone who's ever ended a night out with a 47-message thread trying to figure out who owes what.
+It's designed for friends, roommates, and couples who track shared expenses.
 
-The core philosophy: **log it, split it, forget it.** Bountt handles the math through smart-algorithm so you don't have to — and settles when it actually makes sense, not only when the math checks out.
+The core product direction: **log it, split it, forget it.** Bountt handles the math through smart-algorithm so you don't have to — and settles when it actually makes sense, not only when the math checks out.
 
 ---
 
