@@ -1,7 +1,7 @@
 # bountt.
 
 **Sharing expenses, just made smarter.**  
-[bountt.com](https://bountt.com) · Currently in early access
+[bountt.com](https://bountt.com) · Currently in active development & NOT a live product
 
 ---
 
