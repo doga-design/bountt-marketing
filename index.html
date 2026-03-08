@@ -621,13 +621,105 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   max-width: 450px;
 }
 
+.msg-scenario-icon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 14px;
+  background-color: var(--primary);
+  mask-image: url('img/gang-icon.svg');
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-image: url('img/gang-icon.svg');
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+/* ── SCENARIO TOGGLE ── */
+.sct-toggle {
+  display: flex;
+  position: relative;
+  background: #E8E8EA;
+  border-radius: 999px;
+  padding: 6px;
+  margin-bottom: 28px;
+  width: 100%;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.sct-pill {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 0;
+  border-radius: 999px;
+  background: var(--primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  transition:
+    left 0.42s cubic-bezier(0.34, 1, 0.64, 1),
+    width 0.42s cubic-bezier(0.34, 1, 0.64, 1),
+    background-color 0.38s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sct-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  font-family: 'Geist', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #6E6E73;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.sct-btn svg {
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.sct-btn.active {
+  color: #fff;
+}
+
+.sct-btn:not(.active):hover {
+  color: #3a3a3c;
+}
+
+@media (max-width: 430px) {
+  .sct-btn {
+    font-size: 11px;
+    padding: 10px 10px;
+    gap: 6px;
+  }
+  .sct-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
 .msg-headline {
   font-family: 'Bringbold', serif;
   font-size: 3.2rem;
   font-weight: 400;
+  line-height: var(--hero-title-line-height);
   letter-spacing: -0.01em;
-  line-height: 1.1;
-  color: #333;
+  color: #1a2744;
   text-align: center;
   margin-bottom: 10px;
 }
@@ -639,10 +731,16 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   color: #888;
   text-align: center;
   letter-spacing: -0.01em;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
   line-height: 1.2;
-  padding-bottom: 25px;
-  border-bottom: 1px solid #dddddd;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.msg-divider {
+  height: 0;
+  border-top: 1px solid #dddddd;
+  margin-bottom: 28px;
 }
 
 .msg-win {
@@ -752,6 +850,12 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   margin-top: 6px; gap: 8px; opacity: 0;
 }
 .msg-vm-wrap.vis { animation: msgRowIn 0.45s cubic-bezier(0.22,1,0.36,1) forwards; }
+.msg-receipt-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px 18px 5px 18px;
+}
 .msg-vm-card {
   background: linear-gradient(145deg, #F2F8FD, #E8F2FA);
   border-radius: 18px 18px 5px 18px; padding: 14px 16px;
@@ -1567,7 +1671,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   /* HERO */
   .hero {
     padding-top: 100px;
-    padding-bottom: 60px;
+    padding-bottom: 90px;
     padding-left: 20px;
     padding-right: 20px;
     min-height: auto;
@@ -1624,15 +1728,15 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 
   /* MESSAGE SECTION */
   .msg-section {
-    padding: 80px 16px 100px;
+    padding: 100px 16px 100px;
   }
   .msg-headline {
     font-size: 2.2rem;
+    line-height: var(--hero-title-line-height);
   }
   .msg-subline {
     font-size: 13px;
-    margin-bottom: 24px;
-    padding-bottom: 18px;
+    margin-bottom: 20px;
   }
   /* Hide large decorative SVGs on mobile — they bleed off-screen */
   .msg-deco-left,
@@ -1801,10 +1905,11 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 
   /* MESSAGE */
   .msg-section {
-    padding: 64px 20px 80px;
+    padding: 88px 20px 80px;
   }
   .msg-headline {
-    font-size: 1.6rem;
+    font-size: 2.4rem;
+    line-height: var(--hero-title-line-height);
   }
   .wl-title,
   .wl-success-headline {
@@ -1972,8 +2077,51 @@ body.is-dragging .avatar { cursor: grabbing !important; }
     </svg>
   </div>
   <div class="msg-wrap">
+
+    <div class="msg-scenario-icon" id="msgScenarioIcon" aria-hidden="true"></div>
     <div class="msg-headline" data-reveal style="--rd:0ms">POV: The bill math is not mathing</div>
-    <div class="msg-subline" data-reveal style="--rd:160ms">Sound familiar? This is what splitting<br>costs actually looks like.</div>
+    <div class="msg-subline" data-reveal style="--rd:80ms">Sound familiar? This is what splitting<br>costs actually looks like.</div>
+
+    <!-- Scenario toggle (under msg, above divider) -->
+    <div class="sct-toggle" id="sctToggle" data-reveal style="--rd:160ms">
+      <span class="sct-pill" id="sctPill"></span>
+
+      <!-- For The Gang -->
+      <button class="sct-btn active" data-scenario="0" type="button" aria-pressed="true">
+        <svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="5.5" r="2.2"/>
+          <path d="M5.5 14.5c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5"/>
+          <circle cx="3" cy="7" r="1.7"/>
+          <path d="M1 14.5c0-1.5 1.12-2.7 2.5-2.7"/>
+          <circle cx="15" cy="7" r="1.7"/>
+          <path d="M17 14.5c0-1.5-1.12-2.7-2.5-2.7"/>
+        </svg>
+        <span>For Gang</span>
+      </button>
+
+      <!-- For Roommates -->
+      <button class="sct-btn" data-scenario="1" type="button" aria-pressed="false">
+        <svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 8L9 2l7 6"/>
+          <path d="M4 7v8h10V7"/>
+          <rect x="7" y="11" width="4" height="4" rx="0.5"/>
+        </svg>
+        <span>For Roommates</span>
+      </button>
+
+      <!-- For Coworkers -->
+      <button class="sct-btn" data-scenario="2" type="button" aria-pressed="false">
+        <svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2.5" y="7" width="13" height="8.5" rx="2"/>
+          <path d="M6.5 7V5.5A1.5 1.5 0 0 1 8 4h2a1.5 1.5 0 0 1 1.5 1.5V7"/>
+          <line x1="2.5" y1="11" x2="15.5" y2="11"/>
+          <line x1="9" y1="11" x2="9" y2="13"/>
+        </svg>
+        <span>For Coworkers</span>
+      </button>
+    </div>
+
+    <div class="msg-divider" aria-hidden="true"></div>
 
     <div class="msg-win" id="msgWin">
       <div class="msg-inner" id="msgInner"></div>
@@ -2525,12 +2673,16 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
     addMsg({ ...opts, gap: useGap });
   }
 
-  function run() {
+  function resetScene() {
     clearAll();
     innerEl.innerHTML = '';
     winEl.scrollTop = 0;
     lastSender = null;
     if (replayWrap) replayWrap.classList.remove('vis');
+  }
+
+  function runGang() {
+    resetScene();
     const S = 1000;
 
     later(() => { lastSender = null; addTs('Friday 11:48 PM'); }, 0.3 * S);
@@ -2582,10 +2734,210 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
     later(() => { if (replayWrap) replayWrap.classList.add('vis'); }, 35.0 * S);
   }
 
-  document.getElementById('msgReplayBtn').addEventListener('click', run);
+  function addReceipt() {
+    const wrap    = el('div', 'msg-vm-wrap');
+    const ghostAv = el('div', 'msg-av ghost');
+    const col     = el('div', '');
+    col.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;max-width:220px;';
+    const img = el('img', 'msg-receipt-img');
+    img.src = 'img/receipt-coworker.jpg';
+    img.alt = 'Restaurant receipt';
+    col.appendChild(img);
+    const readEl = el('div', 'msg-read');
+    readEl.id = 'msgReadReceipt';
+    readEl.textContent = 'Delivered · read by everyone';
+    col.appendChild(readEl);
+    wrap.appendChild(ghostAv);
+    wrap.appendChild(col);
+    innerEl.appendChild(wrap);
+    requestAnimationFrame(() => { wrap.classList.add('vis'); scrollToBottom(); });
+    return wrap;
+  }
+
+  function runCoworkers() {
+    resetScene();
+    const S = 1000;
+    const P = '#AF52DE'; // Priya — purple
+    const M = '#FF3B30'; // Marcus — red
+
+    later(() => { lastSender = null; addTs('Thursday 2:14 PM'); }, 0.3 * S);
+    later(() => send({ dir:'out', text:'hey just a heads up lunch yesterday was $94 total' }), 0.9 * S);
+
+    let tyP1;
+    later(() => { tyP1 = addTyping('in', P); tyP1.av.textContent = 'P'; }, 2.5 * S);
+    later(() => removeTyping(tyP1), 3.3 * S);
+    later(() => send({ dir:'in', avColor:P, avLetter:'P', name:'Priya', text:'oh shoot yeah, what do we each owe' }), 3.5 * S);
+
+    later(() => send({ dir:'out', text:'like $23 each I think' }), 4.8 * S);
+
+    let tyM1;
+    later(() => { tyM1 = addTyping('in', M); tyM1.av.textContent = 'M'; }, 5.6 * S);
+    later(() => removeTyping(tyM1), 6.4 * S);
+    later(() => send({ dir:'in', avColor:M, avLetter:'M', name:'Marcus', text:'was that including tip' }), 6.6 * S);
+
+    later(() => send({ dir:'out', text:'yeah' }), 7.5 * S);
+
+    let tyM2;
+    later(() => { tyM2 = addTyping('in', M); tyM2.av.textContent = 'M'; }, 8.2 * S);
+    later(() => removeTyping(tyM2), 9.0 * S);
+    later(() => send({ dir:'in', avColor:null, avLetter:'M', sender:'M', text:"ok cool, I'll send it tonight", cont:true }), 9.2 * S);
+
+    later(() => { lastSender = null; addTs('Sunday 10:02 AM'); }, 10.5 * S);
+    later(() => send({ dir:'out', text:'hey no rush just a reminder 🙂' }), 11.2 * S);
+
+    // typing then nothing
+    let tyM3;
+    later(() => { tyM3 = addTyping('in', M); tyM3.av.textContent = 'M'; }, 12.8 * S);
+    later(() => removeTyping(tyM3), 14.5 * S);
+
+    let tyP2;
+    later(() => { tyP2 = addTyping('in', P); tyP2.av.textContent = 'P'; }, 15.5 * S);
+    later(() => removeTyping(tyP2), 16.4 * S);
+    later(() => send({ dir:'in', avColor:P, avLetter:'P', name:'Priya', text:'just sent! sorry been insane this week' }), 16.6 * S);
+
+    later(() => addReceipt(), 18.2 * S);
+    later(() => send({ dir:'out', text:'thanks Priya 🙏 Marcus whenever you get a chance' }), 20.0 * S);
+
+    let tyM4;
+    later(() => { tyM4 = addTyping('in', M); tyM4.av.textContent = 'M'; }, 21.4 * S);
+    later(() => removeTyping(tyM4), 22.0 * S);
+    later(() => send({ dir:'in', avColor:M, avLetter:'M', text:'on it' }), 22.2 * S);
+
+    later(() => { lastSender = null; addTs('One week later'); }, 26.0 * S);
+    later(() => send({ dir:'out', text:'…' }), 27.0 * S);
+    later(() => {
+      const rr = document.getElementById('msgReadReceipt');
+      if (rr) rr.classList.add('vis');
+    }, 28.5 * S);
+    later(() => { if (replayWrap) replayWrap.classList.add('vis'); }, 29.5 * S);
+  }
+
+  function addReceiptImg(src) {
+    const wrap    = el('div', 'msg-vm-wrap');
+    const ghostAv = el('div', 'msg-av ghost');
+    const col     = el('div', '');
+    col.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;max-width:220px;';
+    const img = el('img', 'msg-receipt-img');
+    img.src = src;
+    img.alt = 'Receipt';
+    col.appendChild(img);
+    wrap.appendChild(ghostAv);
+    wrap.appendChild(col);
+    innerEl.appendChild(wrap);
+    requestAnimationFrame(() => { wrap.classList.add('vis'); scrollToBottom(); });
+    return wrap;
+  }
+
+  function runRoommates() {
+    resetScene();
+    const S = 1000;
+    const SAM = '#34C759'; // Sam — green
+
+    later(() => { lastSender = null; addTs('Sunday 8:47 PM'); }, 0.3 * S);
+    later(() => send({ dir:'out', text:'hey can we do a quick money check-in lol' }), 0.9 * S);
+
+    let tyS1;
+    later(() => { tyS1 = addTyping('in', SAM); tyS1.av.textContent = 'S'; }, 1.8 * S);
+    later(() => removeTyping(tyS1), 2.4 * S);
+    later(() => send({ dir:'in', avColor:SAM, avLetter:'S', name:'Sam', text:"oh yeah we keep saying we're gonna do this" }), 2.6 * S);
+
+    let tyY1;
+    later(() => { tyY1 = addTyping('out', null); }, 3.4 * S);
+    later(() => removeTyping(tyY1), 4.5 * S);
+    later(() => send({ dir:'out', text:'ok so I did basically all the groceries this month' }), 4.8 * S);
+
+    let tyS2;
+    later(() => { tyS2 = addTyping('in', SAM); tyS2.av.textContent = 'S'; }, 5.8 * S);
+    later(() => removeTyping(tyS2), 6.2 * S);
+    later(() => send({ dir:'in', avColor:SAM, avLetter:'S', text:'I got stuff last week?' }), 6.4 * S);
+
+    later(() => send({ dir:'out', text:'the oat milk' }), 7.8 * S);
+
+    let tyS3;
+    later(() => { tyS3 = addTyping('in', SAM); tyS3.av.textContent = 'S'; }, 8.4 * S);
+    later(() => removeTyping(tyS3), 8.8 * S);
+    later(() => send({ dir:'in', avColor:SAM, avLetter:'S', text:'yea ok' }), 9.0 * S);
+    later(() => send({ dir:'in', avColor:null, avLetter:'S', sender:'S', text:'how bad is it', cont:true }), 10.2 * S);
+
+    let tyY2;
+    later(() => { tyY2 = addTyping('out', null); }, 11.0 * S);
+    later(() => removeTyping(tyY2), 11.7 * S);
+    later(() => send({ dir:'out', text:'I mean' }), 12.0 * S);
+
+    later(() => addReceiptImg('img/receipt-1.jpg'), 13.2 * S);
+    later(() => addReceiptImg('img/receipt-2.png'), 14.0 * S);
+
+    let tyS4;
+    later(() => { tyS4 = addTyping('in', SAM); tyS4.av.textContent = 'S'; }, 15.2 * S);
+    later(() => removeTyping(tyS4), 15.6 * S);
+    later(() => send({ dir:'in', avColor:SAM, avLetter:'S', text:'ok lol' }), 15.8 * S);
+
+    later(() => send({ dir:'out', text:"there's two more" }), 17.0 * S);
+
+    let tyS5;
+    later(() => { tyS5 = addTyping('in', SAM); tyS5.av.textContent = 'S'; }, 17.6 * S);
+    later(() => removeTyping(tyS5), 18.0 * S);
+    later(() => send({ dir:'in', avColor:SAM, avLetter:'S', text:'LMAO ok' }), 18.2 * S);
+
+    later(() => addReceiptImg('img/receipt-3.jpg'), 19.0 * S);
+    later(() => addReceiptImg('img/receipt-4.jpg'), 19.8 * S);
+
+    let tyS6;
+    later(() => { tyS6 = addTyping('in', SAM); tyS6.av.textContent = 'S'; }, 21.0 * S);
+    later(() => removeTyping(tyS6), 22.1 * S);
+    later(() => send({ dir:'in', avColor:SAM, avLetter:'S', text:"ok that's genuinely so much, I'll do the next two I promise" }), 22.4 * S);
+
+    let tyY3;
+    later(() => { tyY3 = addTyping('out', null); }, 23.4 * S);
+    later(() => removeTyping(tyY3), 24.3 * S);
+    later(() => send({ dir:'out', text:'also hydro has been coming out of my account' }), 24.6 * S);
+
+    let tyS7;
+    later(() => { tyS7 = addTyping('in', SAM); tyS7.av.textContent = 'S'; }, 25.6 * S);
+    later(() => removeTyping(tyS7), 26.1 * S);
+    later(() => send({ dir:'in', avColor:SAM, avLetter:'S', text:"wait really? I thought we set that up jointly" }), 26.4 * S);
+
+    later(() => send({ dir:'out', text:'same, turns out no' }), 27.8 * S);
+
+    let tyS8;
+    later(() => { tyS8 = addTyping('in', SAM); tyS8.av.textContent = 'S'; }, 28.6 * S);
+    later(() => removeTyping(tyS8), 29.1 * S);
+    later(() => send({ dir:'in', avColor:SAM, avLetter:'S', text:'ok so what do I owe you total' }), 29.4 * S);
+
+    let tyY4;
+    later(() => { tyY4 = addTyping('out', null); }, 30.2 * S);
+    later(() => removeTyping(tyY4), 30.9 * S);
+    later(() => send({ dir:'out', text:"like $180ish I think? we can figure it out properly" }), 31.2 * S);
+
+    let tyS9;
+    later(() => { tyS9 = addTyping('in', SAM); tyS9.av.textContent = 'S'; }, 31.8 * S);
+    later(() => removeTyping(tyS9), 32.3 * S);
+    later(() => send({ dir:'in', avColor:SAM, avLetter:'S', text:"sending you $180 rn and I'll handle the next shop" }), 32.6 * S);
+
+    later(() => send({ dir:'out', text:"you're the best" }), 33.8 * S);
+
+    let tyS10;
+    later(() => { tyS10 = addTyping('in', SAM); tyS10.av.textContent = 'S'; }, 34.4 * S);
+    later(() => removeTyping(tyS10), 34.9 * S);
+    later(() => send({ dir:'in', avColor:SAM, avLetter:'S', text:"I really dropped the ball on this one lol" }), 35.2 * S);
+
+    later(() => { if (replayWrap) replayWrap.classList.add('vis'); }, 37.0 * S);
+  }
+
+  function run(scenario) {
+    if (scenario === 2) { runCoworkers(); }
+    else if (scenario === 1) { runRoommates(); }
+    else { runGang(); }
+  }
+
+  window._msgRun = run;
+
+  document.getElementById('msgReplayBtn').addEventListener('click', function() {
+    run(window._msgScenario || 0);
+  });
 
   const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) { run(); observer.disconnect(); }
+    if (entries[0].isIntersecting) { run(0); observer.disconnect(); }
   }, { threshold: 0.01, rootMargin: '0px 0px 80px 0px' });
   observer.observe(winEl);
 })();
@@ -2833,6 +3185,97 @@ function launchConfetti() {
 
     }, 620);
   });
+})();
+
+/* ── SCENARIO TOGGLE ── */
+(function() {
+  var toggle = document.getElementById('sctToggle');
+  var pill   = document.getElementById('sctPill');
+  if (!toggle || !pill) return;
+
+  var btns    = Array.prototype.slice.call(toggle.querySelectorAll('.sct-btn'));
+  var current = 0;
+  var colors  = ['#003C69', '#D44C00', '#1C1C1E'];
+
+  var headlines = [
+    'POV: The bill math is not mathing',
+    'POV: You got the wifi. They got the vibe.',
+    'POV: You expensed the team lunch. Again.'
+  ];
+  var sublines = [
+    'Sound familiar? This is what splitting<br>costs actually looks like.',
+    'To be fair, they did get the oat milk.',
+    "It's fine. You'll just send a Slack. Any day now."
+  ];
+
+  var headlineEl = document.querySelector('.msg-headline');
+  var sublineEl  = document.querySelector('.msg-subline');
+  var iconEl     = document.getElementById('msgScenarioIcon');
+
+  var iconUrls = ['img/gang-icon.svg', 'img/roommate-icon.svg', 'img/collar.svg'];
+
+  function updateIcon(idx) {
+    if (!iconEl) return;
+    iconEl.style.backgroundColor = colors[idx];
+    iconEl.style.maskImage = 'url(' + iconUrls[idx] + ')';
+    iconEl.style.webkitMaskImage = 'url(' + iconUrls[idx] + ')';
+  }
+
+  function movePill(idx) {
+    var btn        = btns[idx];
+    var toggleRect = toggle.getBoundingClientRect();
+    var btnRect    = btn.getBoundingClientRect();
+    pill.style.left  = (btnRect.left - toggleRect.left) + 'px';
+    pill.style.width = btnRect.width + 'px';
+    pill.style.backgroundColor = colors[idx];
+  }
+
+  function updateContent(idx) {
+    if (!headlineEl || !sublineEl) return;
+    headlineEl.style.transition = 'opacity 0.22s ease, color 0.3s ease';
+    headlineEl.style.opacity = '0';
+    sublineEl.style.transition = 'opacity 0.22s ease';
+    sublineEl.style.opacity = '0';
+
+    setTimeout(function() {
+      headlineEl.textContent = headlines[idx];
+      headlineEl.style.color = colors[idx];
+      sublineEl.innerHTML = sublines[idx];
+      headlineEl.style.opacity = '1';
+      sublineEl.style.opacity = '1';
+    }, 220);
+  }
+
+  function activate(idx) {
+    if (idx === current) return;
+    btns.forEach(function(b, i) {
+      b.classList.toggle('active', i === idx);
+      b.setAttribute('aria-pressed', i === idx ? 'true' : 'false');
+    });
+    current = idx;
+    movePill(idx);
+    updateIcon(idx);
+    updateContent(idx);
+    window._msgScenario = idx;
+    if (window._msgRun) window._msgRun(idx);
+  }
+
+  btns.forEach(function(btn, i) {
+    btn.addEventListener('click', function() { activate(i); });
+  });
+
+  // Init after layout — snap pill, set initial headline color and icon
+  requestAnimationFrame(function() {
+    pill.style.transition = 'none';
+    movePill(0);
+    updateIcon(0);
+    if (headlineEl) headlineEl.style.color = colors[0];
+    requestAnimationFrame(function() {
+      pill.style.transition = '';
+    });
+  });
+
+  window.addEventListener('resize', function() { movePill(current); });
 })();
 
 /* ── CYCLE WORD ── */
