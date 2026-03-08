@@ -26,6 +26,7 @@ html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
   --surface: #EEEEEE;
   --primary: #003C69;
   --primary-gradient: linear-gradient(140deg, #FF7530 0%, #E05000 55%, #C84300 100%);
+  --hero-title-line-height: 1;
 }
 
 body {
@@ -225,7 +226,7 @@ nav .nav-right { gap: 16px; }
   font-family: 'Bringbold', serif;
   font-size: 3.2rem;
   font-weight: 400;
-  line-height: 1.15;
+  line-height: var(--hero-title-line-height);
   color: #1a2744;
   letter-spacing: -0.01em;
   text-align: center;
@@ -233,7 +234,6 @@ nav .nav-right { gap: 16px; }
   margin-bottom: 18px;
   position: relative;
   z-index: 10;
-  line-height: .8;
 }
 
 .hero-title .star-img {
@@ -247,6 +247,33 @@ nav .nav-right { gap: 16px; }
   object-fit: contain;
   transform-origin: center center;
   transition: transform 0.62s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.cycle-word {
+  display: inline-block;
+  vertical-align: baseline;
+  overflow: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 280ms ease, transform 280ms ease, width 280ms ease;
+  white-space: nowrap;
+}
+.cycle-word.exit {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.cycle-word.enter {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: none;
+}
+.cycle-ghost {
+  visibility: hidden;
+  position: absolute;
+  pointer-events: none;
+  white-space: nowrap;
+  left: 0;
+  top: 0;
 }
 
 @media (hover: hover) {
@@ -1081,11 +1108,14 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 }
 .intro-tg-headline {
   font-family: 'Bringbold', serif;
-  font-size: 1.55rem;
+  font-size: 2.1rem;
   font-weight: 400;
-  line-height: 1.1;
+  line-height: 1.2;
   color: #fff;
   margin-bottom: 10px;
+}
+.intro-tg-headline .intro-tg-accent {
+  color: var(--accent);
 }
 .intro-tg-sub {
   font-family: 'Geist', sans-serif;
@@ -1544,7 +1574,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   }
   .hero-title {
     font-size: 2.2rem;
-    line-height: 1.05;
+    line-height: var(--hero-title-line-height);
     margin-top: 16px;
     margin-bottom: 14px;
   }
@@ -1734,7 +1764,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   }
   .hero-title {
     font-size: 2.4rem;
-    line-height: 0.9;
+    line-height: var(--hero-title-line-height);
   }
   .hero-body {
     font-size: 13.5px;
@@ -1861,7 +1891,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 
   <h1 class="hero-title" data-reveal style="--rd:80ms">
     Splitting expenses,<br>
-    just made <img class="star-img" src="img/star-shape.png" alt="*"> smarter.
+    just made <img class="star-img" src="img/star-shape.png" alt="*"> <span class="cycle-word" id="cycleWord">smarter</span><span class="cycle-ghost" id="cycleGhost" aria-hidden="true">smarter</span>.
   </h1>
 
   <p class="hero-body" data-reveal style="--rd:240ms">
@@ -1991,7 +2021,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
       </div>
 
       <div class="intro-text-group">
-        <p class="intro-tg-headline">Built for friends.<br>who want to<br>remain... friends.</p>
+        <p class="intro-tg-headline">Built for friends.<br>who want to<br><span class="intro-tg-accent">remain... friends.</span></p>
         <p class="intro-tg-body">Bountt's algorithm is designed for settling when it makes sense, not for constant nagging.</p>
       </div>
     </div>
@@ -2803,6 +2833,55 @@ function launchConfetti() {
 
     }, 620);
   });
+})();
+
+/* ── CYCLE WORD ── */
+(function() {
+  var words = ['smarter', 'simpler', 'faster', 'better', 'easier'];
+  var current = 0;
+  var span  = document.getElementById('cycleWord');
+  var ghost = document.getElementById('cycleGhost');
+  if (!span || !ghost) return;
+
+  function setWidth(word) {
+    ghost.textContent = word;
+    span.style.width = ghost.offsetWidth + 'px';
+  }
+
+  // Set initial width
+  setWidth(words[current]);
+
+  function cycleWord() {
+    var next = (current + 1) % words.length;
+
+    // Pre-measure next word width via ghost
+    ghost.textContent = words[next];
+    var nextW = ghost.offsetWidth;
+
+    // Animate width now (same 280ms ease)
+    span.style.width = nextW + 'px';
+
+    // Exit animation
+    span.classList.add('exit');
+
+    setTimeout(function() {
+      current = next;
+      span.textContent = words[current];
+
+      // Snap to enter position without transition
+      span.classList.remove('exit');
+      span.classList.add('enter');
+
+      // Double rAF to let browser commit the snap before re-enabling transition
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          span.classList.remove('enter');
+        });
+      });
+    }, 280);
+  }
+
+  setInterval(cycleWord, 2200);
 })();
 
 /* ── NAV DARK MODE ── */
