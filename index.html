@@ -191,19 +191,18 @@ nav {
   display: flex;
   align-items: center;
   padding: 45px 56px;
-  background: var(--surface);
-  transition: background 0.35s ease, border-color 0.35s ease;
+  background-color: var(--surface);
+  transition: background-color 0.2s ease;
 }
 
 nav.nav-on-dark {
-  background: transparent;
+  background-color: transparent;
   border-color: transparent;
 }
 nav.nav-on-dark .nav-logo,
 nav.nav-on-dark .nav-links a,
 nav.nav-on-dark .nav-login {
   color: #fff;
-  transition: color 0.35s ease;
 }
 nav.nav-on-dark .nav-links a:hover { color: var(--accent); }
 nav.nav-on-dark .nav-login:hover   { color: var(--accent); }
@@ -216,6 +215,7 @@ nav.nav-on-dark .nav-login:hover   { color: var(--accent); }
   letter-spacing: -0.04em;
   text-decoration: none;
   margin-right: 36px;
+  transition: color 0.2s ease;
 }
 
 .nav-links {
@@ -228,7 +228,7 @@ nav.nav-on-dark .nav-login:hover   { color: var(--accent); }
   font-weight: 500;
   color: #333;
   text-decoration: none;
-  transition: color 0.18s;
+  transition: color 0.2s ease;
 }
 .nav-links a:hover { color: #111; }
 
@@ -243,7 +243,7 @@ nav.nav-on-dark .nav-login:hover   { color: var(--accent); }
   font-weight: 500;
   color: #333;
   text-decoration: none;
-  transition: color 0.18s;
+  transition: color 0.2s ease;
 }
 .nav-login:hover { color: #111; }
 
@@ -260,7 +260,8 @@ nav .nav-cta.hero-cta {
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease,
+              background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 /* When nav overlaps intro section, use accent pill with primary text */
@@ -405,7 +406,6 @@ nav.nav-in-hero .nav-cta.hero-cta {
 /* HERO CTA: button-71 style */
 .hero-cta {
   background-color: #E05000;
-  border: 0;
   border-radius: 56px;
   color: #fff;
   cursor: pointer;
@@ -471,6 +471,22 @@ nav.nav-in-hero .nav-cta.hero-cta {
 @keyframes ctaSweep {
   from { left: -75%; }
   to   { left: 125%; }
+}
+
+/* Global button :active press state */
+.hero-cta:active,
+.wl-btn:active,
+.sct-btn:active,
+.msg-rp-btn:active {
+  background-color: #2a2a2a;
+  color: var(--accent);
+  border: 2px solid #000;
+  transform: scale(0.97);
+  box-shadow: none;
+}
+.hero-cta:active::before,
+.hero-cta:active::after {
+  opacity: 0;
 }
 
 @media (hover: hover) {
@@ -947,14 +963,12 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 .msg-rp-btn {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 11px 22px; background: var(--surface); color: #333;
-  border: none; border-radius: 100px; font-family: 'Geist', sans-serif;
+  border: 1px solid #ccc; border-radius: 100px; font-family: 'Geist', sans-serif;
   font-size: 12px; font-weight: 700; letter-spacing: -0.01em; cursor: pointer;
   box-shadow: 2px 4px 0px rgba(0, 0, 0, 0.38);
   transition: transform .15s, box-shadow 0.22s ease;
-  border: 1px solid #ccc;
 }
-.msg-rp-btn:hover  { transform: scale(1.04); box-shadow: 5px 10px 0px rgba(0, 0, 0, 0.28); }
-.msg-rp-btn:active { transform: scale(0.97); box-shadow: none; }
+.msg-rp-btn:hover { transform: scale(1.04); box-shadow: 5px 10px 0px rgba(0, 0, 0, 0.28); }
 
 @keyframes msgRowIn  { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 @keyframes msgFadeIn { from { opacity:0; } to { opacity:1; } }
@@ -1169,6 +1183,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 .intro-text-group {
   position: absolute; bottom: -12px; left: auto; right: 100%;
   width: 220px; text-align: right; transform: rotate(-3deg);
+  margin-bottom:20px; margin-right: 4px;
 }
 .intro-tg-headline {
   font-family: 'Bringbold', serif; font-size: 2.1rem; font-weight: 400;
@@ -1234,7 +1249,24 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 
 .wl-illustration { width: min(100%, 240px); height: auto; opacity: 0.92; margin-bottom: 44px; object-fit: contain; }
 
-.wl-divider { width: 100%; max-width: 400px; height: 0; border: none; border-top: 6px dotted var(--wl-divider); margin-bottom: 40px; }
+.wl-divider {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 40px;
+  height: 6px;
+}
+.wl-divider span {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--wl-divider);
+  opacity: 0.15;
+}
 
 .wl-form {
   width: 100%;
@@ -1265,7 +1297,15 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   transition: background 0.18s ease, transform 0.2s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.2s ease;
 }
 .wl-btn:hover { background: var(--wl-btn-hover-bg); transform: scale(1.03); box-shadow: 0 4px 20px rgba(250, 240, 202, 0.18); }
-.wl-btn:active { transform: scale(0.97); }
+
+/* Ensure active state uses simple solid fill (overrides hover) */
+.wl-btn:active {
+  background-color: #2a2a2a;
+  color: var(--accent);
+  border: 2px solid #000;
+  transform: scale(0.97);
+  box-shadow: none;
+}
 
 .wl-fine { margin-top: 20px; font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 400; color: var(--wl-text-muted); letter-spacing: 0.01em; }
 
@@ -1344,7 +1384,6 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   transition: opacity 0.78s cubic-bezier(0.22, 1, 0.36, 1), all 0.3s ease;
 }
 .hero-cta[data-reveal].in { transition-delay: 0ms; }
-.hero-cta[data-reveal].in:active { transform: scale(0.97); }
 
 @media (hover: hover) {
   .hero-cta[data-reveal].in:hover {
@@ -1414,6 +1453,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
     width: 100%;
     max-width: 320px;
     margin: 3rem auto 2rem;
+    margin-bottom:0px;
     padding: 0 2.25rem;
     text-align: center;
     transform: none;
@@ -1429,9 +1469,9 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   .intro-particle--tr { top: -36px; right: -16px; }
   .intro-particle--bl { bottom: -36px; left: -16px; }
 
-  .waitlist-section { padding: 80px 20px 140px; min-height: auto; }
+  .waitlist-section { padding: 80px 20px 140px; }
   .waitlist-section::before { height: 65%; }
-  .wl-title { font-size: 2.2rem; line-height: 0.88; }
+  .wl-title { font-size: 2.8rem; line-height: 0.88; }
   .wl-success-headline { font-size: 2.2rem; }
   .wl-subtitle { font-size: 13px; margin-bottom: 32px; }
   .wl-illustration { width: min(100%, 180px); margin-bottom: 32px; }
@@ -1705,7 +1745,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
       height="200"
     />
 
-    <div class="wl-divider" aria-hidden="true"></div>
+    <div class="wl-divider" id="wlDotLine" aria-hidden="true"></div>
 
     <div class="wl-content-zone" id="wlContentZone">
       <span class="wl-wordmark" aria-hidden="true">bountt.</span>
@@ -2456,6 +2496,57 @@ function launchConfetti() {
   window.addEventListener('scroll', checkNavTheme, { passive:true });
   window.addEventListener('resize', checkNavTheme);
   checkNavTheme();
+})();
+
+// ── Waitlist dot-line running-light ──────────────────────────────────────
+(function () {
+  var line = document.getElementById('wlDotLine');
+  if (!line) return;
+
+  // Keep visual density close to original dotted border
+  var DOT_COUNT = Math.round((line.offsetWidth - 80) / 12) || 60;
+
+  for (var i = 0; i < DOT_COUNT; i++) {
+    line.appendChild(document.createElement('span'));
+  }
+
+  var dots = line.querySelectorAll('span');
+  var pos = 0;
+
+  // Gaussian-like falloff for neighbors (distance 1..5 from center)
+  var falloff = [0.85, 0.55, 0.30, 0.16, 0.08];
+  //               1     2     3     4     5   <- dots away from center
+
+  // Resolve colors from CSS custom properties so center dot uses true accent color
+  var styles = getComputedStyle(line);
+  var accentColor  = styles.getPropertyValue('--wl-accent')  || '#F9E7B3';
+  var dividerColor = styles.getPropertyValue('--wl-divider') || 'rgba(240, 234, 214, 0.12)';
+
+  setInterval(function () {
+    dots.forEach(function (d) {
+      d.style.opacity = '0.15';
+      d.style.backgroundColor = dividerColor;
+    });
+
+    // Center dot: full accent color, full opacity
+    var centerDot = dots[pos];
+    if (centerDot) {
+      centerDot.style.opacity = '1';
+      centerDot.style.backgroundColor = accentColor;
+    }
+
+    // Neighbors: lighter band around the center, using divider color
+    falloff.forEach(function (op, idx) {
+      var dist = idx + 1;
+      var left  = dots[pos - dist];
+      var right = dots[pos + dist];
+      if (left)  { left.style.opacity = op; }
+      if (right) { right.style.opacity = op; }
+    });
+
+    pos++;
+    if (pos >= DOT_COUNT + falloff.length + 1) pos = 0;
+  }, 155);
 })();
 </script>
 </body>
