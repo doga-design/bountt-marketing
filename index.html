@@ -1291,12 +1291,12 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 .wl-btn {
   flex-shrink: 0; background: var(--wl-btn-bg); color: var(--wl-btn-text);
   font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 700;
-  letter-spacing: -0.01em; border: none; border-radius: 100px;
+  letter-spacing: -0.01em; border: 2px solid var(--wl-btn-bg); border-radius: 100px;
   padding: 13px 26px; cursor: pointer;
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   transition: background 0.18s ease, transform 0.2s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.2s ease;
 }
-.wl-btn:hover { background: var(--wl-btn-hover-bg); transform: scale(1.03); box-shadow: 0 4px 20px rgba(250, 240, 202, 0.18); }
+.wl-btn:hover { background: var(--wl-btn-hover-bg); transform: scale(1.03); box-shadow: 0 4px 20px rgba(250, 240, 202, 0.18); border:2px solid #fff }
 
 /* Ensure active state uses simple solid fill (overrides hover) */
 .wl-btn:active {
