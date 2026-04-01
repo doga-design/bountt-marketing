@@ -218,7 +218,7 @@ nav.nav-on-dark .nav-login {
   font-family: 'Bringbold', var(--font-sans);
   font-size: 28px;
   font-weight: bolder;
-  color: #111;
+  color: #1a2744;
   letter-spacing: .0125em;
   text-decoration: none;
   margin-right: 36px;
@@ -859,7 +859,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   height: 480px;
   overflow: hidden;
   position: relative;
-  border-radius: 24px;
+  border-radius: 0;
   background: linear-gradient(to bottom, #ffffff 0%, var(--surface) 100%);
   padding: 10px 0px 10px 20px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08);
@@ -1628,7 +1628,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 }
 .bm-modal.bm-filling .bm-fill {
   clip-path: circle(148% at 88% 50%);
-  transition: clip-path 0.92s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: clip-path 0.52s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .bm-content {
@@ -1637,6 +1637,47 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   width: 100%;
   padding-right: 40px;
   box-sizing: border-box;
+}
+
+/* Character deco: edit px values below */
+.bm-character {
+  --bm-char-max-w: 150px;
+  --bm-char-width-pct: 42%;
+  --bm-char-height: 168px;
+  --bm-char-top: auto;
+  --bm-char-right: 0px;
+  --bm-char-bottom: 0px;
+  --bm-char-left: auto;
+
+  position: absolute;
+  top: var(--bm-char-top);
+  right: var(--bm-char-right);
+  bottom: var(--bm-char-bottom);
+  left: var(--bm-char-left);
+  z-index: 0;
+  width: var(--bm-char-width-pct);
+  max-width: var(--bm-char-max-w);
+  height: var(--bm-char-height);
+  overflow: hidden;
+  border-bottom-right-radius: 28px;
+  pointer-events: none;
+  line-height: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bm-modal.bm-revealing .bm-character { opacity: 1; transform: translateY(0); transition-delay: 800ms; }
+.bm-character img {
+  --bm-char-img-width-pct: 100%;
+  --bm-char-img-translate-x: 16px;
+  --bm-char-img-translate-y: 24px;
+
+  width: var(--bm-char-img-width-pct);
+  max-width: none;
+  height: auto;
+  display: block;
+  transform: translate(var(--bm-char-img-translate-x), var(--bm-char-img-translate-y));
+  filter: brightness(0) invert(1);
 }
 
 .bm-eyebrow {
@@ -1745,6 +1786,14 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 @media (max-width: 560px) {
   .bm-modal { padding: 20px 16px; align-items: flex-end; padding-bottom: 32px; }
   .bm-card { padding: 38px 32px 36px; min-height: 230px; border-radius: 24px; }
+  .bm-character {
+    border-bottom-right-radius: 24px;
+    --bm-char-max-w: 160px;
+    --bm-char-width-pct: 48%;
+    --bm-char-height: 140px;
+    --bm-char-right: 0px;
+    --bm-char-bottom: 0px;
+  }
   .bm-close { top: 12px; right: 12px; width: 34px; height: 34px; }
   .bm-content { padding-right: 36px; }
   .bm-headline { font-size: 1.65rem; margin-bottom: 30px; }
@@ -2224,16 +2273,19 @@ body.is-dragging .avatar { cursor: grabbing !important; }
       <div class="bm-glow" aria-hidden="true"></div>
       <div class="bm-card">
         <div class="bm-fill" aria-hidden="true"></div>
+        <div class="bm-character" aria-hidden="true">
+          <img src="img/character-figure.svg" alt="" width="82" height="86" decoding="async" />
+        </div>
         <div class="bm-content">
           <p class="bm-eyebrow">Bountt is still in <span class="bm-eyebrow-accent">Beta</span>.</p>
           <h2 class="bm-headline" id="bmTitle">
-            <span class="bm-line">This is opening</span>
+            <span class="bm-line">This will open</span>
             <span class="bm-line">an early version</span>
             <span class="bm-line">of bountt.</span>
           </h2>
           <div class="bm-actions">
             <a id="bmContinue" class="bm-btn-continue" role="button" tabindex="0">
-              Continue anyway ?
+              Open app anyway
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M6 4l4 4-4 4"/>
               </svg>
@@ -2287,20 +2339,47 @@ function loopLines() { updateLines(); requestAnimationFrame(loopLines); }
 document.addEventListener('DOMContentLoaded', loopLines);
 
 /* ── 3D tilt ── */
+/* Safari does not reliably repaint when CSS custom properties inside transform change via JS.
+   For Safari we write the full transform string directly (no CSS vars), with transition: 0s
+   while tracking and restored on leave so the card eases back. Chrome keeps the CSS-var path. */
+var _isSafari = /Safari\//.test(navigator.userAgent) && !/Chrome\//.test(navigator.userAgent);
+
 function bindTilt3D(container, inner, maxDeg) {
   if (!container || !inner) return;
   maxDeg = maxDeg ?? 10;
-  container.addEventListener('mousemove', function(e) {
-    const r = inner.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width  - 0.5;
-    const y = (e.clientY - r.top)  / r.height - 0.5;
-    inner.style.setProperty('--tilt-x', (-y * maxDeg) + 'deg');
-    inner.style.setProperty('--tilt-y', (x * maxDeg) + 'deg');
-  });
-  container.addEventListener('mouseleave', function() {
-    inner.style.setProperty('--tilt-x', '0deg');
-    inner.style.setProperty('--tilt-y', '0deg');
-  });
+
+  if (_isSafari) {
+    container.addEventListener('mousemove', function(e) {
+      var r = inner.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width  - 0.5;
+      var y = (e.clientY - r.top)  / r.height - 0.5;
+      var tx = (-y * maxDeg).toFixed(3);
+      var ty = (x  * maxDeg).toFixed(3);
+      inner.style.webkitTransition = '-webkit-transform 0s, box-shadow 0.35s ease';
+      inner.style.transition       = 'transform 0s, box-shadow 0.35s ease';
+      inner.style.webkitTransform  = 'scale(1.055) rotateX(' + tx + 'deg) rotateY(' + ty + 'deg) translateZ(12px)';
+      inner.style.transform        = 'scale(1.055) rotateX(' + tx + 'deg) rotateY(' + ty + 'deg) translateZ(12px)';
+    });
+    container.addEventListener('mouseleave', function() {
+      /* Restore CSS transition so the card eases back smoothly */
+      inner.style.webkitTransition = '';
+      inner.style.transition       = '';
+      inner.style.webkitTransform  = '';
+      inner.style.transform        = '';
+    });
+  } else {
+    container.addEventListener('mousemove', function(e) {
+      const r = inner.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width  - 0.5;
+      const y = (e.clientY - r.top)  / r.height - 0.5;
+      inner.style.setProperty('--tilt-x', (-y * maxDeg) + 'deg');
+      inner.style.setProperty('--tilt-y', (x * maxDeg) + 'deg');
+    });
+    container.addEventListener('mouseleave', function() {
+      inner.style.setProperty('--tilt-x', '0deg');
+      inner.style.setProperty('--tilt-y', '0deg');
+    });
+  }
 }
 document.addEventListener('DOMContentLoaded', function() {
   var tiltStrength = 18;
