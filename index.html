@@ -246,6 +246,32 @@ nav.nav-on-dark .nav-login {
   text-decoration: none;
   letter-spacing: -0.02em;
   transition: color 0.2s ease;
+  position: relative;
+}
+@media (hover: hover) and (min-width: 769px) {
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    opacity: 0.88;
+    border-radius: 1px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-links a:hover::after,
+  .nav-links a:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-links a::after {
+    transition-duration: 0.12s;
+  }
 }
 
 .nav-right {
@@ -945,11 +971,51 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   font-family: 'Bringbold', serif;
   font-size: 3.2rem;
   font-weight: 400;
-  line-height: var(--hero-title-line-height);
+  line-height: 1;
   letter-spacing: -0.01em;
   color: var(--copy-navy);
   text-align: center;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.msg-headline-pov {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+  text-align: center;
+  margin: 0;
+  padding: 0 0.04em;
+  color: inherit;
+  z-index: 0;
+}
+.msg-headline-pov::before {
+  content: '';
+  position: absolute;
+  left: -0.12em;
+  right: -0.14em;
+  top: 50%;
+  height: 0.58em;
+  transform: translateY(-48%) rotate(-2deg) skewX(-4deg);
+  background: linear-gradient(
+    105deg,
+    rgba(255, 214, 102, 0.35) 0%,
+    rgba(249, 231, 179, 0.92) 18%,
+    rgba(255, 236, 160, 0.88) 55%,
+    rgba(249, 231, 179, 0.85) 82%,
+    rgba(255, 220, 130, 0.4) 100%
+  );
+  border-radius: 0.08em 0.14em 0.1em 0.12em;
+  box-shadow: inset 0 -0.06em 0 rgba(214, 170, 60, 0.12);
+  z-index: -1;
+  pointer-events: none;
+}
+.msg-headline-body {
+  line-height: 1;
+  text-align: center;
+  margin: 0;
 }
 
 .msg-subline {
@@ -1122,6 +1188,11 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   padding-top: 160px;
   padding-bottom: 120px;
   background: var(--surface);
+}
+
+/* In-page anchor (#introSection / “The solution”): negative margin pulls alignment so the page scrolls further down */
+#introSection {
+  scroll-margin-top: -48px;
 }
 
 .intro-section .intro-wave {
@@ -1361,20 +1432,27 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 
 .waitlist-section {
   position: relative;
+  isolation: isolate;
   background: var(--wl-bg);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   min-height: auto;
-  padding: 120px 24px 80px;
+  /* Pull up over intro wave; padding-top compensates so .wl-inner content stays aligned */
+  --wl-overlap-top: 56px;
+  margin-top: calc(-1 * var(--wl-overlap-top));
+  padding: calc(120px + var(--wl-overlap-top)) 24px 80px;
   overflow: hidden;
   text-align: center;
   box-sizing: border-box;
 }
 
 .wl-inner {
-  position: relative; z-index: 2; width: 100%; max-width: 580px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 580px;
   display: flex; flex-direction: column; align-items: center;
 }
 
@@ -1474,11 +1552,172 @@ body.is-dragging .avatar { cursor: grabbing !important; }
     transition-duration: 0.14s;
     transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
   }
+  /* Beta / auth modal open: never stack above dialog */
+  body:has(#betaModal:not([hidden])) .scroll-fab {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
   @media (prefers-reduced-motion: reduce) {
     .scroll-fab {
       --fab-dur: 0.2s;
       --fab-ease: ease;
     }
+  }
+}
+
+/* ══════════════════════════
+   WAITLIST — bottom accent glow (inside section, behind content)
+   Shown only after scroll-into-view (see .waitlist-section--glow-in + script)
+══════════════════════════ */
+@keyframes wlGlowEnter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(50% + 228px)) scale(0.86);
+    filter: blur(38px);
+  }
+  to {
+    opacity: 0.92;
+    transform: translate(-50%, calc(50% + 170px)) scale(1);
+    filter: blur(40px);
+  }
+}
+@keyframes wlGlowEnterReduced {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(50% + 228px)) scale(0.86);
+    filter: blur(30px);
+  }
+  to {
+    opacity: 0.55;
+    transform: translate(-50%, calc(50% + 170px)) scale(1);
+    filter: blur(22px);
+  }
+}
+/* Subtle motion on the highlight (gradient layer); parent transform stays free for hover scale */
+@keyframes wlGlowDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(3.5%, -4%, 0) scale(1.045);
+  }
+  66% {
+    transform: translate3d(-2.5%, 3%, 0) scale(0.97);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+.waitlist-section .wl-accent-glow {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  /* Circle sized to the section width only — avoids vw-based horizontal page scroll */
+  --wl-glow-d: min(100%, 560px);
+  width: var(--wl-glow-d);
+  height: var(--wl-glow-d);
+  max-width: 100%;
+  box-sizing: border-box;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+.waitlist-section .wl-accent-glow::before {
+  content: '';
+  position: absolute;
+  inset: -6%;
+  border-radius: 50%;
+  transform-origin: 50% 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(249, 231, 179, 0.52) 0%,
+    rgba(250, 240, 202, 0.3) 42%,
+    rgba(255, 214, 120, 0.12) 62%,
+    transparent 76%
+  );
+  will-change: transform;
+}
+.waitlist-section:not(.waitlist-section--glow-in) .wl-accent-glow {
+  opacity: 0;
+  transform: translate(-50%, calc(50% + 228px)) scale(0.86);
+  filter: blur(38px);
+}
+.waitlist-section:not(.waitlist-section--glow-in) .wl-accent-glow::before {
+  animation: none;
+}
+.waitlist-section.waitlist-section--glow-in .wl-accent-glow {
+  animation: wlGlowEnter 1.14s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+/* After entrance ends (JS adds --glow-idle), drop animation so hover scale + drift work */
+.waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle .wl-accent-glow {
+  animation: none;
+  opacity: 0.92;
+  transform: translate(-50%, calc(50% + 170px)) scale(1);
+  filter: blur(40px);
+  transition: transform 0.48s cubic-bezier(0.25, 0.88, 0.2, 1), filter 0.48s cubic-bezier(0.25, 0.5, 0.2, 1), opacity 0.4s cubic-bezier(0.25, 0.5, 0.2, 1);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .waitlist-section.waitlist-section--glow-in .wl-accent-glow {
+    animation: wlGlowEnterReduced 1.14s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle .wl-accent-glow {
+    opacity: 0.55;
+    filter: blur(22px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .waitlist-section:not(.waitlist-section--glow-in) .wl-accent-glow {
+    opacity: 0;
+    transform: translate(-50%, calc(50% + 170px));
+    filter: blur(40px);
+  }
+  .waitlist-section.waitlist-section--glow-in .wl-accent-glow {
+    animation: none;
+    opacity: 0.92;
+    transform: translate(-50%, calc(50% + 170px));
+    filter: blur(40px);
+  }
+  .waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle .wl-accent-glow {
+    transition: none;
+  }
+  .waitlist-section .wl-accent-glow::before {
+    animation: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) and (prefers-reduced-transparency: reduce) {
+  .waitlist-section.waitlist-section--glow-in .wl-accent-glow,
+  .waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle .wl-accent-glow {
+    opacity: 0.55;
+    filter: blur(22px);
+  }
+}
+/* Idle drift only after entrance handoff (see script) */
+.waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle .wl-accent-glow::before {
+  animation: wlGlowDrift 16s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@media (hover: hover) and (min-width: 769px) {
+  .waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle:has(.cta.hero-cta:hover) .wl-accent-glow {
+    transform: translate(-50%, calc(50% + 120px)) scale(1.22);
+    filter: blur(48px);
+    opacity: 0.98;
+  }
+}
+@media (prefers-reduced-transparency: reduce) and (hover: hover) and (min-width: 769px) {
+  .waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle:has(.cta.hero-cta:hover) .wl-accent-glow {
+    filter: blur(26px);
+    opacity: 0.62;
+  }
+}
+@media (prefers-reduced-motion: reduce) and (hover: hover) and (min-width: 769px) {
+  .waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle .wl-accent-glow {
+    transition: none;
+  }
+}
+@media (max-width: 768px) {
+  .waitlist-section .wl-accent-glow {
+    display: none;
   }
 }
 
@@ -1552,7 +1791,8 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 .bm-modal {
   position: fixed;
   inset: 0;
-  z-index: 99999;
+  /* Above .scroll-fab (999999) so the modal is never covered */
+  z-index: 1000000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1952,7 +2192,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   .msg-section { padding: 92px 24px 92px; }
   .msg-headline {
     font-size: 2rem;
-    line-height: var(--hero-title-line-height);
+    line-height: 1;
     max-width: min(300px, 100%);
     margin-left: auto;
     margin-right: auto;
@@ -2004,13 +2244,17 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   .intro-particle--tr { top: -36px; right: -16px; }
   .intro-particle--bl { bottom: -36px; left: -16px; }
 
-  .waitlist-section { padding: 64px 24px 48px; }
+  .waitlist-section {
+    --wl-overlap-top: 40px;
+    margin-top: calc(-1 * var(--wl-overlap-top));
+    padding: calc(64px + var(--wl-overlap-top)) 24px 48px;
+  }
 
   .site-footer {
     background: var(--primary);
     padding: 0 28px 48px;
   }
-  .wl-title { font-size: 2.5rem; line-height: 0.9; }
+  .wl-title { font-size: 2.5rem; line-height: 0.86; }
   .waitlist-section .wl-title { margin-bottom: 10px; }
   .waitlist-section .wl-subtitle { display: none !important; }
   .wl-illustration { width: min(100%, 170px); margin-bottom: 24px; }
@@ -2042,8 +2286,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   .avatar-2 { left: 0%; top: 220px; }
   .avatar-3 { right: 0%; top: 280px; }
   .msg-section { padding: 82px 20px 74px; }
-  .msg-headline { font-size: 2.1rem; line-height: var(--hero-title-line-height); }
-  .wl-title { font-size: 1.9rem; }
+  .msg-headline { font-size: 2.1rem; line-height: 1; }
   .msg-win { height: 360px; border-radius: 18px; }
   .msg-b { padding: 9px 12px; }
   .intro-section .intro-content { margin-left: -8px; }
@@ -2053,7 +2296,11 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   .intro-feed { width: min(240px, 72vw); }
   .intro-social-wrap { right: -12px; top: min(258px, 62vw); width: 180px; }
   .intro-reminder-wrap { top: -68px; right: -20px; width: 200px; }
-  .waitlist-section { padding: 60px 20px 40px; }
+  .waitlist-section {
+    --wl-overlap-top: 32px;
+    margin-top: calc(-1 * var(--wl-overlap-top));
+    padding: calc(60px + var(--wl-overlap-top)) 20px 40px;
+  }
   .wl-wordmark { font-size:22px; }
 }
 
@@ -2215,7 +2462,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   <div class="msg-wrap">
 
     <!-- FIX: these are now proper headings, not divs -->
-    <h2 class="msg-headline" data-reveal style="--rd:0ms">POV: The bill math is not mathing</h2>
+    <h2 class="msg-headline" data-reveal style="--rd:0ms"><span class="msg-headline-pov">POV:</span><span class="msg-headline-body">The bill math is not mathing</span></h2>
     <p class="msg-subline" data-reveal style="--rd:80ms">Sound familiar? This is what splitting<br>costs actually looks like.</p>
 
     <div class="sct-toggle" id="sctToggle" data-reveal style="--rd:160ms" role="tablist" aria-label="Choose expense splitting scenario">
@@ -2311,6 +2558,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
      WAITLIST SECTION
 ══════════════════════════════════════════════════════════ -->
 <section class="waitlist-section" id="waitlistSection" aria-labelledby="waitlistHeading">
+  <div class="wl-accent-glow" aria-hidden="true"></div>
   <div class="wl-inner">
     <img
       class="wl-illustration"
@@ -2402,6 +2650,20 @@ body.is-dragging .avatar { cursor: grabbing !important; }
     <path d="M12 19V5M5 12l7-7 7 7"/>
   </svg>
 </a>
+
+<noscript>
+<style>
+  #waitlistSection .wl-accent-glow {
+    opacity: 0.92 !important;
+    transform: translate(-50%, calc(50% + 170px)) scale(1) !important;
+    filter: blur(40px) !important;
+    animation: none !important;
+  }
+  #waitlistSection .wl-accent-glow::before {
+    animation: wlGlowDrift 16s cubic-bezier(0.45, 0, 0.55, 1) infinite !important;
+  }
+</style>
+</noscript>
 
 <script>
 /* ── Dynamically update SVG dotted lines: CTA center → avatar center ── */
@@ -2929,6 +3191,38 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
   });
 })();
 
+/* ── WAITLIST — accent glow only after section scrolls into view ── */
+(function() {
+  var section = document.getElementById('waitlistSection');
+  var glow = section && section.querySelector('.wl-accent-glow');
+  if (!section || !glow || section.classList.contains('waitlist-section--glow-in')) return;
+  function markGlowIdle() {
+    section.classList.add('waitlist-section--glow-idle');
+  }
+  function onGlowEnterEnd(e) {
+    if (e.target !== glow) return;
+    var n = (e.animationName || '').replace(/^"|"$/g, '');
+    if (n.indexOf('wlGlowEnter') !== 0) return;
+    glow.removeEventListener('animationend', onGlowEnterEnd);
+    markGlowIdle();
+  }
+  function reveal() {
+    section.classList.add('waitlist-section--glow-in');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      markGlowIdle();
+    } else {
+      glow.addEventListener('animationend', onGlowEnterEnd);
+    }
+    io.disconnect();
+  }
+  var io = new IntersectionObserver(function(entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) { reveal(); return; }
+    }
+  }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+  io.observe(section);
+})();
+
 /* ── MSG SECTION EDGE SVGs ── */
 (function() {
   const section = document.getElementById('msgSection');
@@ -2972,11 +3266,24 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
   var btns=Array.prototype.slice.call(toggle.querySelectorAll('.sct-btn'));
   var current=0;
   var colors=['#003C69','#D44C00','#1C1C1E'];
-  var headlines=['POV: The bill math is not mathing','POV: You got the wifi. They got the vibe.','POV: You expensed the team lunch. Again.'];
+  var headlineBodies=['The bill math is not mathing','You got the wifi. They got the vibe.','You expensed the team lunch. Again.'];
   var sublines=['Sound familiar? This is what splitting<br>costs actually looks like.','To be fair, they did get the oat milk.',"It's fine. You'll just send a Slack. Any day now."];
   var headlineEl=document.querySelector('.msg-headline'), sublineEl=document.querySelector('.msg-subline');
   var iconEl=document.getElementById('msgScenarioIcon');
   var iconUrls=['img/gang-icon.svg','img/roommate-icon.svg','img/collar.svg'];
+
+  function setMsgHeadline(idx) {
+    if (!headlineEl) return;
+    while (headlineEl.firstChild) headlineEl.removeChild(headlineEl.firstChild);
+    var pov = document.createElement('span');
+    pov.className = 'msg-headline-pov';
+    pov.textContent = 'POV:';
+    var body = document.createElement('span');
+    body.className = 'msg-headline-body';
+    body.textContent = headlineBodies[idx];
+    headlineEl.appendChild(pov);
+    headlineEl.appendChild(body);
+  }
 
   function updateIcon(idx) {
     if (!iconEl) return;
@@ -2994,7 +3301,7 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
     headlineEl.style.transition='opacity 0.22s ease, color 0.3s ease'; headlineEl.style.opacity='0';
     sublineEl.style.transition='opacity 0.22s ease'; sublineEl.style.opacity='0';
     setTimeout(function() {
-      headlineEl.textContent=headlines[idx]; headlineEl.style.color=colors[idx];
+      setMsgHeadline(idx); headlineEl.style.color=colors[idx];
       sublineEl.innerHTML=sublines[idx]; headlineEl.style.opacity='1'; sublineEl.style.opacity='1';
     }, 220);
   }
