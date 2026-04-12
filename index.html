@@ -1570,46 +1570,25 @@ body.is-dragging .avatar { cursor: grabbing !important; }
    WAITLIST — bottom accent glow (inside section, behind content)
    Shown only after scroll-into-view (see .waitlist-section--glow-in + script)
 ══════════════════════════ */
-@keyframes wlGlowEnter {
-  from {
-    opacity: 0;
-    transform: translate(-50%, calc(50% + 228px)) scale(0.86);
-    filter: blur(38px);
-  }
-  to {
-    opacity: 0.92;
-    transform: translate(-50%, calc(50% + 170px)) scale(1);
-    filter: blur(40px);
-  }
-}
-@keyframes wlGlowEnterReduced {
-  from {
-    opacity: 0;
-    transform: translate(-50%, calc(50% + 228px)) scale(0.86);
-    filter: blur(30px);
-  }
-  to {
-    opacity: 0.55;
-    transform: translate(-50%, calc(50% + 170px)) scale(1);
-    filter: blur(22px);
-  }
-}
-/* Subtle motion on the highlight (gradient layer); parent transform stays free for hover scale */
 @keyframes wlGlowDrift {
   0% {
     transform: translate3d(0, 0, 0) scale(1);
   }
-  33% {
-    transform: translate3d(3.5%, -4%, 0) scale(1.045);
+  34% {
+    transform: translate3d(2.4%, -2.8%, 0) scale(1.03);
   }
-  66% {
-    transform: translate3d(-2.5%, 3%, 0) scale(0.97);
+  68% {
+    transform: translate3d(-1.8%, 2.1%, 0) scale(0.985);
   }
   100% {
     transform: translate3d(0, 0, 0) scale(1);
   }
 }
 .waitlist-section .wl-accent-glow {
+  --wl-glow-y: calc(50% + 238px);
+  --wl-glow-scale: 0.9;
+  --wl-glow-opacity: 0;
+  --wl-glow-blur: 36px;
   position: absolute;
   left: 50%;
   bottom: 0;
@@ -1623,6 +1602,14 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   pointer-events: none;
   z-index: 0;
   overflow: visible;
+  opacity: var(--wl-glow-opacity);
+  transform: translate(-50%, var(--wl-glow-y)) scale(var(--wl-glow-scale));
+  filter: blur(var(--wl-glow-blur));
+  will-change: transform, opacity, filter;
+  transition:
+    transform 1.05s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.78s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.95s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .waitlist-section .wl-accent-glow::before {
   content: '';
@@ -1638,81 +1625,46 @@ body.is-dragging .avatar { cursor: grabbing !important; }
     transparent 76%
   );
   will-change: transform;
-}
-.waitlist-section:not(.waitlist-section--glow-in) .wl-accent-glow {
-  opacity: 0;
-  transform: translate(-50%, calc(50% + 228px)) scale(0.86);
-  filter: blur(38px);
-}
-.waitlist-section:not(.waitlist-section--glow-in) .wl-accent-glow::before {
-  animation: none;
+  animation: wlGlowDrift 18s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 .waitlist-section.waitlist-section--glow-in .wl-accent-glow {
-  animation: wlGlowEnter 1.14s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-/* After entrance ends (JS adds --glow-idle), drop animation so hover scale + drift work */
-.waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle .wl-accent-glow {
-  animation: none;
-  opacity: 0.92;
-  transform: translate(-50%, calc(50% + 170px)) scale(1);
-  filter: blur(40px);
-  transition: transform 0.48s cubic-bezier(0.25, 0.88, 0.2, 1), filter 0.48s cubic-bezier(0.25, 0.5, 0.2, 1), opacity 0.4s cubic-bezier(0.25, 0.5, 0.2, 1);
+  --wl-glow-y: calc(50% + 178px);
+  --wl-glow-scale: 1;
+  --wl-glow-opacity: 0.92;
+  --wl-glow-blur: 40px;
 }
 @media (prefers-reduced-transparency: reduce) {
   .waitlist-section.waitlist-section--glow-in .wl-accent-glow {
-    animation: wlGlowEnterReduced 1.14s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-  .waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle .wl-accent-glow {
-    opacity: 0.55;
-    filter: blur(22px);
+    --wl-glow-opacity: 0.55;
+    --wl-glow-blur: 22px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .waitlist-section:not(.waitlist-section--glow-in) .wl-accent-glow {
-    opacity: 0;
-    transform: translate(-50%, calc(50% + 170px));
-    filter: blur(40px);
-  }
-  .waitlist-section.waitlist-section--glow-in .wl-accent-glow {
-    animation: none;
-    opacity: 0.92;
-    transform: translate(-50%, calc(50% + 170px));
-    filter: blur(40px);
-  }
-  .waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle .wl-accent-glow {
+  .waitlist-section .wl-accent-glow {
     transition: none;
   }
   .waitlist-section .wl-accent-glow::before {
-    animation: none !important;
+    animation: none;
   }
 }
 @media (prefers-reduced-motion: reduce) and (prefers-reduced-transparency: reduce) {
-  .waitlist-section.waitlist-section--glow-in .wl-accent-glow,
-  .waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle .wl-accent-glow {
-    opacity: 0.55;
-    filter: blur(22px);
+  .waitlist-section.waitlist-section--glow-in .wl-accent-glow {
+    --wl-glow-opacity: 0.55;
+    --wl-glow-blur: 22px;
   }
 }
-/* Idle drift only after entrance handoff (see script) */
-.waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle .wl-accent-glow::before {
-  animation: wlGlowDrift 16s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-}
 @media (hover: hover) and (min-width: 769px) {
-  .waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle:has(.cta.hero-cta:hover) .wl-accent-glow {
-    transform: translate(-50%, calc(50% + 120px)) scale(1.22);
-    filter: blur(48px);
-    opacity: 0.98;
+  .waitlist-section.waitlist-section--glow-in:has(.cta.hero-cta:hover) .wl-accent-glow {
+    --wl-glow-y: calc(50% + 156px);
+    --wl-glow-scale: 1.09;
+    --wl-glow-opacity: 0.97;
+    --wl-glow-blur: 43px;
   }
 }
 @media (prefers-reduced-transparency: reduce) and (hover: hover) and (min-width: 769px) {
-  .waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle:has(.cta.hero-cta:hover) .wl-accent-glow {
-    filter: blur(26px);
-    opacity: 0.62;
-  }
-}
-@media (prefers-reduced-motion: reduce) and (hover: hover) and (min-width: 769px) {
-  .waitlist-section.waitlist-section--glow-in.waitlist-section--glow-idle .wl-accent-glow {
-    transition: none;
+  .waitlist-section.waitlist-section--glow-in:has(.cta.hero-cta:hover) .wl-accent-glow {
+    --wl-glow-opacity: 0.62;
+    --wl-glow-blur: 26px;
   }
 }
 @media (max-width: 768px) {
@@ -2654,13 +2606,13 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 <noscript>
 <style>
   #waitlistSection .wl-accent-glow {
-    opacity: 0.92 !important;
-    transform: translate(-50%, calc(50% + 170px)) scale(1) !important;
-    filter: blur(40px) !important;
-    animation: none !important;
+    --wl-glow-y: calc(50% + 178px) !important;
+    --wl-glow-scale: 1 !important;
+    --wl-glow-opacity: 0.92 !important;
+    --wl-glow-blur: 40px !important;
   }
   #waitlistSection .wl-accent-glow::before {
-    animation: wlGlowDrift 16s cubic-bezier(0.45, 0, 0.55, 1) infinite !important;
+    animation: wlGlowDrift 18s cubic-bezier(0.45, 0, 0.55, 1) infinite !important;
   }
 </style>
 </noscript>
@@ -3194,25 +3146,9 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
 /* ── WAITLIST — accent glow only after section scrolls into view ── */
 (function() {
   var section = document.getElementById('waitlistSection');
-  var glow = section && section.querySelector('.wl-accent-glow');
-  if (!section || !glow || section.classList.contains('waitlist-section--glow-in')) return;
-  function markGlowIdle() {
-    section.classList.add('waitlist-section--glow-idle');
-  }
-  function onGlowEnterEnd(e) {
-    if (e.target !== glow) return;
-    var n = (e.animationName || '').replace(/^"|"$/g, '');
-    if (n.indexOf('wlGlowEnter') !== 0) return;
-    glow.removeEventListener('animationend', onGlowEnterEnd);
-    markGlowIdle();
-  }
+  if (!section || section.classList.contains('waitlist-section--glow-in')) return;
   function reveal() {
     section.classList.add('waitlist-section--glow-in');
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      markGlowIdle();
-    } else {
-      glow.addEventListener('animationend', onGlowEnterEnd);
-    }
     io.disconnect();
   }
   var io = new IntersectionObserver(function(entries) {
