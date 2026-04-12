@@ -150,6 +150,7 @@ html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
   --accent: #FAF0CA;
   --surface: #EEEEEE;
   --primary: #003C69;
+  --copy-navy: #1a2744;
   --primary-dark: #001d35;
   --primary-gradient: linear-gradient(140deg, #FF7530 0%, #E05000 55%, #C84300 100%);
   --hero-title-line-height: 1;
@@ -163,7 +164,7 @@ body {
   font-size: var(--body-copy-size);
   font-weight: 400;
   letter-spacing: -0.02em;
-  color: #1a2744;
+  color: var(--copy-navy);
   overflow-x: hidden;
 }
 
@@ -226,7 +227,7 @@ nav.nav-on-dark .nav-login {
   font-family: 'Bringbold', var(--font-sans);
   font-size: 28px;
   font-weight: bolder;
-  color: #1a2744;
+  color: var(--copy-navy);
   letter-spacing: .0125em;
   text-decoration: none;
   margin-right: 36px;
@@ -303,25 +304,123 @@ nav .nav-right { gap: 16px; }
 
 .nav-cta-label--short { display: none; }
 
-/* Navbar CTA (reuses .hero-cta base styles) */
+/* Navbar CTA: outline + frosted fill (blur where supported; solid fallback everywhere) */
 nav .nav-cta.hero-cta {
   padding: 10px 20px;
-  background-color: var(--primary);
-  border-color: var(--primary);
   border-width: 2px;
-  color: #ffffff;
+  border-style: solid;
+  border-color: var(--copy-navy);
+  color: var(--copy-navy);
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translate3d(0, 0, 0);
   pointer-events: auto;
+  box-shadow: none;
+  /* Opaque enough to read on browsers without backdrop-filter */
+  background-color: rgba(238, 238, 238, 0.82);
+  -webkit-backdrop-filter: blur(14px) saturate(1.12);
+  backdrop-filter: blur(14px) saturate(1.12);
   transition: opacity 0.25s ease, transform 0.25s ease,
-              background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+              background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+              box-shadow 0.2s ease,
+              -webkit-backdrop-filter 0.2s ease, backdrop-filter 0.2s ease;
 }
 
-/* When nav overlaps intro section, use accent pill with primary text */
+@supports not ((-webkit-backdrop-filter: blur(0.5px)) or (backdrop-filter: blur(0.5px))) {
+  nav .nav-cta.hero-cta {
+    background-color: rgba(238, 238, 238, 0.96);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  nav .nav-cta.hero-cta {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: rgba(238, 238, 238, 0.98);
+  }
+}
+
+nav .nav-cta.hero-cta::before,
+nav .nav-cta.hero-cta::after {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* When nav overlaps intro — frosted dark glass */
 nav.nav-in-intro .nav-cta.hero-cta {
-  background-color: var(--accent);
-  border-color: var(--accent);
-  color: var(--primary);
+  background-color: rgba(0, 24, 40, 0.52);
+  border-color: rgba(255, 255, 255, 0.88);
+  color: #fff;
+  -webkit-backdrop-filter: blur(14px) saturate(1.08);
+  backdrop-filter: blur(14px) saturate(1.08);
+}
+
+@supports not ((-webkit-backdrop-filter: blur(0.5px)) or (backdrop-filter: blur(0.5px))) {
+  nav.nav-in-intro .nav-cta.hero-cta {
+    background-color: rgba(0, 24, 40, 0.82);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  nav.nav-in-intro .nav-cta.hero-cta {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: rgba(0, 24, 40, 0.88);
+  }
+}
+
+@media (hover: hover) and (min-width: 769px) {
+  nav .nav-cta.hero-cta:hover {
+    box-shadow: none;
+    transform: scale(1.03) translateZ(0);
+    background-color: rgba(26, 39, 68, 0.12);
+    border-color: var(--copy-navy);
+    color: var(--copy-navy);
+    -webkit-backdrop-filter: blur(14px) saturate(1.12);
+    backdrop-filter: blur(14px) saturate(1.12);
+  }
+  nav .nav-cta.hero-cta:hover::before {
+    animation: none;
+  }
+  nav.nav-in-intro .nav-cta.hero-cta:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
+    color: #fff;
+    -webkit-backdrop-filter: blur(14px) saturate(1.08);
+    backdrop-filter: blur(14px) saturate(1.08);
+  }
+}
+
+nav .nav-cta.hero-cta:active {
+  background-color: rgba(26, 39, 68, 0.2);
+  color: var(--copy-navy);
+  border-color: var(--copy-navy);
+  border-width: 2px;
+  transform: scale(0.98) translateZ(0);
+  box-shadow: none;
+  -webkit-backdrop-filter: blur(12px) saturate(1.12);
+  backdrop-filter: blur(12px) saturate(1.12);
+}
+nav .nav-cta.hero-cta:active::before,
+nav .nav-cta.hero-cta:active::after {
+  opacity: 0;
+}
+nav.nav-in-intro .nav-cta.hero-cta:active {
+  background-color: rgba(255, 255, 255, 0.28);
+  color: #fff;
+  border-color: #fff;
+  -webkit-backdrop-filter: blur(12px) saturate(1.08);
+  backdrop-filter: blur(12px) saturate(1.08);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  nav .nav-cta.hero-cta:active {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: rgba(220, 225, 230, 0.98);
+  }
+  nav.nav-in-intro .nav-cta.hero-cta:active {
+    background-color: rgba(0, 35, 55, 0.92);
+  }
 }
 
 /* ══════════════════════════
@@ -384,7 +483,7 @@ nav.nav-in-intro .nav-cta.hero-cta {
   font-size: 3.2rem;
   font-weight: 400;
   line-height: var(--hero-title-line-height);
-  color: #1a2744;
+  color: var(--copy-navy);
   letter-spacing: -0.01em;
   text-align: center;
   margin-top: 28px;
@@ -520,7 +619,6 @@ nav.nav-in-intro .nav-cta.hero-cta {
 
 /* Global button :active press state */
 .hero-cta:active,
-.wl-btn:active,
 .msg-rp-btn:active {
   background-color: #2a2a2a;
   color: var(--accent);
@@ -849,7 +947,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   font-weight: 400;
   line-height: var(--hero-title-line-height);
   letter-spacing: -0.01em;
-  color: #1a2744;
+  color: var(--copy-navy);
   text-align: center;
   margin-bottom: 10px;
 }
@@ -1254,17 +1352,11 @@ body.is-dragging .avatar { cursor: grabbing !important; }
    WAITLIST SECTION
 ══════════════════════════ */
 .waitlist-section {
-  --wl-bg:             var(--primary);
-  --wl-text:           #F0EAD6;
-  --wl-text-muted:     rgba(240, 234, 214, 0.5);
-  --wl-accent:         #F9E7B3;
-  --wl-divider:        rgba(240, 234, 214, 0.12);
-  --wl-input-bg:       rgba(255, 255, 255, 0.05);
-  --wl-input-border:   rgba(255, 255, 255, 0.14);
-  --wl-input-focus:    rgba(255, 255, 255, 0.32);
-  --wl-btn-bg:         #F9E7B3;
-  --wl-btn-text:       #00213E;
-  --wl-btn-hover-bg:   #fff;
+  --wl-bg:         var(--primary);
+  --wl-text:       #F0EAD6;
+  --wl-text-muted: rgba(240, 234, 214, 0.5);
+  --wl-accent:     #F9E7B3;
+  --wl-btn-text:   #00213E;
 }
 
 .waitlist-section {
@@ -1275,7 +1367,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   align-items: center;
   justify-content: flex-start;
   min-height: auto;
-  padding: 120px 24px 48px;
+  padding: 120px 24px 80px;
   overflow: hidden;
   text-align: center;
   box-sizing: border-box;
@@ -1302,120 +1394,25 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 .wl-title .wl-title-accent { color: var(--wl-accent); }
 
 .wl-subtitle { font-family: var(--font-sans); font-weight: 400; color: var(--surface); letter-spacing: 0.01em; margin-bottom: 40px; }
+.waitlist-section .wl-subtitle { margin-bottom: 0; }
 
 .wl-illustration { width: min(100%, 240px); height: auto; opacity: 0.92; margin-bottom: 40px; object-fit: contain; }
 
-
-.wl-form {
-  width: 100%;
-  display: flex; align-items: center;
-  background: var(--wl-input-bg);
-  border: 1.5px solid var(--wl-input-border);
-  border-radius: 100px;
-  padding: 6px 6px 6px 24px;
-  gap: 8px;
-  transition: border-color 0.22s ease, box-shadow 0.22s ease;
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-}
-.wl-form:focus-within { border-color: var(--wl-input-focus); box-shadow: 0 0 0 3px rgba(255,255,255,0.06); }
-
-.wl-input {
-  flex: 1; background: transparent; border: none; outline: none;
-  font-family: var(--font-sans); font-weight: 400;
-  color: var(--wl-text); caret-color: var(--wl-accent); min-width: 0;
-}
-.wl-input::placeholder { color: var(--wl-text-muted); }
-
-.wl-btn {
-  flex-shrink: 0; background: var(--wl-btn-bg); color: var(--wl-btn-text);
-  font-family: var(--font-sans); font-weight: 700;
-  letter-spacing: -0.01em; border: 2px solid var(--wl-btn-bg); border-radius: 100px;
-  padding: 13px 26px; cursor: pointer;
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  transition: background 0.18s ease, transform 0.2s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.2s ease;
-}
-@media (hover: hover) and (min-width: 769px) {
-  .wl-btn:hover {
-    transform: scale(1.03);
-    box-shadow: 0 4px 20px rgba(250, 240, 202, 0.18);
-  }
-}
-
-/* Ensure active state uses simple solid fill (overrides hover) */
-.wl-btn:active {
-  background-color: #2a2a2a;
-  color: var(--accent);
-  border: 2px solid #000;
-  transform: scale(0.97);
-  box-shadow: none;
-}
-
-.wl-fine { margin-top: 16px; font-family: var(--font-sans); font-weight: 400; color: var(--wl-text-muted); letter-spacing: 0.01em; }
-.wl-error {
-  margin-top: 10px;
-  font-family: var(--font-sans);
-  font-weight: 500;
-  color: var(--wl-accent);
-  letter-spacing: 0.01em;
-  display: none;
-}
-.wl-hp {
-  position: absolute !important;
-  left: -9999px !important;
-  width: 1px !important;
-  height: 1px !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-.wl-btn-dots { display: inline-flex; gap: 5px; align-items: center; }
-.wl-btn-dots span {
-  display: inline-block; width: 5px; height: 5px; border-radius: 50%;
-  background: var(--wl-btn-text); animation: wlDotPulse 1s ease-in-out infinite;
-}
-.wl-btn-dots span:nth-child(2) { animation-delay: 0.18s; }
-.wl-btn-dots span:nth-child(3) { animation-delay: 0.36s; }
-@keyframes wlDotPulse {
-  0%, 80%, 100% { opacity: 0.2; transform: scale(0.75); }
-  40%           { opacity: 1;   transform: scale(1); }
-}
-
 .wl-content-zone { width: 100%; display: flex; flex-direction: column; align-items: center; position: relative; }
-.wl-content-zone.wl-exiting { animation: wlExitUp 0.4s ease-in forwards; }
-@keyframes wlExitUp {
-  from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(-12px); }
+
+/* Same component as hero CTA; accent fill for dark section */
+.waitlist-section .cta.hero-cta {
+  margin-top: 24px;
+  font-weight: 600;
+  background-color: var(--wl-accent);
+  border-color: var(--wl-accent);
+  color: var(--wl-btn-text);
 }
-
-.wl-success { display: none; flex-direction: column; align-items: center; width: 100%; }
-.wl-success.wl-visible { display: flex; }
-
-.wl-success-heart { display: block; width: 56px; height: 56px; object-fit: contain; margin-bottom: 20px; opacity: 0; transform: scale(0.5); }
-.wl-success-heart.wl-pop { animation: wlHeartPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-@keyframes wlHeartPop {
-  0%   { opacity: 0; transform: scale(0.5); }
-  60%  { opacity: 1; transform: scale(1.15); }
-  100% { opacity: 1; transform: scale(1); }
+.waitlist-section .cta.hero-cta:active {
+  background-color: #2a2a2a;
+  color: var(--wl-accent);
+  border: 2px solid #000;
 }
-
-.wl-success-headline {
-  font-family: 'Bringbold', serif; font-size: 3.2rem; font-weight: 400;
-  line-height: 1.05; letter-spacing: -0.025em; color: var(--wl-text); margin-bottom: 10px;
-  opacity: 0; transform: translateY(16px);
-  transition: opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1), transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.wl-success-headline .wl-title-accent { color: var(--wl-accent); }
-.wl-success-headline.wl-in { opacity: 1; transform: translateY(0); }
-
-.wl-success-sub {
-  font-family: var(--font-sans); font-weight: 400;
-  color: var(--wl-text-muted); letter-spacing: 0.005em;
-  opacity: 0; transform: translateY(16px);
-  transition: opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1), transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.wl-success-sub.wl-in { opacity: 1; transform: translateY(0); }
-
-.waitlist-section.wl-confirmed .wl-wordmark { display: none; }
 
 .scroll-fab {
   display: none;
@@ -1570,7 +1567,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   backdrop-filter: blur(20px) saturate(0.65);
   -webkit-backdrop-filter: blur(20px) saturate(0.65);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.22s ease;
 }
 .bm-modal.bm-open .bm-overlay { opacity: 1; }
 .bm-modal.bm-closing .bm-overlay { opacity: 0; transition: opacity 0.28s ease; }
@@ -1585,8 +1582,8 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   max-width: 520px;
   opacity: 0;
   transform: translateY(30px) scale(0.93);
-  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .bm-modal.bm-open .bm-stage {
   opacity: 1;
@@ -1616,8 +1613,8 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   opacity: 0;
   transform: scale(0.88);
   pointer-events: none;
-  transition: opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+  transition: opacity 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
               background 0.18s ease, color 0.18s ease;
   /* Per-property delay: entrance staggers opacity/transform only — hover must not inherit 720ms. */
   transition-delay: 0s, 0s, 0s, 0s;
@@ -1626,7 +1623,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   opacity: 1;
   transform: scale(1);
   pointer-events: auto;
-  transition-delay: 720ms, 720ms, 0s, 0s;
+  transition-delay: 280ms, 280ms, 0s, 0s;
 }
 @media (hover: hover) and (min-width: 769px) {
   .bm-close:hover {
@@ -1651,7 +1648,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   pointer-events: none;
   z-index: 0;
   opacity: 0;
-  transition: opacity 0.7s ease 0.2s;
+  transition: opacity 0.38s ease 0.04s;
 }
 .bm-modal.bm-open .bm-glow { opacity: 0.22; }
 
@@ -1690,7 +1687,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 }
 .bm-modal.bm-filling .bm-fill {
   clip-path: circle(148% at 88% 50%);
-  transition: clip-path 0.52s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: clip-path 0.34s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .bm-content {
@@ -1726,9 +1723,9 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   line-height: 0;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1), transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.bm-modal.bm-revealing .bm-character { opacity: 1; transform: translateY(0); transition-delay: 800ms; }
+.bm-modal.bm-revealing .bm-character { opacity: 1; transform: translateY(0); transition-delay: 160ms; }
 .bm-character img {
   --bm-char-img-width-pct: 100%;
   --bm-char-img-translate-x: 16px;
@@ -1751,8 +1748,8 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   margin-bottom: 18px;
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .bm-modal.bm-revealing .bm-eyebrow {
   opacity: 1;
@@ -1777,12 +1774,12 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   display: block;
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 0.44s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.44s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.bm-modal.bm-revealing .bm-headline .bm-line:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 60ms; }
-.bm-modal.bm-revealing .bm-headline .bm-line:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
-.bm-modal.bm-revealing .bm-headline .bm-line:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 300ms; }
+.bm-modal.bm-revealing .bm-headline .bm-line:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 18ms; }
+.bm-modal.bm-revealing .bm-headline .bm-line:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 58ms; }
+.bm-modal.bm-revealing .bm-headline .bm-line:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 98ms; }
 
 .bm-actions {
   display: flex;
@@ -1790,13 +1787,13 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   gap: 6px;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .bm-modal.bm-revealing .bm-actions {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 480ms;
+  transition-delay: 120ms;
 }
 
 .bm-btn-continue {
@@ -1912,7 +1909,8 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 
 @media (max-width: 768px) {
   nav { padding: 16px 24px 12px; min-height: 64px; }
-  .nav-logo { font-size: 23px; margin-right: 0; }
+  .nav-logo { font-size: 23px; margin-right: 0; letter-spacing: 0; }
+  .wl-wordmark { letter-spacing: 0; }
   .nav-links { display: none; }
   nav .nav-right { gap: 10px; }
   nav .nav-login { display: none; }
@@ -1932,6 +1930,12 @@ body.is-dragging .avatar { cursor: grabbing !important; }
     font-size: 0.92rem;
   }
   .hero .hero-cta {
+    padding: 16px 32px;
+    font-size: 1.05rem;
+    min-height: 52px;
+  }
+  .waitlist-section .cta.hero-cta {
+    margin-top: 8px;
     padding: 16px 32px;
     font-size: 1.05rem;
     min-height: 52px;
@@ -2000,22 +2004,16 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   .intro-particle--tr { top: -36px; right: -16px; }
   .intro-particle--bl { bottom: -36px; left: -16px; }
 
-  .waitlist-section { padding: 64px 24px 28px; }
+  .waitlist-section { padding: 64px 24px 48px; }
 
   .site-footer {
     background: var(--primary);
     padding: 0 28px 48px;
   }
   .wl-title { font-size: 2.5rem; line-height: 0.9; }
+  .waitlist-section .wl-title { margin-bottom: 10px; }
   .waitlist-section .wl-subtitle { display: none !important; }
   .wl-illustration { width: min(100%, 170px); margin-bottom: 24px; }
-  /* Waitlist signup hidden on mobile — illustration + wordmark + title + subtitle only */
-  .waitlist-section .wl-form,
-  .waitlist-section .wl-fine,
-  .waitlist-section .wl-error,
-  .waitlist-section .wl-success { display: none !important; }
-  .waitlist-section.wl-confirmed .wl-wordmark { display: inline-block !important; }
-  .waitlist-section #wlDefault { display: flex !important; flex-direction: column; align-items: center; }
 
   .site-footer-lead { font-size: 13px; }
   .site-footer-links {
@@ -2055,7 +2053,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   .intro-feed { width: min(240px, 72vw); }
   .intro-social-wrap { right: -12px; top: min(258px, 62vw); width: 180px; }
   .intro-reminder-wrap { top: -68px; right: -20px; width: 200px; }
-  .waitlist-section { padding: 60px 20px 22px; }
+  .waitlist-section { padding: 60px 20px 40px; }
   .wl-wordmark { font-size:22px; }
 }
 
@@ -2070,6 +2068,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
     gap: 6px;
   }
   .hero .hero-cta { font-size: 15px; }
+  .waitlist-section .cta.hero-cta { font-size: 15px; }
   .hero-title { font-size: 2.32rem; }
   .bm-btn-continue { padding: 9px 18px; font-size: 14px; }
 }
@@ -2321,63 +2320,27 @@ body.is-dragging .avatar { cursor: grabbing !important; }
       height="200"
     />
 
-    <div class="wl-content-zone" id="wlContentZone">
+    <div class="wl-content-zone">
       <span class="wl-wordmark" aria-hidden="true">bountt.</span>
 
-      <div id="wlDefault">
-        <h2 class="wl-title" id="waitlistHeading">
-          Last round<br>
-          is on <span class="wl-title-accent">us.</span>
-        </h2>
-        <p class="wl-subtitle">(The app is free, obviously)</p>
+      <h2 class="wl-title" id="waitlistHeading">
+        Last round<br>
+        is on <span class="wl-title-accent">us.</span>
+      </h2>
+      <p class="wl-subtitle">(The app is free, obviously)</p>
 
-        <form
-          class="wl-form"
-          id="wlForm"
-          action="https://formspree.io/f/mojkwyyk"
-          method="POST"
-          aria-label="Early access waitlist signup"
-        >
-          <input
-            class="wl-input"
-            type="email"
-            id="wlEmail"
-            name="email"
-            placeholder="yourname@email.com"
-            autocomplete="email"
-            required
-            aria-label="Your email address"
-          />
-          <input
-            class="wl-hp"
-            type="text"
-            name="website"
-            tabindex="-1"
-            autocomplete="off"
-            aria-hidden="true"
-          />
-          <button class="wl-btn" type="submit" id="wlBtn">
-            <span id="wlBtnLabel">Get early features</span>
-            <svg class="btn-chevron" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </form>
-        
-        <p class="wl-fine">No spam. Ever. No credit card. Just you and your people.</p>
-        <p class="wl-error" id="wlError" role="status" aria-live="polite"></p>
-      </div>
-
-      <div class="wl-success" id="wlSuccess" role="status" aria-live="polite">
-        <img class="wl-success-heart" id="wlHeart" src="img/heart-outline-icon.png" alt="" role="presentation" width="56" height="56" />
-        <h2 class="wl-success-headline" id="wlSuccessHeadline">
-          You're <span class="wl-title-accent">in.</span>
-        </h2>
-        <p class="wl-success-sub" id="wlSuccessSub">
-          Bountt launches soon.<br>We'll let you know the second it's live.
-        </p>
-      </div>
-
+      <a
+        href="https://app.bountt.com/auth"
+        class="cta hero-cta"
+        data-reveal
+        style="--rd:380ms"
+        aria-label="Start sharing expenses with Bountt — sign up or log in"
+      >
+        <span>Start sharing expenses</span>
+        <svg class="btn-chevron" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
 
   </div>
@@ -3002,211 +2965,6 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
   io.observe(section);
 })();
 
-/* ── CONFETTI ── */
-function launchConfetti() {
-  var canvas = document.createElement('canvas');
-  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:99999;';
-  document.body.appendChild(canvas);
-  var ctx = canvas.getContext('2d');
-  var W, H;
-  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  resize(); window.addEventListener('resize', resize);
-  var COLORS = ['#FF7530','#E05000','#F9E7B3','#FFD700','#1B84FF','#00D26A','#FF4ECD','#FFFFFF','#FFB347','#7EC8E3','#FF6B6B','#C3F73A'];
-  var particles = [];
-  function makeParticle(originX, originY, speedMult) {
-    var angle = -Math.PI*0.5 + (Math.random()-0.5)*Math.PI*0.75;
-    var speed = (10 + Math.random()*18) * (speedMult || 1);
-    var shape = Math.random() < 0.45 ? 'rect' : Math.random() < 0.6 ? 'circle' : 'ribbon';
-    return { x:originX, y:originY, vx:Math.cos(angle)*speed, vy:Math.sin(angle)*speed,
-      w: shape==='ribbon'?3+Math.random()*4:5+Math.random()*7, h:shape==='ribbon'?16+Math.random()*14:5+Math.random()*7,
-      shape, color:COLORS[Math.floor(Math.random()*COLORS.length)], rot:Math.random()*Math.PI*2,
-      rotV:(Math.random()-0.5)*0.22, wobble:Math.random()*Math.PI*2, wobbleV:0.06+Math.random()*0.1,
-      gravity:0.28+Math.random()*0.18, drag:0.974+Math.random()*0.018, alpha:1, tick:0, fadeStart:70+Math.floor(Math.random()*90) };
-  }
-  function burst(originX, originY, count, speedMult) { for (var i=0;i<count;i++) particles.push(makeParticle(originX, originY, speedMult)); }
-  burst(W*0.5, H+6, 90, 1); burst(W*0.2, H+6, 50, 0.85); burst(W*0.8, H+6, 50, 0.85);
-  setTimeout(function() { burst(W*0.5,H+6,60,1.1); burst(W*0.35,H+6,30,0.9); burst(W*0.65,H+6,30,0.9); }, 220);
-  setTimeout(function() { burst(W*0.5,H+6,40,0.95); }, 500);
-  var raf;
-  function draw() {
-    ctx.clearRect(0,0,W,H); var alive = false;
-    for (var i=0;i<particles.length;i++) {
-      var p = particles[i]; p.tick++; p.vy+=p.gravity; p.vx*=p.drag; p.vy*=p.drag;
-      p.x+=p.vx; p.y+=p.vy; p.rot+=p.rotV; p.wobble+=p.wobbleV;
-      if (p.tick>p.fadeStart) p.alpha-=0.013;
-      if (p.alpha<=0||p.y>H+60) continue; alive=true;
-      ctx.save(); ctx.globalAlpha=Math.max(0,p.alpha); ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.fillStyle=p.color;
-      if (p.shape==='circle') { ctx.beginPath(); ctx.arc(0,0,p.w*0.55,0,Math.PI*2); ctx.fill(); }
-      else if (p.shape==='ribbon') { ctx.save(); ctx.scale(1,Math.sin(p.wobble)*0.9+0.1); ctx.fillRect(-p.w*0.5,-p.h*0.5,p.w,p.h); ctx.restore(); }
-      else { ctx.fillRect(-p.w*0.5,-p.h*0.5,p.w,p.h); }
-      ctx.restore();
-    }
-    if (alive) { raf = requestAnimationFrame(draw); }
-    else { window.removeEventListener('resize', resize); cancelAnimationFrame(raf); canvas.remove(); }
-  }
-  raf = requestAnimationFrame(draw);
-}
-
-/* ── WAITLIST FORM ── */
-(function() {
-  const form=document.getElementById('wlForm'), btn=document.getElementById('wlBtn'), label=document.getElementById('wlBtnLabel');
-  const zone=document.getElementById('wlContentZone'), def=document.getElementById('wlDefault');
-  const success=document.getElementById('wlSuccess'), heart=document.getElementById('wlHeart');
-  const headline=document.getElementById('wlSuccessHeadline'), sub=document.getElementById('wlSuccessSub');
-  const section=document.getElementById('waitlistSection'), errorEl=document.getElementById('wlError');
-  const emailInput=document.getElementById('wlEmail');
-  const honeypotInput=form && form.querySelector('input[name="website"]');
-  if (!form) return;
-  var defaultLabel = label ? label.textContent : 'Get early access';
-  var formStartAt = Date.now();
-  var MIN_FILL_MS = 1200;
-  var SUBMIT_COOLDOWN_MS = 12000;
-  var COOLDOWN_KEY = 'wlLastSubmitAt';
-
-  var allowedDomains = [
-    'gmail.com',
-    'outlook.com',
-    'hotmail.com',
-    'yahoo.com',
-    'icloud.com',
-    'live.com',
-    'proton.me',
-    'yandex.com'
-  ];
-  var allowedSchoolSuffixes = [
-    '.edu',
-    '.edu.ca',
-    '.ac.uk',
-    '.edu.au',
-    '.ac.jp',
-    '.edu.sg',
-    '.ac.nz'
-  ];
-
-  function getDomain(email) {
-    var at = String(email || '').trim().toLowerCase().split('@');
-    if (at.length !== 2) return '';
-    return at[1] || '';
-  }
-
-  function isAllowedEmail(email) {
-    var domain = getDomain(email);
-    if (!domain) return false;
-    if (allowedDomains.indexOf(domain) !== -1) return true;
-    return allowedSchoolSuffixes.some(function(suffix) { return domain.endsWith(suffix); });
-  }
-
-  function getLastSubmitAt() {
-    try {
-      return Number(sessionStorage.getItem(COOLDOWN_KEY) || '0');
-    } catch (_err) {
-      return 0;
-    }
-  }
-
-  function setLastSubmitAt(ts) {
-    try {
-      sessionStorage.setItem(COOLDOWN_KEY, String(ts));
-    } catch (_err) {}
-  }
-
-  function setError(message) {
-    if (!errorEl) return;
-    errorEl.textContent = message || '';
-    errorEl.style.display = message ? 'block' : 'none';
-  }
-
-  function setLoading(isLoading) {
-    if (!btn || !label) return;
-    if (isLoading) {
-      btn.disabled = true;
-      btn.style.pointerEvents = 'none';
-      label.innerHTML = '<span class="wl-btn-dots"><span></span><span></span><span></span></span>';
-      return;
-    }
-    btn.disabled = false;
-    btn.style.pointerEvents = '';
-    label.textContent = defaultLabel;
-  }
-
-  function runSuccessState() {
-    zone.classList.add('wl-exiting');
-    zone.addEventListener('animationend', function onExit() {
-      zone.removeEventListener('animationend', onExit);
-      def.style.display='none';
-      zone.classList.remove('wl-exiting');
-      zone.style.opacity='1';
-      zone.style.transform='none';
-      success.classList.add('wl-visible');
-      launchConfetti();
-      requestAnimationFrame(function() { heart.classList.add('wl-pop'); });
-      setTimeout(function() { headline.classList.add('wl-in'); }, 120);
-      setTimeout(function() { sub.classList.add('wl-in'); }, 280);
-      setTimeout(function() { section.classList.add('wl-confirmed'); }, 200);
-    }, { once: true });
-  }
-
-  if (emailInput) {
-    emailInput.addEventListener('input', function() { setError(''); });
-    emailInput.addEventListener('focus', function() { setError(''); });
-  }
-
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    if (btn.disabled) return;
-    var email = emailInput ? emailInput.value.trim() : '';
-    var now = Date.now();
-    setError('');
-
-    // 1) syntax validation
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      setError('Enter a valid email address.');
-      return;
-    }
-
-    // 2) strict domain allowlist policy
-    if (!isAllowedEmail(email)) {
-      setError('Use Gmail, Outlook, Hotmail, Yahoo, iCloud, Live, Proton, Yandex, or a supported school email.');
-      return;
-    }
-
-    // 3) honeypot anti-bot check
-    if (honeypotInput && honeypotInput.value.trim() !== '') {
-      setError('Submission blocked. Please try again.');
-      return;
-    }
-
-    // 4) timing + cooldown anti-spam checks
-    if (now - formStartAt < MIN_FILL_MS) {
-      setError('Please wait a moment and try again.');
-      return;
-    }
-    if (now - getLastSubmitAt() < SUBMIT_COOLDOWN_MS) {
-      setError('Please wait a few seconds before trying again.');
-      return;
-    }
-
-    setLoading(true);
-    setLastSubmitAt(now);
-
-    try {
-      var response = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (!response.ok) throw new Error('Submission failed');
-      form.reset();
-      runSuccessState();
-    } catch (err) {
-      setLoading(false);
-      setError('Could not submit right now. Please try again.');
-    }
-  });
-})();
-
 /* ── SCENARIO TOGGLE ── */
 (function() {
   var toggle=document.getElementById('sctToggle'), pill=document.getElementById('sctPill');
@@ -3394,9 +3152,9 @@ function launchConfetti() {
     requestAnimationFrame(function() {
       requestAnimationFrame(function() {
         modal.classList.add('bm-open');
-        setTimeout(function() { modal.classList.add('bm-filling');   }, 380);
-        setTimeout(function() { modal.classList.add('bm-revealing'); }, 1060);
-        setTimeout(function() { continueBtn.focus(); },                1750);
+        setTimeout(function() { modal.classList.add('bm-filling');   }, 90);
+        setTimeout(function() { modal.classList.add('bm-revealing'); }, 420);
+        setTimeout(function() { continueBtn.focus(); },                920);
       });
     });
   }

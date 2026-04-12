@@ -49,7 +49,7 @@ Bountt is currently in active development. The core cost-entry flow, feed design
 - [x] Deterministic avatar + color system
 - [x] User & group management
 - [x] Draft / private expense flow
-- [ ] Settlement suggestion engine
+- [ ] Settlement suggestion & smart engine
 - [ ] Push notifications
 - [ ] Venmo / e-transfer integration (deeplink)
 - [ ] Public launch
