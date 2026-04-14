@@ -3,31 +3,33 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap"></noscript>
 
 <!-- ══════════════════════════
      SEO: CORE META
 ══════════════════════════ -->
-<title>Bountt — Free Expense Splitting App for Groups, Roommates & Friends</title>
-<meta name="description" content="Bountt makes splitting expenses effortless. Track shared bills, split group costs, and settle up with roommates or friends — no spreadsheets, no awkward texts. Free forever."/>
-<meta name="keywords" content="expense splitting app, split bills with roommates, shared expenses, group cost tracker, Splitwise alternative, free expense tracker, split bills friends, roommate bill splitting, shared living expenses, bountt"/>
+<title>Bountt — Split Costs with Friends, No Drama. Free Group Expense App.</title>
+<meta name="description" content="Bountt is the free app for splitting costs with friends, roommates, and travel groups. Track shared expenses, settle up fast, and never do the math yourself.">
+<meta name="keywords" content="split costs with friends, bill splitting app, expense sharing app, group expense tracker, split bills with friends, shared expenses app, cost splitting app, splitwise alternative, bountt, bountt app, free expense splitting">
 <meta name="robots" content="index, follow"/>
 <meta name="author" content="Bountt"/>
 <meta name="theme-color" content="#003C69"/>
-<link rel="canonical" href="https://bountt.app/"/>
+<link rel="canonical" href="https://bountt.com/"/>
 <link rel="icon" type="image/svg+xml" href="img/favicon-bountt.svg"/>
 
 <!-- ══════════════════════════
      SEO: OPEN GRAPH
 ══════════════════════════ -->
 <meta property="og:type" content="website"/>
-<meta property="og:url" content="https://bountt.app/"/>
+<meta property="og:url" content="https://bountt.com/"/>
 <meta property="og:site_name" content="Bountt"/>
 <meta property="og:title" content="Bountt — Split Expenses With Your People. No Drama."/>
 <meta property="og:description" content="The free expense splitting app built for the group chat, not the spreadsheet. Log it, split it, forget it."/>
-<meta property="og:image" content="https://bountt.app/img/og-preview.png"/>
+<meta property="og:image" content="https://bountt.com/img/og-preview.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:locale" content="en_CA"/>
@@ -39,7 +41,7 @@
 <meta name="twitter:site" content="@bounttapp"/>
 <meta name="twitter:title" content="Bountt — Split Expenses With Your People. No Drama."/>
 <meta name="twitter:description" content="The free expense splitting app built for the group chat, not the spreadsheet."/>
-<meta name="twitter:image" content="https://bountt.app/img/og-preview.png"/>
+<meta name="twitter:image" content="https://bountt.com/img/og-preview.png"/>
 
 <!-- ══════════════════════════
      SEO: STRUCTURED DATA
@@ -47,17 +49,18 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
+  "@type": "WebApplication",
   "name": "Bountt",
   "alternateName": ["Bountt App", "Bountt Expense Splitter"],
-  "url": "https://bountt.app",
+  "url": "https://bountt.com/",
   "description": "Bountt is a free expense splitting app for groups, roommates, friends, and coworkers. Track shared bills, split costs automatically, and settle up without spreadsheets or awkward conversations.",
+  "browserRequirements": "Requires JavaScript. Requires a modern browser.",
   "applicationCategory": "FinanceApplication",
-  "operatingSystem": "iOS, Android, Web",
+  "operatingSystem": "iOS, Android, macOS, Windows",
   "offers": {
     "@type": "Offer",
     "price": "0",
-    "priceCurrency": "CAD"
+    "priceCurrency": "USD"
   },
   "featureList": [
     "Split bills with roommates",
@@ -124,13 +127,27 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Bountt",
-  "url": "https://bountt.app",
+  "url": "https://bountt.com/",
   "description": "Free expense splitting app for groups, roommates, and friends.",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://bountt.app/?q={search_term_string}",
+    "target": "https://bountt.com/?q={search_term_string}",
     "query-input": "required name=search_term_string"
   }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Bountt",
+  "url": "https://bountt.com",
+  "logo": "https://bountt.com/img/logo.png",
+  "description": "Free expense splitting app for friends, roommates, and travel groups.",
+  "sameAs": [
+    "https://app.bountt.com"
+  ]
 }
 </script>
 
@@ -2849,6 +2866,8 @@ img.im-step-img {
 <div class="seo-content" aria-hidden="true">
   <h2>Bountt — The Free Expense Splitting App Built for Real Life</h2>
   <p>Bountt is a free expense splitting app that helps groups, roommates, friends, and coworkers track and divide shared costs without spreadsheets, awkward conversations, or constant payment reminders.</p>
+  <p>Bountt is a free bill splitting app, expense sharing app, and cost splitting app that also works as a group expense tracker, making it easy to split bills with friends, roommates, and travel groups. As a shared expenses app with no download required, you can start splitting costs without downloading an app in seconds.</p>
+  <p>If you need an expense tracker friend group can actually use, or a simple way to split costs no app download, Bountt works directly in the browser.</p>
 
   <h3>Split Bills With Roommates</h3>
   <p>Tired of being the one who covers rent, hydro, wifi, and groceries every month? Bountt makes it easy to track shared household expenses with your roommates and figure out who owes what — without the tension. Log any bill in seconds, assign who split it, and Bountt calculates the balance automatically.</p>
@@ -2917,11 +2936,7 @@ img.im-step-img {
 
   <div class="hero-gradient-float" aria-hidden="true"></div>
 
-  <!-- FIX: h1 now has id for aria-labelledby, star image has descriptive alt -->
-  <h1 class="hero-title" id="heroHeading" data-reveal style="--rd:80ms">
-    Splitting expenses,<br>
-    just made <img class="star-img" src="img/star-shape.png" alt="" role="presentation" width="38" height="38"> <span class="cycle-word" id="cycleWord">smarter</span><span class="cycle-ghost" id="cycleGhost" aria-hidden="true">smarter</span>.
-  </h1>
+  <h1 class="hero-title" id="heroHeading" data-reveal style="--rd:80ms">Split costs with friends. Finally easy.</h1>
 
   <p class="hero-body" data-reveal style="--rd:240ms">
     Built for the group chat, not the spreadsheet.<br>
@@ -3087,14 +3102,14 @@ img.im-step-img {
 
       <div class="faq-item" data-faq id="faqL2">
         <button class="faq-q" type="button" aria-expanded="false" aria-controls="faqL2-body" id="faqL2-btn">
-          <span>How to install Bountt on my phone?</span>
+          <span>Can I download Bountt on my phone?</span>
           <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
         <div class="faq-body" id="faqL2-body" role="region" aria-labelledby="faqL2-btn">
           <div class="faq-body-inner">
-            <p>Bountt is a web app, so there is no App Store download.<br><br><strong>iPhone:</strong> Open Bountt in Safari, then tap <strong>Share →</strong> <strong>Add to Home Screen</strong>.<br><strong>Mac:</strong> Open in Safari, then click <strong>File → Add to Dock</strong>.</p>
+            <p>Bountt is a web app, so there is no need to download it. But if you want to install it on your home screen, you can do so with these steps:<br><br><strong>Mobile (IOS):</strong> Open Bountt in Safari, then tap <strong>Share →</strong> <strong>Add to Home Screen</strong>.<br><strong>Mac:</strong> Open in Safari, then click <strong>File → Add to Dock</strong>.</p>
             <p><a href="#" id="installBounttTrigger">How to install Bountt</a></p>
           </div>
         </div>
@@ -4254,7 +4269,7 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
           <li class="im-step">
             <div class="im-step-text">
               <span class="im-step-num">1</span>
-              <p>Open <a href="https://app.bountt.com" target="_blank" rel="noopener"><strong>app.bountt.com</strong></a> in Safari and tap the three dot menu in the address bar.</p>
+              <p>Open the app at <a href="https://app.bountt.com" target="_blank" rel="noopener"><strong>app.bountt.com</strong></a> in Safari and tap the three dot menu in the address bar.</p>
             </div>
             <img class="im-step-img" src="img/install-iphone-step-1.png" alt="Safari address bar showing app.bountt.com and the three-dot menu highlighted." width="1024" height="396" />
           </li>
