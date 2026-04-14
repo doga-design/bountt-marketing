@@ -1546,6 +1546,13 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   }
 }
 
+/* Mobile: sit Beta a touch lower on the button corner */
+@media (max-width: 768px) {
+  .wl-beta-badge {
+    top: 6px;
+  }
+}
+
 /* Desktop: match .hero-cta[data-reveal].in:hover scale(1.06) so Beta moves with the CTA */
 @media (hover: hover) and (min-width: 769px) {
   .wl-cta-wrap:has(.cta.hero-cta:hover) .wl-beta-badge {
@@ -2752,6 +2759,10 @@ img.im-step-img {
   .hero-cta[data-reveal].in:hover {
     transform: scale(1.06);
   }
+  /* WL CTA: reveal lives on .wl-cta-wrap, not on the anchor */
+  .waitlist-section .wl-cta-wrap[data-reveal].in .hero-cta:hover {
+    transform: scale(1.06);
+  }
 }
 
 .intro-wave svg { display: block; width: 100%; }
@@ -3254,13 +3265,11 @@ img.im-step-img {
           is on <span class="wl-title-accent">us.</span>
         </h2>
         <p class="wl-subtitle">Your group's memory for every cost.</p>
-        <div class="wl-cta-wrap">
+        <div class="wl-cta-wrap" data-reveal style="--rd:380ms">
           <span class="wl-beta-badge" role="status">Beta</span>
           <a
             href="https://app.bountt.com/auth"
             class="cta hero-cta"
-            data-reveal
-            style="--rd:380ms"
             aria-label="Start sharing expenses with Bountt — sign up or log in"
           >
             <span>Start sharing expenses</span>
