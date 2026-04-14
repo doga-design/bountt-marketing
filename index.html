@@ -1734,6 +1734,14 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   display: grid;
   grid-template-rows: 1fr auto;
   gap: 6px; /* tiny fixed gap between bubble stack and avatar group */
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.faq-col--left {
+  padding-inline: 0;
 }
 
 .faq-bubbles {
@@ -1746,10 +1754,12 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 
 .faq-col--left .faq-bubbles {
   align-items: flex-end;
+  width: 100%;
 }
 
 .faq-col--right .faq-bubbles {
   align-items: flex-start;
+  width: 100%;
 }
 
 .faq-item {
@@ -1909,26 +1919,33 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   transform: rotate(180deg);
 }
 
-/* STACKED CIRCULAR AVATARS */
+/* STACKED CIRCULAR AVATARS — full column width + grid placement so right/left edges match bubbles */
 .faq-avatars {
+  grid-column: 1 / -1;
+  grid-row: 2;
   display: flex;
   align-items: center;
   position: absolute;
+  left: 0;
+  right: 0;
   bottom: 0;
-  width: fit-content;
+  width: 100%;
+  max-width: none;
   height: fit-content;
   line-height: 0;
   margin: 0;
   padding: 0;
+  gap: 0;
+  box-sizing: border-box;
+  overflow: visible;
 }
 
 .faq-col--left .faq-avatars {
-  right: 0;
+  justify-content: flex-end;
 }
 
-/* Keep right stack fixed + left-aligned in its column */
 .faq-col--right .faq-avatars {
-  left: 0;
+  justify-content: flex-start;
 }
 
 .faq-col .faq-bubbles {
@@ -1950,6 +1967,24 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 
 .faq-av:first-child {
   margin-left: 0;
+}
+
+/* Scale from the column edge so pixels line up with chat bubble edges */
+.faq-col--left .faq-av {
+  transform: scale(1.14);
+  transform-origin: right center;
+  flex-shrink: 0;
+}
+
+/* Rightmost chip: align painted circle to column edge (asset may have inset ring in file) */
+.faq-col--left .faq-av:last-child {
+  margin-right: 0;
+  object-position: right center;
+}
+
+.faq-col--right .faq-av {
+  transform: scale(1.14);
+  transform-origin: left center;
 }
 
 /* ── Responsive: stack columns below hero on mobile ── */
@@ -2118,8 +2153,8 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 
 .im-title {
   font-family: var(--font-sans);
-  font-size: 24px;
-  font-weight: 800;
+  font-size: 20px;
+  font-weight: 700;
   color: #001d35;
   margin: 0;
   letter-spacing: -0.03em;
@@ -3135,8 +3170,8 @@ img.im-step-img {
       </div>
 
       <div class="faq-avatars" aria-hidden="true">
-        <img src="img/people-avatar-1.png" alt="" class="faq-av" width="48" height="48" />
-        <img src="img/people-avatar-2.png" alt="" class="faq-av" width="48" height="48" />
+        <img src="img/wl-avatar-1.png" alt="" class="faq-av" width="48" height="48" />
+        <img src="img/wl-avatar-5.png" alt="" class="faq-av" width="48" height="48" />
       </div>
 
     </div>
@@ -3207,9 +3242,9 @@ img.im-step-img {
       </div>
 
       <div class="faq-avatars" aria-hidden="true">
-        <img src="img/people-avatar-1.png" alt="" class="faq-av" width="48" height="48" />
-        <img src="img/people-avatar-2.png" alt="" class="faq-av" width="48" height="48" />
-        <img src="img/people-avatar-3.png" alt="" class="faq-av" width="48" height="48" />
+        <img src="img/wl-avatar-3.png" alt="" class="faq-av" width="48" height="48" />
+        <img src="img/wl-avatar-4.png" alt="" class="faq-av" width="48" height="48" />
+        <img src="img/wl-avatar-2.png" alt="" class="faq-av" width="48" height="48" />
       </div>
 
     </div>
