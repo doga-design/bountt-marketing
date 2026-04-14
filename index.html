@@ -1501,9 +1501,71 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 
 .wl-content-zone { width: 100%; display: flex; flex-direction: column; align-items: center; position: relative; }
 
-/* Same component as hero CTA; accent fill for dark section */
-.waitlist-section .cta.hero-cta {
+/* WL CTA + corner “Beta” pill (overlaps top-right of button) */
+.wl-cta-wrap {
+  position: relative;
+  display: inline-block;
   margin-top: 24px;
+  align-self: center;
+}
+
+.wl-beta-badge {
+  --wl-beta-nudge-x: -38%;
+  --wl-beta-nudge-y: -48%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 5px 13px 6px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fffdf8;
+  background: linear-gradient(145deg, #ff9a4d 0%, #e8480a 48%, #c43a00 100%);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22) inset,
+    0 2px 10px rgba(232, 72, 10, 0.38),
+    0 1px 2px rgba(0, 0, 0, 0.12);
+  line-height: 1;
+  pointer-events: none;
+  transform: translate(var(--wl-beta-nudge-x), var(--wl-beta-nudge-y));
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wl-beta-badge {
+    transition: none;
+  }
+}
+
+/* Desktop: match .hero-cta[data-reveal].in:hover scale(1.06) so Beta moves with the CTA */
+@media (hover: hover) and (min-width: 769px) {
+  .wl-cta-wrap:has(.cta.hero-cta:hover) .wl-beta-badge {
+    --wl-beta-nudge-y: -54%;
+    transform: translate(calc(var(--wl-beta-nudge-x) + 5px), var(--wl-beta-nudge-y)) scale(1.06);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.28) inset,
+      0 4px 14px rgba(232, 72, 10, 0.45),
+      0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Same component as hero CTA; accent fill for dark section */
+.waitlist-section .wl-cta-wrap .cta.hero-cta {
+  position: relative;
+  z-index: 1;
+}
+
+.waitlist-section .cta.hero-cta {
+  margin-top: 0;
   font-weight: 600;
   background-color: var(--wl-accent);
   border-color: var(--wl-accent);
@@ -3191,19 +3253,22 @@ img.im-step-img {
           Last round<br>
           is on <span class="wl-title-accent">us.</span>
         </h2>
-        <p class="wl-subtitle">(The app is free, obviously)</p>
-        <a
-          href="https://app.bountt.com/auth"
-          class="cta hero-cta"
-          data-reveal
-          style="--rd:380ms"
-          aria-label="Start sharing expenses with Bountt — sign up or log in"
-        >
-          <span>Start sharing expenses</span>
-          <svg class="btn-chevron" viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+        <p class="wl-subtitle">Your group's memory for every cost.</p>
+        <div class="wl-cta-wrap">
+          <span class="wl-beta-badge" role="status">Beta</span>
+          <a
+            href="https://app.bountt.com/auth"
+            class="cta hero-cta"
+            data-reveal
+            style="--rd:380ms"
+            aria-label="Start sharing expenses with Bountt — sign up or log in"
+          >
+            <span>Start sharing expenses</span>
+            <svg class="btn-chevron" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
 
