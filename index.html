@@ -371,18 +371,18 @@ nav .nav-cta.hero-cta::after {
   pointer-events: none;
 }
 
-/* When nav overlaps intro — frosted dark glass */
+/* When nav overlaps intro — white outline style */
 nav.nav-in-intro .nav-cta.hero-cta {
-  background-color: rgba(0, 24, 40, 0.52);
+  background-color: transparent;
   border-color: rgba(255, 255, 255, 0.88);
   color: #fff;
-  -webkit-backdrop-filter: blur(14px) saturate(1.08);
-  backdrop-filter: blur(14px) saturate(1.08);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 @supports not ((-webkit-backdrop-filter: blur(0.5px)) or (backdrop-filter: blur(0.5px))) {
   nav.nav-in-intro .nav-cta.hero-cta {
-    background-color: rgba(0, 24, 40, 0.82);
+    background-color: transparent;
   }
 }
 
@@ -390,7 +390,7 @@ nav.nav-in-intro .nav-cta.hero-cta {
   nav.nav-in-intro .nav-cta.hero-cta {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
-    background-color: rgba(0, 24, 40, 0.88);
+    background-color: transparent;
   }
 }
 
@@ -408,11 +408,11 @@ nav.nav-in-intro .nav-cta.hero-cta {
     animation: none;
   }
   nav.nav-in-intro .nav-cta.hero-cta:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: transparent;
     border-color: #fff;
     color: #fff;
-    -webkit-backdrop-filter: blur(14px) saturate(1.08);
-    backdrop-filter: blur(14px) saturate(1.08);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }
 
@@ -431,11 +431,11 @@ nav .nav-cta.hero-cta:active::after {
   opacity: 0;
 }
 nav.nav-in-intro .nav-cta.hero-cta:active {
-  background-color: rgba(255, 255, 255, 0.28);
+  background-color: transparent;
   color: #fff;
   border-color: #fff;
-  -webkit-backdrop-filter: blur(12px) saturate(1.08);
-  backdrop-filter: blur(12px) saturate(1.08);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 @media (prefers-reduced-transparency: reduce) {
@@ -445,7 +445,7 @@ nav.nav-in-intro .nav-cta.hero-cta:active {
     background-color: rgba(220, 225, 230, 0.98);
   }
   nav.nav-in-intro .nav-cta.hero-cta:active {
-    background-color: rgba(0, 35, 55, 0.92);
+    background-color: transparent;
   }
 }
 
@@ -1456,6 +1456,12 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   display: flex; flex-direction: column; align-items: center;
 }
 
+/* Inside faq-grid the center column controls width — remove cap */
+.faq-grid .wl-inner {
+  max-width: none;
+  width: 100%;
+}
+
 .wl-wordmark {
   font-family: 'Bringbold', var(--font-sans);
   font-weight: bolder;
@@ -1490,6 +1496,14 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   background-color: #2a2a2a;
   color: var(--wl-accent);
   border: 2px solid #000;
+}
+
+@media (hover: hover) and (min-width: 769px) {
+  .waitlist-section .cta.hero-cta:hover {
+    background-color: #fff;
+    border-color: #fff;
+    color: var(--wl-btn-text);
+  }
 }
 
 .scroll-fab {
@@ -1670,6 +1684,543 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 @media (max-width: 768px) {
   .waitlist-section .wl-accent-glow {
     display: none;
+  }
+}
+
+/* ══════════════════════════
+   FAQ ACCORDION
+══════════════════════════ */
+
+/* 3-column grid: [faq-left] [hero-center] [faq-right] */
+.faq-grid {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1020px;
+  display: grid;
+  grid-template-columns: 286px 1fr 286px;
+  align-items: end; /* align FAQ avatars with CTA bottom edge */
+  gap: 32px;
+  box-sizing: border-box;
+}
+
+/* Override wl-inner max-width inside faq-grid */
+.faq-grid .wl-inner {
+  max-width: none;
+}
+
+/* FAQ COLUMN */
+.faq-col {
+  position: relative;
+  width: 286px;
+  height: 269.77px;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 6px; /* tiny fixed gap between bubble stack and avatar group */
+}
+
+.faq-bubbles {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+  align-self: end; /* cards grow upward, not downward into avatars */
+  min-height: 0;
+}
+
+.faq-col--left .faq-bubbles {
+  align-items: flex-end;
+}
+
+.faq-col--right .faq-bubbles {
+  align-items: flex-start;
+}
+
+.faq-item {
+  width: auto;
+  background: #1A507C;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item[data-open] {
+  width: 100%;
+  background: #002A4C;
+  border-radius: 20px;
+}
+
+.faq-item[data-open] .faq-q {
+  width: 100%;
+}
+
+/* Bottom bubble corner cuts (per side) */
+.faq-col--left .faq-bubbles .faq-item:first-child {
+  border-bottom-right-radius: 0;
+}
+
+.faq-col--right .faq-bubbles .faq-item:first-child {
+  border-bottom-left-radius: 0;
+}
+
+/* FAQ QUESTION BUTTON */
+.faq-q {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 16px 13px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: left;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+}
+
+.faq-q:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.55);
+  outline-offset: -2px;
+  border-radius: 20px;
+}
+
+.faq-item[data-open] .faq-q:focus-visible {
+  border-radius: 20px 20px 0 0;
+}
+
+.faq-item[data-open] .faq-body-inner {
+  position: relative;
+  padding-top: 0px;
+}
+
+.faq-item[data-open] .faq-body-inner::before {
+  content: "";
+  display: block;
+  width: calc(100% - 40px);
+  margin: 0 auto 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* FAQ ANSWER — grid-template-rows 0fr → 1fr animation; NO max-height, NO opacity */
+.faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item[data-open] .faq-body {
+  grid-template-rows: 1fr;
+}
+
+/* Required inner div — overflow:hidden clips the 0fr collapsed state */
+.faq-body-inner {
+  overflow: hidden;
+}
+
+.faq-body-inner p {
+  padding: 4px 20px 16px;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  text-align: left;
+}
+
+.faq-item,
+.faq-item .faq-q,
+.faq-item .faq-body-inner,
+.faq-item .faq-body-inner p,
+.faq-item .faq-body-inner a,
+.faq-item .faq-body-inner a:visited,
+.faq-item .faq-body-inner a:hover,
+.faq-item .faq-body-inner a:active {
+  color: #fff;
+}
+
+#installBounttTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 2px solid var(--accent);
+  background-color: var(--accent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.12);
+  backdrop-filter: blur(14px) saturate(1.12);
+  text-decoration: none;
+  color: var(--copy-navy) !important;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  touch-action: manipulation;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+              transform 0.08s ease, -webkit-backdrop-filter 0.2s ease, backdrop-filter 0.2s ease;
+}
+
+#installBounttTrigger:active {
+  background-color: #000;
+  border-color: #000;
+  color: #fff !important;
+  transform: translateY(1px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #installBounttTrigger:hover {
+    background-color: #fff;
+    border-color: #fff;
+    color: var(--copy-navy) !important;
+  }
+}
+
+/* CHEVRON — rotates 180deg on open */
+.faq-chevron {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.7);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item[data-open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+/* STACKED CIRCULAR AVATARS */
+.faq-avatars {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: fit-content;
+  height: fit-content;
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.faq-col--left .faq-avatars {
+  right: 0;
+}
+
+/* Keep right stack fixed + left-aligned in its column */
+.faq-col--right .faq-avatars {
+  left: 0;
+}
+
+.faq-col .faq-bubbles {
+  margin-bottom: 54px; /* reserved avatar-row height + tiny gap */
+}
+
+.faq-av {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  object-fit: cover;
+  margin-left: -25px;
+  display: block;
+  padding: 0;
+  transform: scale(1.14);
+  transform-origin: center;
+}
+
+.faq-av:first-child {
+  margin-left: 0;
+}
+
+/* ── Responsive: stack columns below hero on mobile ── */
+@media (max-width: 860px) {
+  .faq-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 480px;
+    margin: 0 auto;
+    gap: 0;
+  }
+
+  .faq-col--left  { order: 0; }
+  .faq-col--right { order: 1; }
+  .faq-grid .wl-inner { order: 2; }
+
+  .faq-col {
+    display: contents;
+  }
+
+  .faq-bubbles {
+    display: contents;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .faq-grid [data-faq] {
+    margin-top: 12px;
+  }
+
+  .faq-grid [data-faq]:first-of-type {
+    margin-top: 12px;
+  }
+
+  .faq-avatars {
+    display: none;
+  }
+
+  .faq-item {
+    width: min(286px, 100%) !important;
+    max-width: min(286px, 100%);
+  }
+
+  .faq-item[data-open] {
+    width: min(286px, 100%) !important;
+  }
+
+  .faq-q {
+    width: 100%;
+    white-space: normal;
+    padding: 15px 18px 15px 22px;
+  }
+
+  .faq-col--left .faq-bubbles .faq-item:first-child,
+  .faq-col--right .faq-bubbles .faq-item:first-child {
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+
+  .faq-grid .wl-inner {
+    margin-top: 36px;
+  }
+
+  /* Mobile-only centered tail on download bubble */
+  #faqR2 {
+    position: relative;
+    overflow: visible;
+  }
+
+  #faqR2::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -7px;
+    width: 14px;
+    height: 14px;
+    background: #1A507C;
+    transform: translateX(-50%) rotate(45deg);
+    border-radius: 3px;
+  }
+
+  #faqR2[data-open]::after {
+    background: #002A4C;
+  }
+}
+
+/* ══════════════════════════
+   INSTALL MODAL
+══════════════════════════ */
+.im-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
+.im-modal[hidden] { display: none; }
+
+.im-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 10, 20, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.im-modal.im-open .im-backdrop { opacity: 1; }
+
+.im-sheet {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 500px;
+  max-height: 88vh;
+  background: #fff;
+  border: 1px solid rgba(0, 42, 76, 0.14);
+  box-shadow: 0 24px 56px rgba(0, 10, 24, 0.2);
+  border-radius: 26px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateY(24px);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.im-modal.im-open .im-sheet {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Fixed header */
+.im-head {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px;
+  border-bottom: 1px solid rgba(0,42,76,0.1);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.im-title {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  font-weight: 800;
+  color: #001d35;
+  margin: 0;
+  letter-spacing: -0.03em;
+}
+
+.im-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0,42,76,0.08);
+  border: none;
+  cursor: pointer;
+  color: rgba(0,42,76,0.75);
+  flex-shrink: 0;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.im-close:hover { background: rgba(0,42,76,0.16); color: #001d35; }
+
+/* Scrollable body */
+.im-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px 24px 34px;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,42,76,0.2) transparent;
+}
+
+.im-body::-webkit-scrollbar { width: 4px; }
+.im-body::-webkit-scrollbar-track { background: transparent; }
+.im-body::-webkit-scrollbar-thumb { background: rgba(0,42,76,0.2); border-radius: 4px; }
+
+.im-platform { display: block; }
+
+.im-platform-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0,42,76,0.52);
+  margin-bottom: 20px;
+}
+
+.im-divider {
+  height: 1px;
+  background: rgba(0,42,76,0.1);
+  margin: 28px 0;
+}
+
+.im-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.im-step {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.im-step-text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.im-step-num {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0,42,76,0.08);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: #001d35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
+}
+
+.im-step-text p {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.42;
+  color: rgba(0,29,53,0.82);
+  letter-spacing: -0.01em;
+}
+
+.im-step-text strong { color: #001d35; font-weight: 700; }
+
+.im-step-text a,
+.im-step-text a:visited {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+  text-underline-offset: 2px;
+}
+
+.im-step-img {
+  width: 100%;
+  height: 160px;
+  background: rgba(0,42,76,0.06);
+  border-radius: 14px;
+  border: 1px solid rgba(0,42,76,0.14);
+}
+
+img.im-step-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: transparent;
+  border-radius: 14px;
+  border: 1px solid rgba(0,42,76,0.14);
+}
+
+@media (max-width: 860px) {
+  body.install-modal-open .scroll-fab {
+    display: none !important;
   }
 }
 
@@ -2507,40 +3058,126 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
-     WAITLIST SECTION
+     WAITLIST / FAQ SECTION
 ══════════════════════════════════════════════════════════ -->
 <section class="waitlist-section" id="waitlistSection" aria-labelledby="waitlistHeading">
   <div class="wl-accent-glow" aria-hidden="true"></div>
-  <div class="wl-inner">
-    <img
-      class="wl-illustration"
-      src="img/bountt-friends-table.svg"
-      alt="Friends celebrating around a table — no awkward bill splitting"
-      width="240"
-      height="200"
-    />
 
-    <div class="wl-content-zone">
-      <span class="wl-wordmark" aria-hidden="true">bountt.</span>
+  <div class="faq-grid">
 
-      <h2 class="wl-title" id="waitlistHeading">
-        Last round<br>
-        is on <span class="wl-title-accent">us.</span>
-      </h2>
-      <p class="wl-subtitle">(The app is free, obviously)</p>
+    <!-- LEFT FAQ COLUMN -->
+    <!-- DOM order is reversed (column-reverse): first child = visual bottom, last child = visual top -->
+    <div class="faq-col faq-col--left">
+      <div class="faq-bubbles">
 
-      <a
-        href="https://app.bountt.com/auth"
-        class="cta hero-cta"
-        data-reveal
-        style="--rd:380ms"
-        aria-label="Start sharing expenses with Bountt — sign up or log in"
-      >
-        <span>Start sharing expenses</span>
-        <svg class="btn-chevron" viewBox="0 0 16 16" aria-hidden="true">
-          <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+      <div class="faq-item" data-faq id="faqL2">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faqL2-body" id="faqL2-btn">
+          <span>How to install Bountt on my phone?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="faq-body" id="faqL2-body" role="region" aria-labelledby="faqL2-btn">
+          <div class="faq-body-inner">
+            <p>Bountt is a web app, so there is no App Store download.<br><br><strong>iPhone:</strong> Open Bountt in Safari, then tap <strong>Share →</strong> <strong>Add to Home Screen</strong>.<br><strong>Mac:</strong> Open in Safari, then click <strong>File → Add to Dock</strong>.</p>
+            <p><a href="#" id="installBounttTrigger">How to install Bountt</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-faq id="faqL1">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faqL1-body" id="faqL1-btn">
+          <span>Is Bountt free?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="faq-body" id="faqL1-body" role="region" aria-labelledby="faqL1-btn">
+          <div class="faq-body-inner">
+            <p>Yes, Bountt is completely free to use! No hidden fees, no subscriptions, no paywalls.</p>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="faq-avatars" aria-hidden="true">
+        <img src="img/people-avatar-1.png" alt="" class="faq-av" width="48" height="48" />
+        <img src="img/people-avatar-2.png" alt="" class="faq-av" width="48" height="48" />
+      </div>
+
+    </div>
+
+    <!-- CENTER: HERO CONTENT -->
+    <div class="wl-inner">
+      <img
+        class="wl-illustration"
+        src="img/bountt-friends-table.svg"
+        alt="Friends celebrating around a table — no awkward bill splitting"
+        width="240"
+        height="200"
+      />
+      <div class="wl-content-zone">
+        <span class="wl-wordmark" aria-hidden="true">bountt.</span>
+        <h2 class="wl-title" id="waitlistHeading">
+          Last round<br>
+          is on <span class="wl-title-accent">us.</span>
+        </h2>
+        <p class="wl-subtitle">(The app is free, obviously)</p>
+        <a
+          href="https://app.bountt.com/auth"
+          class="cta hero-cta"
+          data-reveal
+          style="--rd:380ms"
+          aria-label="Start sharing expenses with Bountt — sign up or log in"
+        >
+          <span>Start sharing expenses</span>
+          <svg class="btn-chevron" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT FAQ COLUMN -->
+    <!-- DOM order is reversed (column-reverse): first child = visual bottom, last child = visual top -->
+    <div class="faq-col faq-col--right">
+      <div class="faq-bubbles">
+
+      <div class="faq-item" data-faq id="faqR1">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faqR1-body" id="faqR1-btn">
+          <span>How is it different from Splitwise?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="faq-body" id="faqR1-body" role="region" aria-labelledby="faqR1-btn">
+          <div class="faq-body-inner">
+            <p>Splitwise is built around debt. Bountt is built around relationships. We quietly keep track in the background so no one has to be the accountant friend, and when it's time to settle, we figure out the simplest way to get everyone to settle.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" data-faq id="faqR2">
+        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faqR2-body" id="faqR2-btn">
+          <span>What makes Bountt smart?</span>
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="faq-body" id="faqR2-body" role="region" aria-labelledby="faqR2-btn">
+          <div class="faq-body-inner">
+            <p>Bountt learns the shape of your group. It tracks who paid, who owes, and who is involved and surfaces the fewest possible payments to settle up.</p>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="faq-avatars" aria-hidden="true">
+        <img src="img/people-avatar-1.png" alt="" class="faq-av" width="48" height="48" />
+        <img src="img/people-avatar-2.png" alt="" class="faq-av" width="48" height="48" />
+        <img src="img/people-avatar-3.png" alt="" class="faq-av" width="48" height="48" />
+      </div>
+
     </div>
 
   </div>
@@ -3439,6 +4076,200 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
   });
 })();
 
+/* ── FAQ ACCORDION ── */
+(function() {
+  var faqItems = Array.from(document.querySelectorAll('[data-faq]'));
+  var mobileFaqMq = window.matchMedia('(max-width: 860px)');
+
+  function syncFaqBubbleWidths() {
+    faqItems.forEach(function(item) {
+      if (mobileFaqMq.matches) {
+        item.style.width = '';
+        return;
+      }
+      if (item.hasAttribute('data-open')) return;
+      var btn = item.querySelector('.faq-q');
+      item.style.width = btn.scrollWidth + 'px';
+    });
+  }
+
+  function closeItem(item) {
+    if (!item.hasAttribute('data-open')) return;
+    item.removeAttribute('data-open');
+    item.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+    if (mobileFaqMq.matches) {
+      item.style.width = '';
+      return;
+    }
+    var btn = item.querySelector('.faq-q');
+    item.style.width = btn.scrollWidth + 'px';
+  }
+
+  function openItem(item) {
+    var btn = item.querySelector('.faq-q');
+    item.setAttribute('data-open', '');
+    btn.setAttribute('aria-expanded', 'true');
+    item.style.width = mobileFaqMq.matches ? '' : '100%';
+  }
+
+  function toggleItem(item) {
+    var isOpen = item.hasAttribute('data-open');
+    faqItems.forEach(function(sibling) {
+      closeItem(sibling);
+    });
+    if (!isOpen) openItem(item);
+  }
+
+  faqItems.forEach(function(item) {
+    var btn = item.querySelector('.faq-q');
+
+    /* Keyboard accessibility remains on the button */
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleItem(item);
+    });
+
+    /* Entire bubble is clickable, including expanded body */
+    item.addEventListener('click', function(e) {
+      if (e.target.closest('.faq-q')) return;
+      toggleItem(item);
+    });
+  });
+
+  syncFaqBubbleWidths();
+  window.addEventListener('resize', syncFaqBubbleWidths);
+
+  /* Click outside any FAQ bubble closes all open items */
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('[data-faq]')) return;
+    faqItems.forEach(function(item) {
+      closeItem(item);
+    });
+  });
+})();
+
+/* ── INSTALL MODAL ── */
+(function() {
+  var modal;
+  var backdrop;
+  var closeBtn;
+  var trigger;
+  var prevFocus;
+
+  function initInstallModal() {
+    modal = document.getElementById('installModal');
+    backdrop = document.getElementById('imBackdrop');
+    closeBtn = document.getElementById('imClose');
+    trigger = document.getElementById('installBounttTrigger');
+
+    if (!modal || !backdrop || !closeBtn || !trigger) return;
+
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openModal();
+    });
+
+    backdrop.addEventListener('click', closeModal);
+    closeBtn.addEventListener('click', closeModal);
+  }
+
+  function openModal() {
+    prevFocus = document.activeElement;
+    modal.removeAttribute('hidden');
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        modal.classList.add('im-open');
+        closeBtn.focus();
+      });
+    });
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('install-modal-open');
+  }
+
+  function closeModal() {
+    modal.classList.remove('im-open');
+    document.body.style.overflow = '';
+    document.body.classList.remove('install-modal-open');
+    setTimeout(function() {
+      modal.setAttribute('hidden', '');
+      if (prevFocus) prevFocus.focus();
+    }, 300);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (!modal || modal.hasAttribute('hidden')) return;
+    if (e.key === 'Escape') closeModal();
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initInstallModal);
+  } else {
+    initInstallModal();
+  }
+})();
+
 </script>
+
+<!-- ── INSTALL MODAL ── -->
+<div id="installModal" class="im-modal" hidden role="dialog" aria-modal="true" aria-labelledby="imTitle">
+  <div class="im-backdrop" id="imBackdrop"></div>
+  <div class="im-sheet">
+
+    <div class="im-head">
+      <h2 class="im-title" id="imTitle">How to install Bountt</h2>
+      <button class="im-close" id="imClose" type="button" aria-label="Close install guide">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M14 4L4 14M4 4l10 10"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="im-body">
+
+      <section class="im-platform">
+        <div class="im-platform-label">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <rect x="4" y="1" width="10" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="9" cy="14" r="1" fill="currentColor"/>
+          </svg>
+          iOS
+        </div>
+        <ol class="im-steps">
+          <li class="im-step">
+            <div class="im-step-text">
+              <span class="im-step-num">1</span>
+              <p>Open <a href="https://app.bountt.com" target="_blank" rel="noopener"><strong>app.bountt.com</strong></a> in Safari and tap the three dot menu in the address bar.</p>
+            </div>
+            <img class="im-step-img" src="img/install-iphone-step-1.png" alt="Safari address bar showing app.bountt.com and the three-dot menu highlighted." width="1024" height="396" />
+          </li>
+          <li class="im-step">
+            <div class="im-step-text">
+              <span class="im-step-num">2</span>
+              <p>Tap <strong>Share</strong> at the top of the menu.</p>
+            </div>
+            <img class="im-step-img" src="img/install-iphone-step-2.png" alt="Safari menu with Share highlighted at the top." width="797" height="1060" />
+          </li>
+          <li class="im-step">
+            <div class="im-step-text">
+              <span class="im-step-num">3</span>
+              <p>Scroll down and tap <strong>Add to Home Screen</strong>.</p>
+            </div>
+            <img class="im-step-img" src="img/install-iphone-step-3.png" alt="Share sheet with Add to Home Screen highlighted." width="811" height="1024" />
+          </li>
+          <li class="im-step">
+            <div class="im-step-text">
+              <span class="im-step-num">4</span>
+              <p>Tap <strong>Add</strong>. Bountt now lives on your home screen.</p>
+            </div>
+            <img class="im-step-img" src="img/install-iphone-step-4.png" alt="Home screen showing Bountt icon installed." width="1024" height="768" />
+          </li>
+        </ol>
+      </section>
+
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
