@@ -2018,6 +2018,21 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   #faqR2[data-open]::after {
     background: #002A4C;
   }
+
+  /* Disable mobile tap active effects for FAQ taps */
+  .faq-item,
+  .faq-q,
+  .faq-item a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .faq-item:active,
+  .faq-q:active,
+  .faq-item a:active {
+    background-color: transparent;
+    color: inherit;
+    transform: none;
+  }
 }
 
 /* ══════════════════════════
