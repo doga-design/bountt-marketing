@@ -19,7 +19,11 @@
 <meta name="author" content="Bountt"/>
 <meta name="theme-color" content="#003C69"/>
 <link rel="canonical" href="https://bountt.com/"/>
-<link rel="icon" type="image/svg+xml" href="img/favicon-bountt.svg"/>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/svg+xml" href="/img/favicon-bountt.svg">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
 <!-- ══════════════════════════
      SEO: OPEN GRAPH
@@ -1837,13 +1841,24 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
-  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 }
+
+/* Per-bubble hover personality (desktop): varied tilt + pivot — “random” via ids */
+#faqL2 { --faq-tilt: -1.12deg; --faq-origin: 92% 42%; }
+#faqL1 { --faq-tilt: 0.88deg; --faq-origin: 86% 58%; }
+#faqR1 { --faq-tilt: -0.76deg; --faq-origin: 12% 44%; }
+#faqR2 { --faq-tilt: 1.08deg; --faq-origin: 18% 52%; }
 
 .faq-item[data-open] {
   width: 100%;
   background: #002A4C;
   border-radius: 20px;
+  transform: none;
 }
 
 .faq-item[data-open] .faq-q {
@@ -1859,6 +1874,37 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   border-bottom-left-radius: 0;
 }
 
+/* Desktop: collapsed FAQ chips — tilt + same fill as open (active) */
+@media (hover: hover) and (min-width: 861px) {
+  .faq-col .faq-item:not([data-open]) {
+    transform: rotate(0deg);
+    transform-origin: var(--faq-origin, 50% 50%);
+  }
+
+  .faq-col .faq-item:not([data-open]):hover {
+    transform: rotate(var(--faq-tilt, 0.75deg));
+    background-color: #002A4C;
+    box-shadow:
+      0 10px 28px rgba(0, 0, 0, 0.22),
+      0 2px 8px rgba(0, 0, 0, 0.12);
+    z-index: 2;
+  }
+
+  .faq-col .faq-item:not([data-open]):hover .faq-q {
+    color: #fff;
+  }
+
+  .faq-col .faq-item:not([data-open]):hover .faq-chevron {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+@media (hover: hover) and (min-width: 861px) and (prefers-reduced-motion: reduce) {
+  .faq-col .faq-item:not([data-open]):hover {
+    transform: none;
+  }
+}
+
 /* FAQ QUESTION BUTTON */
 .faq-q {
   width: auto;
@@ -1866,14 +1912,14 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 13px 16px 13px 20px;
+  padding: 20px 25px 20px 25px;
   background: none;
   border: none;
   cursor: pointer;
   color: #fff;
   font-family: var(--font-sans);
   font-size: 13.5px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.3;
   text-align: left;
   letter-spacing: -0.015em;
@@ -1898,7 +1944,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 .faq-item[data-open] .faq-body-inner::before {
   content: "";
   display: block;
-  width: calc(100% - 40px);
+  width: calc(100% - 50px);
   margin: 0 auto 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -1920,10 +1966,11 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 }
 
 .faq-body-inner p {
-  padding: 4px 20px 16px;
+  padding: 20px 25px 20px 25px;
   color: #fff;
   font-family: var(--font-sans);
   font-size: 13px;
+  font-weight: 400;
   line-height: 1.55;
   letter-spacing: -0.01em;
   text-align: left;
@@ -1940,26 +1987,42 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   color: #fff;
 }
 
+/* Install CTA row: no gap above, full-bleed width inside bubble */
+.faq-body-inner:has(#installBounttTrigger) > p:first-of-type {
+  padding-bottom: 20px;
+}
+
+.faq-body-inner p:has(#installBounttTrigger) {
+  padding: 0 25px 22px 25px;
+  margin: 0;
+}
+
 #installBounttTrigger {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
-  padding: 10px 20px;
+  gap: 8px;
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  min-height: 48px;
+  padding: 12px 22px;
   border-radius: 999px;
-  border: 2px solid var(--accent);
+  border: 2px solid rgba(255, 255, 255, 0.55);
   background-color: var(--accent);
-  -webkit-backdrop-filter: blur(14px) saturate(1.12);
-  backdrop-filter: blur(14px) saturate(1.12);
   text-decoration: none;
   color: var(--copy-navy) !important;
+  font-family: var(--font-sans);
   font-weight: 600;
   font-size: 14px;
   letter-spacing: -0.01em;
   line-height: 1.2;
   touch-action: manipulation;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
-              transform 0.08s ease, -webkit-backdrop-filter 0.2s ease, backdrop-filter 0.2s ease;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55) inset,
+    0 2px 10px rgba(0, 0, 0, 0.18);
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.08s ease,
+    box-shadow 0.2s ease;
 }
 
 #installBounttTrigger:active {
@@ -1967,6 +2030,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   border-color: #000;
   color: #fff !important;
   transform: translateY(1px);
+  box-shadow: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -1974,6 +2038,9 @@ body.is-dragging .avatar { cursor: grabbing !important; }
     background-color: #fff;
     border-color: #fff;
     color: var(--copy-navy) !important;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.85) inset,
+      0 4px 18px rgba(0, 0, 0, 0.16);
   }
 }
 
@@ -1981,7 +2048,9 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 .faq-chevron {
   flex-shrink: 0;
   color: rgba(255, 255, 255, 0.7);
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s ease;
 }
 
 .faq-item[data-open] .faq-chevron {
@@ -2105,7 +2174,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   .faq-q {
     width: 100%;
     white-space: normal;
-    padding: 15px 18px 15px 22px;
+    padding: 20px 25px 20px 25px;
   }
 
   .faq-col--left .faq-bubbles .faq-item:first-child,
@@ -3020,7 +3089,7 @@ img.im-step-img {
     <li><a href="#introSection">The solution</a></li>
   </ul>
   <div class="nav-right">
-    <a href="https://app.bountt.com/auth" class="nav-login" aria-label="Log in to Bountt — I already have an account">
+    <a href="https://app.bountt.com" class="nav-login" aria-label="Log in to Bountt — I already have an account">
       <span class="nav-login-label nav-login-label--full">I already have an account</span>
       <span class="nav-login-label nav-login-label--short">Log in</span>
       <span class="nav-login-chevron-wrap" aria-hidden="true">
@@ -3029,7 +3098,7 @@ img.im-step-img {
         </svg>
       </span>
     </a>
-    <a href="https://app.bountt.com/auth" class="nav-cta hero-cta">
+    <a href="https://app.bountt.com" class="nav-cta hero-cta">
       <span class="nav-cta-label nav-cta-label--full">Sign up</span>
       <span class="nav-cta-label nav-cta-label--short">Get started</span>
       <svg class="btn-chevron" viewBox="0 0 16 16" aria-hidden="true">
@@ -3055,7 +3124,7 @@ img.im-step-img {
     Log it, split it, forget it.
   </p>
 
-  <a href="https://app.bountt.com/auth" class="cta hero-cta" id="heroCta" data-reveal style="--rd:380ms" aria-label="Start sharing expenses with Bountt — sign up or log in">
+  <a href="https://app.bountt.com" class="cta hero-cta" id="heroCta" data-reveal style="--rd:380ms" aria-label="Start sharing expenses with Bountt — sign up or log in">
     <span>Start sharing expenses</span>
     <svg class="btn-chevron" viewBox="0 0 16 16" aria-hidden="true">
       <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -3268,7 +3337,7 @@ img.im-step-img {
         <div class="wl-cta-wrap" data-reveal style="--rd:380ms">
           <span class="wl-beta-badge" role="status">Beta</span>
           <a
-            href="https://app.bountt.com/auth"
+            href="https://app.bountt.com"
             class="cta hero-cta"
             aria-label="Start sharing expenses with Bountt — sign up or log in"
           >
@@ -3686,25 +3755,6 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
     requestAnimationFrame(() => { if (avColor) av.classList.add('vis'); row.classList.add('vis'); scrollToBottom(); });
   }
 
-  function addVenmo() {
-    const wrap = el('div', 'msg-vm-wrap');
-    const ghostAv = el('div', 'msg-av ghost');
-    const col = el('div', '');
-    col.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;max-width:210px;';
-    col.innerHTML = `
-      <div class="msg-vm-card">
-        <div class="msg-vm-top">
-          <div class="msg-vm-ico"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 3l3 7 2-4 2 4 3-7" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div><div class="msg-vm-lbl">Venmo Request</div><div class="msg-vm-sub">from you · to the group</div></div>
-        </div>
-        <div class="msg-vm-amt">$28.67</div>
-        <button class="msg-vm-btn">Pay</button>
-      </div>
-      <div class="msg-read" id="msgReadReceipt">Delivered · read by everyone</div>`;
-    wrap.appendChild(ghostAv); wrap.appendChild(col); innerEl.appendChild(wrap);
-    requestAnimationFrame(() => { wrap.classList.add('vis'); scrollToBottom(); }); return wrap;
-  }
-
   let lastSender = null;
   function send(opts) {
     const sender = opts.sender || (opts.dir === 'out' ? '__you__' : opts.avLetter);
@@ -3754,9 +3804,7 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
     later(() => send({ dir:'in', avColor:'#1B84FF', avLetter:'A', text:'😭😭😭' }), 26.0*S);
     later(() => { lastSender = null; addTs('12:04 AM'); }, 28.7*S);
     later(() => send({ dir:'out', text:'ok im just venmoing everyone separately' }), 30.5*S);
-    later(() => addVenmo(), 32.3*S);
-    later(() => { const rr = document.getElementById('msgReadReceipt'); if (rr) rr.classList.add('vis'); }, 34.1*S);
-    later(() => { if (replayWrap) replayWrap.classList.add('vis'); }, 35.0*S);
+    later(() => { if (replayWrap) replayWrap.classList.add('vis'); }, 32.2*S);
   }
 
   function addReceipt() {
@@ -4158,7 +4206,7 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
 
 /* ── BETA MODAL ── */
 (function() {
-  var AUTH_URL    = 'https://app.bountt.com/auth';
+  var AUTH_URL    = 'https://app.bountt.com';
   var modal       = document.getElementById('betaModal');
   var overlay     = document.getElementById('bmOverlay');
   var closeBtn    = document.getElementById('bmClose');
