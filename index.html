@@ -2794,7 +2794,6 @@ img.im-step-img {
 ══════════════════════════════════════════════════════════ */
 .features-section {
   --navy: #1a2744;
-  --orange: #E05000;
   position: relative;
   background: var(--surface);
   overflow: hidden;
@@ -2826,14 +2825,14 @@ img.im-step-img {
 
 .feat-frame{
   width:100%;height:100%;border-radius:36px;position:relative;
-  border:1px solid rgba(0,0,0,.08);
-  background:#ececee;
+  border:none;
+  background:white;
   display:flex;flex-direction:column;
-  box-shadow: 0 16px 32px -8px rgba(12, 12, 13, 0.40);
+  box-shadow: 0 3px 32px -8px rgba(12, 12, 13, 0.40);
 }
 
 .feat-screen{
-  margin:10px;border-radius:26px;overflow:hidden;
+  margin:8px;border-radius:25px;overflow:hidden;
   flex:1;display:flex;align-items:stretch;justify-content:stretch;
   background:#E2E2E2;position:relative;
 }
@@ -2959,7 +2958,7 @@ img.im-step-img {
   white-space:nowrap;
   box-sizing:border-box;
 }
-.feat-stitle{font-size:22px;font-weight:700;line-height:1.25;letter-spacing:-.03em;color:var(--primary);margin-bottom:12px;}
+.feat-stitle{font-size:22px;font-weight:800;line-height:1.25;letter-spacing:-.03em;color:var(--copy-navy);margin-bottom:12px;}
 .feat-sdesc{font-size:15px;font-weight:400;line-height:1.7;color:rgba(26,39,68,.55);letter-spacing:-.01em;}
 
 /* nav row */
@@ -3007,6 +3006,8 @@ img.im-step-img {
   .feat-lbl{margin-top:18px;margin-bottom:20px;}
   .feat-slides{margin-bottom:24px;min-height:156px;}
   .feat-layout:has(.feat-hint.gone){gap:12px;}
+  .feat-phone{touch-action:pan-y;}
+  .feat-phone.dragging{touch-action:none;}
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -3493,7 +3494,7 @@ img.im-step-img {
         </div>
 
         <div class="feat-slide" data-i="1" data-label="Smart Match">
-          <h3 class="feat-stitle">"Kyle paid for Uber. You got dinner. Bountt noticed."</h3>
+          <h3 class="feat-stitle">Kyle paid for Uber. You got dinner. </br> Bountt noticed.</h3>
           <p class="feat-sdesc">When two expenses roughly cancel each other out, Bountt surfaces a suggestion card — "want to just call it even?" One tap and the balance clears. No Venmo request, no awkward ask, no $3.47 hanging in the group chat forever.</p>
         </div>
 
@@ -4386,64 +4387,167 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
 
 /* ── NAV DARK MODE + mobile: hidden in hero; past hero, hide on scroll down ── */
 (function() {
-  const navEl=document.querySelector('nav'), heroEl=document.getElementById('hero');
-  const introEl=document.getElementById('introSection');
-  const wlEl=document.getElementById('waitlistSection');
+  const navEl = document.querySelector('nav');
+  const heroEl = document.getElementById('hero');
+  const introEl = document.getElementById('introSection');
+  const wlEl = document.getElementById('waitlistSection');
   if (!navEl) return;
-  const mqMobile=window.matchMedia('(max-width: 768px)');
-  let lastY=window.scrollY||0;
-  let scrollHidden=navEl.classList.contains('nav-scroll-hidden');
-  let rafPending=false;
-  const HIDE_AFTER=10, SHOW_AFTER=14;
-  function checkNavTheme() {
-    const navBottom=navEl.offsetHeight;
-    function overlaps(rect) { return rect&&rect.top<navBottom&&rect.bottom>navBottom; }
-    const introRect=introEl?.getBoundingClientRect();
-    const wlRect=wlEl?.getBoundingClientRect();
-    const onDark=overlaps(introRect)||overlaps(wlRect);
-    navEl.classList.toggle('nav-on-dark', onDark);
 
+  const mqMobile = window.matchMedia('(max-width: 768px)');
+  const MIN_MOVE = 8;
+  const CHROME_HEIGHT_JUMP = 40;
+
+  let scrollHidden = navEl.classList.contains('nav-scroll-hidden');
+  let lastScrollY = getPageScrollY();
+  let rafPending = false;
+  let touching = false;
+  let touchAnchorY = 0;
+  let lastVVHeight = window.visualViewport ? window.visualViewport.height : 0;
+  let ignoreScrollUntil = 0;
+
+  function getPageScrollY() {
+    return Math.max(0, window.scrollY || document.documentElement.scrollTop || 0);
   }
-  function applyScrollHide() {
-    rafPending=false;
-    const y=Math.max(0,window.scrollY||document.documentElement.scrollTop||0);
-    if (!mqMobile.matches) {
-      if (scrollHidden) {
-        scrollHidden=false;
-        navEl.classList.remove('nav-scroll-hidden');
-      }
-      lastY=y;
+
+  function isPastHero() {
+    return heroEl ? heroEl.getBoundingClientRect().bottom <= 0 : true;
+  }
+
+  function setScrollHidden(hidden) {
+    if (hidden === scrollHidden) return;
+    scrollHidden = hidden;
+    navEl.classList.toggle('nav-scroll-hidden', scrollHidden);
+  }
+
+  function applyHeroGate() {
+    if (!isPastHero()) setScrollHidden(true);
+  }
+
+  function applyScrollDirection(scrollingDown) {
+    if (!mqMobile.matches) return;
+    if (!isPastHero()) {
+      setScrollHidden(true);
       return;
     }
-    const pastHero=heroEl?heroEl.getBoundingClientRect().bottom<=0:true;
-    let next=scrollHidden;
-    if (!pastHero) next=true;
-    else if (y>lastY+HIDE_AFTER) next=true;
-    else if (y<lastY-SHOW_AFTER) next=false;
-    if (next!==scrollHidden) {
-      scrollHidden=next;
-      navEl.classList.toggle('nav-scroll-hidden', scrollHidden);
-    }
-    lastY=y;
+    setScrollHidden(scrollingDown);
   }
+
+  function commitScrollDelta(y) {
+    if (!mqMobile.matches) return;
+    if (Date.now() < ignoreScrollUntil) {
+      lastScrollY = y;
+      return;
+    }
+    applyHeroGate();
+    if (!isPastHero()) {
+      lastScrollY = y;
+      return;
+    }
+    const delta = y - lastScrollY;
+    if (Math.abs(delta) < MIN_MOVE) return;
+    applyScrollDirection(delta > 0);
+    lastScrollY = y;
+  }
+
+  function isChromeOnlyResize() {
+    const vv = window.visualViewport;
+    if (!vv) return false;
+    const heightDelta = Math.abs(vv.height - lastVVHeight);
+    const scrollDelta = Math.abs(getPageScrollY() - lastScrollY);
+    return heightDelta >= CHROME_HEIGHT_JUMP && scrollDelta < MIN_MOVE;
+  }
+
+  function checkNavTheme() {
+    const navBottom = navEl.offsetHeight;
+    function overlaps(rect) {
+      return rect && rect.top < navBottom && rect.bottom > navBottom;
+    }
+    const introRect = introEl ? introEl.getBoundingClientRect() : null;
+    const wlRect = wlEl ? wlEl.getBoundingClientRect() : null;
+    const onDark = overlaps(introRect) || overlaps(wlRect);
+    navEl.classList.toggle('nav-on-dark', onDark);
+  }
+
+  function applyScrollHide() {
+    rafPending = false;
+    if (!mqMobile.matches) {
+      setScrollHidden(false);
+      lastScrollY = getPageScrollY();
+      return;
+    }
+    if (touching) return;
+    commitScrollDelta(getPageScrollY());
+  }
+
   function onScroll() {
     checkNavTheme();
     if (!rafPending) {
-      rafPending=true;
+      rafPending = true;
       requestAnimationFrame(applyScrollHide);
     }
   }
-  window.addEventListener('scroll', onScroll, { passive:true });
-  window.addEventListener('resize', function() {
-    lastY=window.scrollY||document.documentElement.scrollTop||0;
+
+  function onTouchStart(e) {
+    if (!mqMobile.matches || !e.touches || !e.touches.length) return;
+    touching = true;
+    touchAnchorY = e.touches[0].clientY;
+  }
+
+  function onTouchMove(e) {
+    if (!mqMobile.matches || !touching || !e.touches || !e.touches.length) return;
+    if (!isPastHero()) {
+      setScrollHidden(true);
+      return;
+    }
+    const currentY = e.touches[0].clientY;
+    const fingerDelta = touchAnchorY - currentY;
+    if (Math.abs(fingerDelta) < MIN_MOVE) return;
+    applyScrollDirection(fingerDelta > 0);
+    touchAnchorY = currentY;
+  }
+
+  function onTouchEnd() {
+    touching = false;
+    lastScrollY = getPageScrollY();
+  }
+
+  function onVisualViewportResize() {
+    if (!mqMobile.matches) return;
+    if (isChromeOnlyResize()) {
+      ignoreScrollUntil = Date.now() + 120;
+      lastVVHeight = window.visualViewport.height;
+      return;
+    }
+    lastVVHeight = window.visualViewport.height;
+    onScroll();
+  }
+
+  function onWindowResize() {
+    lastScrollY = getPageScrollY();
     checkNavTheme();
     if (!mqMobile.matches) {
-      scrollHidden=false;
-      navEl.classList.remove('nav-scroll-hidden');
+      setScrollHidden(false);
+    } else {
+      applyHeroGate();
+      requestAnimationFrame(applyScrollHide);
     }
-    requestAnimationFrame(applyScrollHide);
-  });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('touchstart', onTouchStart, { passive: true });
+  window.addEventListener('touchmove', onTouchMove, { passive: true });
+  window.addEventListener('touchend', onTouchEnd, { passive: true });
+  window.addEventListener('touchcancel', onTouchEnd, { passive: true });
+  window.addEventListener('resize', onWindowResize);
+
+  if (window.visualViewport) {
+    lastVVHeight = window.visualViewport.height;
+    window.visualViewport.addEventListener('resize', onVisualViewportResize);
+    window.visualViewport.addEventListener('scroll', onVisualViewportResize);
+  }
+
   checkNavTheme();
+  applyHeroGate();
   applyScrollHide();
 })();
 
@@ -4915,7 +5019,9 @@ document.addEventListener('DOMContentLoaded', function() {
     return reel;
   }
 
-  function buildOrderedFeatSequence(fromIdx, toIdx, items) {
+  const MIN_REEL_ITEMS = 6;
+
+  function buildSpinSequence(fromIdx, toIdx, items, minLen) {
     const n = items.length;
     if (fromIdx === toIdx) return [items[toIdx]];
     const forward = ((toIdx - fromIdx + n) % n) <= n / 2;
@@ -4927,16 +5033,25 @@ document.addEventListener('DOMContentLoaded', function() {
       seq.push(items[i]);
       if (i === toIdx) break;
     }
+    while (seq.length < minLen) {
+      const headIdx = typeof seq[0] === 'number' ? seq[0] : items.indexOf(seq[0]);
+      const prependIdx = (headIdx - step + n) % n;
+      seq.unshift(items[prependIdx]);
+    }
     return seq;
   }
 
   function buildReelSequence(fromIdx, target) {
-    return buildOrderedFeatSequence(fromIdx, FEAT_LABELS.indexOf(target), FEAT_LABELS);
+    const toIdx = FEAT_LABELS.indexOf(target);
+    if (toIdx < 0) return [target];
+    return buildSpinSequence(fromIdx, toIdx, FEAT_LABELS, MIN_REEL_ITEMS);
   }
 
   function buildIconReelSequence(fromIdx, targetIndex) {
-    const iconIdxSeq = buildOrderedFeatSequence(fromIdx, targetIndex, FEAT_ICONS.map(function(_, i) { return i; }));
-    return iconIdxSeq;
+    const indices = [0, 1, 2, 3];
+    const padded = buildSpinSequence(fromIdx, targetIndex, indices, MIN_REEL_ITEMS);
+    const intermediates = padded.slice(0, -1).reverse();
+    return [targetIndex].concat(intermediates);
   }
 
   function featLblIconReelItemHtml(iconIndex, itemStyle) {
@@ -5136,24 +5251,73 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const THROW_THRESH = 80;
   const ROT_FACTOR   = 0.08;
+  const AXIS_LOCK_PX = 10;
+  const AXIS_LOCK_RATIO = 1.25;
+  const featMobileMq = window.matchMedia('(max-width: 768px)');
 
   let drag = null;
+
+  function featDragBaseTransform() {
+    const s = featStack()[0];
+    return {x: s.x, y: s.y, rot: s.rot, scale: s.scale};
+  }
+
+  function commitFeatHorizontalDrag(phone, pt) {
+    drag.pending = false;
+    drag.axis = 'x';
+    drag.baseTransform = featDragBaseTransform();
+    drag.dx = 0;
+    drag.dy = 0;
+    drag.velX = 0;
+    drag.prevX = pt.clientX;
+    drag.lastT = Date.now();
+    phone.classList.add('dragging');
+    phone.style.transition = 'none';
+  }
+
+  function applyFeatDragTransform(pt) {
+    const now = Date.now();
+    const dt = Math.max(1, now - drag.lastT);
+    drag.velX = (pt.clientX - drag.prevX) / dt * 16;
+    drag.prevX = pt.clientX;
+    drag.lastT = now;
+    drag.dx = pt.clientX - drag.startX;
+    drag.dy = drag.axis === 'x' ? 0 : pt.clientY - drag.startY;
+
+    const rot = drag.baseTransform.rot + drag.dx * ROT_FACTOR;
+    const lift = Math.min(Math.abs(drag.dx) * 0.04, 8);
+    drag.phone.style.transform =
+      `translate(${drag.dx}px,${drag.dy - lift}px) rotate(${rot}deg) scale(${drag.baseTransform.scale})`;
+  }
 
   function pointerDown(e) {
     const phone = e.currentTarget;
     if (parseInt(phone.dataset.i) !== current) return;
-    e.preventDefault();
     const pt = e.touches ? e.touches[0] : e;
+    const mobileTouch = !!e.touches && featMobileMq.matches;
+
+    if (mobileTouch) {
+      drag = {
+        pending: true,
+        phone,
+        startX: pt.clientX,
+        startY: pt.clientY,
+        dx: 0,
+        dy: 0,
+      };
+      return;
+    }
+
+    e.preventDefault();
     drag = {
       phone,
       startX: pt.clientX,
       startY: pt.clientY,
-      baseTransform: (function() {
-        const s = featStack()[0];
-        return {x: s.x, y: s.y, rot: s.rot, scale: s.scale};
-      })(),
-      dx: 0, dy: 0,
-      velX: 0, prevX: pt.clientX,
+      baseTransform: featDragBaseTransform(),
+      dx: 0,
+      dy: 0,
+      velX: 0,
+      prevX: pt.clientX,
       lastT: Date.now(),
     };
     phone.classList.add('dragging');
@@ -5162,24 +5326,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function pointerMove(e) {
     if (!drag) return;
-    e.preventDefault();
     const pt = e.touches ? e.touches[0] : e;
-    const now = Date.now();
-    const dt = Math.max(1, now - drag.lastT);
-    drag.velX = (pt.clientX - drag.prevX) / dt * 16;
-    drag.prevX = pt.clientX;
-    drag.lastT = now;
-    drag.dx = pt.clientX - drag.startX;
-    drag.dy = pt.clientY - drag.startY;
 
-    const rot = drag.baseTransform.rot + drag.dx * ROT_FACTOR;
-    const lift = Math.min(Math.abs(drag.dx) * 0.04, 8);
-    drag.phone.style.transform =
-      `translate(${drag.dx}px,${drag.dy - lift}px) rotate(${rot}deg) scale(${drag.baseTransform.scale})`;
+    if (drag.pending) {
+      const dx = pt.clientX - drag.startX;
+      const dy = pt.clientY - drag.startY;
+      const adx = Math.abs(dx);
+      const ady = Math.abs(dy);
+      if (Math.max(adx, ady) < AXIS_LOCK_PX) return;
+      if (ady > adx * AXIS_LOCK_RATIO) {
+        drag = null;
+        return;
+      }
+      if (e.cancelable) e.preventDefault();
+      commitFeatHorizontalDrag(drag.phone, pt);
+      applyFeatDragTransform(pt);
+      return;
+    }
+
+    if (e.cancelable) e.preventDefault();
+    applyFeatDragTransform(pt);
   }
 
   function pointerUp() {
     if (!drag) return;
+    if (drag.pending) {
+      drag = null;
+      return;
+    }
     const phone = drag.phone;
     phone.classList.remove('dragging');
 
@@ -5216,6 +5390,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('touchmove',  pointerMove, {passive:false});
   document.addEventListener('mouseup',    pointerUp);
   document.addEventListener('touchend',   pointerUp);
+  document.addEventListener('touchcancel', pointerUp);
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft')  goTo(current - 1, true);
