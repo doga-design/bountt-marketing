@@ -533,6 +533,7 @@ nav .nav-right { gap: 16px; }
   height: 1.22em;
   flex-shrink: 0;
   display: block;
+  filter: drop-shadow(0 0.0625em 0 rgba(0, 13, 28, 0.85));
 }
 
 .cta-btn .btn-chevron {
@@ -2984,7 +2985,7 @@ img.im-step-img {
   .feat-deck-stage{
     height:auto;min-height:0;justify-content:flex-start;
   }
-  .feat-deck{width:188px;height:407px;}
+  .feat-deck{width:min(248px,72vw);height:539px;}
   .feat-frame{border-radius:24px;}
   .feat-screen{border-radius:16px;margin:6px;}
   .feat-hint{
@@ -3001,6 +3002,11 @@ img.im-step-img {
 }
 @media(max-width:768px){
   .feat-layout{gap:14px;}
+  .feat-deck{width:min(272px,78vw);height:591px;}
+  .feat-info{max-width:min(360px,100%);}
+  .feat-stitle{font-size:20px;}
+  .feat-sdesc{font-size:15px;}
+  .feat-lbl{font-size:15px;}
   .feat-hint{margin-top:24px;max-height:36px;}
   .feat-hint.gone{margin-top:0;max-height:0;}
   .feat-lbl{margin-top:18px;margin-bottom:20px;}
@@ -3096,8 +3102,8 @@ img.im-step-img {
   .msg-deco-left, .msg-deco-right { display: none; }
   .msg-win { height: 400px; }
 
-  .intro-section { padding-top: 100px; padding-bottom: 80px; min-height: auto; }
-  .intro-content { padding: 20px 24px 56px; }
+  .intro-section { padding-top: 128px; padding-bottom: 80px; min-height: auto; }
+  .intro-content { padding: 32px 24px 56px; }
   /* Title slot: show intro-text-group first; keep h2 for aria-labelledby only */
   .intro-title {
     position: absolute;
@@ -3118,7 +3124,7 @@ img.im-step-img {
     order: 1;
     width: 100%;
     max-width: 300px;
-    margin: 0 auto 2rem;
+    margin: 0 auto 4.5rem;
     padding: 0 1.75rem;
     text-align: center;
     transform: none;
@@ -3129,7 +3135,7 @@ img.im-step-img {
   .intro-section.filled .intro-text-group { animation: none; }
   .intro-tg-body { font-size: 0.92rem; }
   /* Was top: 50px when feed was first; clear intro-text-group (order 1) */
-  .intro-social-wrap { right: -20px; top: min(228px, 50vw); }
+  .intro-social-wrap { right: -20px; top: min(calc(228px + 2rem), calc(50vw + 2rem)); }
   .intro-reminder-wrap { top: -60px; right: -60px; width: 150px; }
   .intro-star { width: 36px; top: 80px; right: -16px; }
   .intro-particle { width: 44px; }
@@ -3211,9 +3217,9 @@ img.im-step-img {
   .intro-section .intro-content { margin-left: -8px; }
   .intro-particle--bl { bottom: -40px; left: 35px; }
   .intro-particle--tr { top: -40px; right: 35px; }
-  .intro-section { padding-top: 80px; }
+  .intro-section { padding-top: 104px; }
   .intro-feed { width: min(240px, 72vw); }
-  .intro-social-wrap { right: -12px; top: min(258px, 62vw); width: 180px; }
+  .intro-social-wrap { right: -12px; top: min(calc(258px + 2rem), calc(62vw + 2rem)); width: 180px; }
   .intro-reminder-wrap { top: -68px; right: -20px; width: 200px; }
   .waitlist-section {
     --wl-wave-height: 32px;
