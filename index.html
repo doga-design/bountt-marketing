@@ -12,9 +12,9 @@
 <!-- ══════════════════════════
      SEO: CORE META
 ══════════════════════════ -->
-<title>Bountt — Split Costs with Friends, No Drama. Free Group Expense App.</title>
-<meta name="description" content="Bountt is the free app for splitting costs with friends, roommates, and travel groups. Track shared expenses, settle up fast, and never do the math yourself.">
-<meta name="keywords" content="split costs with friends, bill splitting app, expense sharing app, group expense tracker, split bills with friends, shared expenses app, cost splitting app, splitwise alternative, bountt, bountt app, free expense splitting">
+<title>Bountt :: Free Expense Splitting App | Split Bills With Friends</title>
+<meta name="description" content="Bountt is the free expense splitting app for friends, roommates, and travel groups. Split bills, settle up fast, and skip the awkward money conversation.">
+
 <meta name="robots" content="index, follow"/>
 <meta name="author" content="Bountt"/>
 <meta name="theme-color" content="#003C69"/>
@@ -23,6 +23,11 @@
 <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
 <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
 <link rel="icon" type="image/svg+xml" href="/img/favicon-bountt.svg">
+<link rel="preload" as="image" href="img/iphone-hero-mockup-2.png" fetchpriority="high">
+<link rel="preload" as="video" href="img/feat/feat-sharedfeed.mp4" type="video/mp4">
+<link rel="preload" as="video" href="img/feat/feat-smartmatch.mp4" type="video/mp4">
+<link rel="preload" as="video" href="img/feat/feat-receiptscan.mp4" type="video/mp4">
+<link rel="preload" as="video" href="img/feat/feat-graphs.mp4" type="video/mp4">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
 <!-- ══════════════════════════
@@ -55,24 +60,26 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Bountt",
-  "alternateName": ["Bountt App", "Bountt Expense Splitter"],
+  "alternateName": ["Bountt App", "Bountt Expense Splitter", "Bountt Bill Splitter"],
   "url": "https://bountt.com/",
-  "description": "Bountt is a free expense splitting app for groups, roommates, friends, and coworkers. Track shared bills, split costs automatically, and settle up without spreadsheets or awkward conversations.",
+  "description": "Bountt is a free group expense splitting app for friends, roommates, and travel groups. Track shared bills, split costs automatically, and settle up without spreadsheets or awkward conversations.",
   "browserRequirements": "Requires JavaScript. Requires a modern browser.",
   "applicationCategory": "FinanceApplication",
-  "operatingSystem": "iOS, Android, macOS, Windows",
+  "applicationSubCategory": "Expense Splitting",
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD"
   },
   "featureList": [
-    "Split bills with roommates",
+    "Split bills with friends",
     "Group expense tracking",
     "Shared cost calculator",
     "Automatic settlement suggestions",
     "Receipt photo upload",
-    "Real-time expense feed"
+    "Real-time expense feed",
+    "Splitwise alternative",
+    "No account required to join a group"
   ]
 }
 </script>
@@ -84,14 +91,6 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is Bountt?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Bountt is a free expense splitting app that helps groups, roommates, friends, and coworkers track and split shared costs without spreadsheets or awkward money conversations."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "Is Bountt free?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -100,26 +99,26 @@
     },
     {
       "@type": "Question",
-      "name": "How is Bountt different from Splitwise?",
+      "name": "Can I download Bountt on my phone?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Bountt is designed around the way people actually share costs — through group chats, casual logging, and settling when it makes sense. It avoids debt-framing and constant nudges, making it more comfortable for close groups like roommates and friend circles."
+        "text": "Bountt is a web app so there is no download required. You can install it to your home screen on iOS or Android directly from your browser in a few taps — no app store needed."
       }
     },
     {
       "@type": "Question",
-      "name": "Can I use Bountt to split bills with my roommates?",
+      "name": "How is it different from Splitwise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Bountt is built specifically for shared living situations — split rent, utilities, groceries, wifi, and any other recurring household costs with your roommates."
+        "text": "Splitwise will tell you someone owes you $3.47. Bountt looks at the full picture — who, what, when — and suggests settlements that are fair, not just mathematically correct. It is designed for close groups like friends and roommates, without constant debt reminders."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I track shared expenses in a group?",
+      "name": "What makes Bountt smart?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "With Bountt, anyone in your group can log an expense in seconds. Bountt tracks who paid, calculates what everyone owes, and suggests the simplest way to settle — minimizing the number of transactions."
+        "text": "Bountt tracks who paid, who owes, and who was involved in each expense, then calculates the fewest possible payments needed to settle the whole group — minimizing transactions and removing the stress of figuring out who owes who."
       }
     }
   ]
@@ -132,12 +131,7 @@
   "@type": "WebSite",
   "name": "Bountt",
   "url": "https://bountt.com/",
-  "description": "Free expense splitting app for groups, roommates, and friends.",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://bountt.com/?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
+  "description": "Free group expense splitting app for friends, roommates, and travel groups."
 }
 </script>
 
@@ -147,10 +141,11 @@
   "@type": "Organization",
   "name": "Bountt",
   "url": "https://bountt.com",
-  "logo": "https://bountt.com/img/logo.png",
-  "description": "Free expense splitting app for friends, roommates, and travel groups.",
+  "logo": "https://bountt.com/img/favicon-bountt.svg",
+  "description": "Free group expense splitting app for friends, roommates, and travel groups.",
   "sameAs": [
-    "https://app.bountt.com"
+    "https://app.bountt.com",
+    "https://twitter.com/bounttapp"
   ]
 }
 </script>
@@ -174,6 +169,12 @@ html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
   --copy-navy: #1a2744;
   --primary-dark: #001d35;
   --primary-gradient: linear-gradient(140deg, #FF7530 0%, #E05000 55%, #C84300 100%);
+  --btn-active-bg: linear-gradient(90deg, #494949 0%, #262626 100%);
+  --btn-active-border: #262626;
+  --btn-active-fg: var(--accent);
+  --btn-active-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.65) inset;
+  --btn-active-radius: 25px;
+  --btn-active-scale: 0.97;
   --hero-title-line-height: 1;
   --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --body-copy-size: 15px;
@@ -187,28 +188,6 @@ body {
   letter-spacing: -0.02em;
   color: var(--copy-navy);
   overflow-x: hidden;
-}
-
-/* ══════════════════════════
-   SEO CONTENT BLOCK
-   Visually off-screen but fully crawlable.
-   NOT display:none — Google deprioritizes that.
-══════════════════════════ */
-.seo-content {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  font-size: var(--body-copy-size);
-}
-.seo-content h2,
-.seo-content h3,
-.seo-content dt {
-  font-size: 1em;
-  font-weight: 700;
 }
 
 /* ══════════════════════════
@@ -351,125 +330,6 @@ nav .nav-right { gap: 16px; }
 
 .nav-cta-label--short { display: none; }
 
-/* Navbar CTA: outline + frosted fill (blur where supported; solid fallback everywhere) */
-nav .nav-cta.hero-cta {
-  padding: 10px 20px;
-  border-width: 2px;
-  border-style: solid;
-  border-color: var(--copy-navy);
-  color: var(--copy-navy);
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-  pointer-events: auto;
-  box-shadow: none;
-  /* Opaque enough to read on browsers without backdrop-filter */
-  background-color: rgba(238, 238, 238, 0.82);
-  -webkit-backdrop-filter: blur(14px) saturate(1.12);
-  backdrop-filter: blur(14px) saturate(1.12);
-  transition: opacity 0.25s ease, transform 0.25s ease,
-              background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease,
-              box-shadow 0.2s ease,
-              -webkit-backdrop-filter 0.2s ease, backdrop-filter 0.2s ease;
-}
-
-@supports not ((-webkit-backdrop-filter: blur(0.5px)) or (backdrop-filter: blur(0.5px))) {
-  nav .nav-cta.hero-cta {
-    background-color: rgba(238, 238, 238, 0.96);
-  }
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  nav .nav-cta.hero-cta {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background-color: rgba(238, 238, 238, 0.98);
-  }
-}
-
-nav .nav-cta.hero-cta::before,
-nav .nav-cta.hero-cta::after {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* When nav overlaps intro — white outline style */
-nav.nav-in-intro .nav-cta.hero-cta {
-  background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.88);
-  color: #fff;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-
-@supports not ((-webkit-backdrop-filter: blur(0.5px)) or (backdrop-filter: blur(0.5px))) {
-  nav.nav-in-intro .nav-cta.hero-cta {
-    background-color: transparent;
-  }
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  nav.nav-in-intro .nav-cta.hero-cta {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background-color: transparent;
-  }
-}
-
-@media (hover: hover) and (min-width: 769px) {
-  nav .nav-cta.hero-cta:hover {
-    box-shadow: none;
-    transform: scale(1.03) translateZ(0);
-    background-color: rgba(26, 39, 68, 0.12);
-    border-color: var(--copy-navy);
-    color: var(--copy-navy);
-    -webkit-backdrop-filter: blur(14px) saturate(1.12);
-    backdrop-filter: blur(14px) saturate(1.12);
-  }
-  nav .nav-cta.hero-cta:hover::before {
-    animation: none;
-  }
-  nav.nav-in-intro .nav-cta.hero-cta:hover {
-    background-color: transparent;
-    border-color: #fff;
-    color: #fff;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-}
-
-nav .nav-cta.hero-cta:active {
-  background-color: rgba(26, 39, 68, 0.2);
-  color: var(--copy-navy);
-  border-color: var(--copy-navy);
-  border-width: 2px;
-  transform: scale(0.98) translateZ(0);
-  box-shadow: none;
-  -webkit-backdrop-filter: blur(12px) saturate(1.12);
-  backdrop-filter: blur(12px) saturate(1.12);
-}
-nav .nav-cta.hero-cta:active::before,
-nav .nav-cta.hero-cta:active::after {
-  opacity: 0;
-}
-nav.nav-in-intro .nav-cta.hero-cta:active {
-  background-color: transparent;
-  color: #fff;
-  border-color: #fff;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  nav .nav-cta.hero-cta:active {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background-color: rgba(220, 225, 230, 0.98);
-  }
-  nav.nav-in-intro .nav-cta.hero-cta:active {
-    background-color: transparent;
-  }
-}
-
 /* ══════════════════════════
    HERO SECTION
 ══════════════════════════ */
@@ -487,14 +347,14 @@ nav.nav-in-intro .nav-cta.hero-cta:active {
 .hero-gradient-float {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 60%;
   width: min(90vw, 520px);
   height: min(85vw, 380px);
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: linear-gradient(135deg, #FF8360 0%, #E8E288 33%, #7DCE82 66%, #3CDBD3 100%);
   filter: blur(56px);
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
   animation: heroGradientFloat 18s ease-in-out infinite;
   will-change: transform;
@@ -511,11 +371,6 @@ nav.nav-in-intro .nav-cta.hero-cta:active {
   opacity: 0;
   transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   transform: scale(1);
-}
-
-@media (hover: hover) and (min-width: 769px) {
-  .hero:has(.hero-cta:hover) .hero-gradient-float { filter: blur(50px); }
-  .hero:has(.hero-cta:hover) .hero-gradient-float::after { opacity: 0.45; transform: scale(1.12); }
 }
 
 @keyframes heroGradientFloat {
@@ -552,6 +407,12 @@ nav.nav-in-intro .nav-cta.hero-cta:active {
   transition: transform 0.62s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
+@media (hover: hover) and (min-width: 769px) {
+  .hero:has(.cta-btn:hover:not(:active)) .hero-title .star-img {
+    transform: rotate(360deg);
+  }
+}
+
 .cycle-word {
   display: inline-block;
   vertical-align: baseline;
@@ -572,10 +433,6 @@ nav.nav-in-intro .nav-cta.hero-cta:active {
   top: 0;
 }
 
-@media (hover: hover) and (min-width: 769px) {
-  .hero:has(.hero-cta:hover) .hero-title .star-img { transform: rotate(360deg); }
-}
-
 @media (max-width: 768px) {
   .hero-title .star-img { width: .85em; height: .85em; margin: 0 4px; }
 }
@@ -588,112 +445,182 @@ nav.nav-in-intro .nav-cta.hero-cta:active {
   text-align: center;
   margin-bottom: 24px;
   position: relative;
+  max-width: 400px;
   z-index: 10;
 }
 
-/* HERO CTA: button-71 style */
-.hero-cta {
-  background-color: #E05000;
-  border-radius: 56px;
-  color: #fff;
-  cursor: pointer;
+/* Marketing CTA — 3D navy fill (adapted from Uiverse mahiatlinux) */
+.cta-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   font-family: var(--font-sans);
+  font-size: 1rem;
   font-weight: 600;
-  outline: 0;
-  padding: 16px 21px;
+  line-height: 1.2;
   position: relative;
-  z-index: 10;
-  overflow: hidden;
-  text-align: center;
+  padding: 1.2em 2.35em;
+  border: 0;
+  border-radius: 1.5em;
+  background-color: var(--primary);
+  color: #e8f2fa;
   text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  box-shadow: none;
-  letter-spacing: 0;
-  transition: all 0.3s ease;
-  border: 3px solid #E05000;
+  text-shadow: 0 0.0625em 0 rgba(0, 13, 28, 0.85);
+  box-shadow:
+    inset 0 0.0625em 0 0 #005a9e,
+    0 0.0625em 0 0 #001a30,
+    0 0.125em 0 0 #001528,
+    0 0.25em 0 0 #001020,
+    0 0.3125em 0 0 #000c18,
+    0 0.375em 0 0 #000810,
+    0 0.425em 0 0 #000508,
+    0 0.425em 0 0 #000304,
+    0 0.425em 0.5em 0 rgba(0, 4, 10, 0.72);
+  transition-property: translate, box-shadow, background-color;
+  transition-duration: 0.32s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.hero .hero-cta {
-  font-weight: 600;
+.cta-btn:active {
+  translate: 0 0.225em;
+  background-color: var(--primary-dark) !important;
+  background-image: none !important;
+  color: #e8f2fa !important;
+  box-shadow:
+    inset 0 0.03em 0 0 #003d66,
+    0 0.03em 0 0 #001a30,
+    0 0.0625em 0 0 #001528,
+    0 0.125em 0 0 #001020,
+    0 0.125em 0 0 #000c18,
+    0 0.2em 0 0 #000810,
+    0 0.225em 0 0 #000508,
+    0 0.225em 0 0 #000304,
+    0 0.225em 0.375em 0 rgba(0, 4, 10, 0.72) !important;
+  transform: none !important;
+  transition-duration: 0.12s !important;
+  transition-timing-function: ease-out !important;
 }
 
-.btn-chevron {
-  width: 1.05em;
-  height: 1.05em;
-  flex-shrink: 0;
-}
-
-.hero-cta::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -75%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.35) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: skewX(-20deg);
-  pointer-events: none;
-}
-
-.hero-cta::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 4%;
-  width: 92%;
-  height: 50%;
-  background-image: linear-gradient(#ffffff 0, rgba(255, 255, 255, 0) 100%);
-  border-radius: 125px;
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-@keyframes ctaSweep {
-  from { left: -75%; }
-  to   { left: 125%; }
-}
-
-/* Global button :active press state */
-.hero-cta:active,
-.msg-rp-btn:active {
-  background-color: #2a2a2a;
-  color: var(--accent);
-  border: 2px solid #000;
-  transform: scale(0.97);
-  box-shadow: none;
-}
-.hero-cta:active::before,
-.hero-cta:active::after {
-  opacity: 0;
+@media (prefers-reduced-motion: reduce) {
+  .cta-btn {
+    transition-duration: 0.12s;
+    transition-timing-function: ease;
+  }
 }
 
 @media (hover: hover) and (min-width: 769px) {
-  .hero-cta:hover {
-    box-shadow: rgba(255, 255, 255, 0.2) 0 3px 15px inset,
-                rgba(0, 0, 0, 0.1) 0 3px 5px,
-                rgba(0, 0, 0, 0.1) 0 10px 13px;
-    transform: scale(1.08);
-  }
-  .hero-cta:hover::before {
-    animation: ctaSweep 0.55s ease forwards;
+  .cta-btn:hover:not(:active) {
+    translate: 0 -0.21em;
+    box-shadow:
+      inset 0 0.08em 0 0 #006bb8,
+      0 0.08em 0 0 #002240,
+      0 0.16em 0 0 #001a35,
+      0 0.32em 0 0 #001428,
+      0 0.42em 0 0 #000e1c,
+      0 0.52em 0 0 #000810,
+      0 0.62em 0 0 #000508,
+      0 0.64em 0 0 #000304,
+      0 0.64em 0 0 #000102,
+      0 0.64em 0.82em 0 rgba(0, 4, 10, 0.78);
   }
 }
 
-@media (min-width: 768px) {
-  .hero-cta {
-    padding: 16px 36px;
+.cta-btn .btn-chevron {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+nav .cta-btn {
+  border-radius: 1.25em;
+  font-size: 0.875rem;
+  padding: .9em 1em .9em 1.5em;
+}
+
+.hero .cta-btn {
+  z-index: 999;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+/* Waitlist CTA — accent fill, primary copy */
+.waitlist-section .cta-btn {
+  background-color: var(--accent);
+  color: var(--primary);
+  text-shadow: 0 0.0625em 0 rgba(0, 60, 105, 0.12);
+  box-shadow:
+    inset 0 0.0625em 0 0 #fffdf0,
+    0 0.04em 0 0 #ddd0a0,
+    0 0.08em 0 0 #d4c696,
+    0 0.12em 0 0 #cbbc8c,
+    0 0.18em 0 0 #c2b282,
+    0 0.24em 0 0 #b8a878,
+    0 0.3em 0 0 #ae9e6e,
+    0 0.36em 0 0 #a49464,
+    0 0.42em 0 0 #9a8a5a,
+    0 0.48em 0 0 #908050;
+}
+
+.waitlist-section .cta-btn:active {
+  background-color: #d4c48a !important;
+  color: var(--primary) !important;
+  box-shadow:
+    inset 0 0.03em 0 0 #e8dcb0,
+    0 0.02em 0 0 #ddd0a0,
+    0 0.04em 0 0 #d4c696,
+    0 0.08em 0 0 #cbbc8c,
+    0 0.12em 0 0 #c2b282,
+    0 0.16em 0 0 #b8a878,
+    0 0.2em 0 0 #ae9e6e,
+    0 0.22em 0 0 #a49464,
+    0 0.24em 0 0 #9a8a5a,
+    0 0.26em 0 0 #908050 !important;
+}
+
+@media (hover: hover) and (min-width: 769px) {
+  .waitlist-section .wl-cta-wrap .cta-btn:hover:not(:active) {
+    box-shadow:
+      inset 0 0.08em 0 0 #fffef5,
+      0 0.05em 0 0 #ddd0a0,
+      0 0.1em 0 0 #d4c696,
+      0 0.15em 0 0 #cbbc8c,
+      0 0.22em 0 0 #c2b282,
+      0 0.28em 0 0 #b8a878,
+      0 0.34em 0 0 #ae9e6e,
+      0 0.4em 0 0 #a49464,
+      0 0.46em 0 0 #9a8a5a,
+      0 0.52em 0 0 #908050,
+      0 0.58em 0 0 #867646;
   }
+}
+
+/* Button :active — single source (light press for chrome controls) */
+:is(
+  button:active:not(.sct-btn):not(.faq-q):not(.feat-dot):not(.feat-arr):not(.nav-login),
+  a[role="button"]:active:not(.cta-btn),
+  #installBounttTrigger:active,
+  .scroll-fab:active
+) {
+  border-radius: var(--btn-active-radius);
+  background-color: #262626 !important;
+  background-image: var(--btn-active-bg) !important;
+  background: var(--btn-active-bg) !important;
+  box-shadow: var(--btn-active-shadow) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-color: var(--btn-active-border) !important;
+  color: var(--btn-active-fg) !important;
+  transform: scale(var(--btn-active-scale));
+  transition: none !important;
+  animation: none !important;
+}
+
+:is(.sct-btn:active, .nav-login:active, .feat-arr:active, .feat-dot:active) {
+  transform: scale(var(--btn-active-scale));
+  transition: none !important;
 }
 
 /* ══════════════════════════
@@ -703,8 +630,27 @@ nav.nav-in-intro .nav-cta.hero-cta:active {
   position: relative;
   width: 100%;
   max-width: 900px;
-  height: 640px;
+  height: 720px;
   margin-top: 40px;
+  z-index: 2;
+}
+
+.hero-dot-grid {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  width: min(980px, 145vw);
+  height: min(980px, 145vw);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(68, 68, 68, 0.150) 1.4px, transparent 0);
+  background-size: 30px 30px;
+  background-position: -5px -5px;
+  -webkit-mask-image: radial-gradient(circle, #000 0%, #000 48%, rgba(0, 0, 0, 0.55) 62%, transparent 82%);
+  mask-image: radial-gradient(circle, #000 0%, #000 48%, rgba(0, 0, 0, 0.55) 62%, transparent 82%);
+  transition: filter 0.35s ease;
 }
 
 .hero-svg {
@@ -737,7 +683,7 @@ nav.nav-in-intro .nav-cta.hero-cta:active {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 280px;
+  width: 340px;
   height: auto; /* FIX: explicit height prevents CLS */
   z-index: 2;
   object-fit: contain;
@@ -799,7 +745,8 @@ nav.nav-in-intro .nav-cta.hero-cta:active {
   .cost-ui-card:hover .cost-ui-inner::before {
     animation: cardSweep 0.62s cubic-bezier(0.8, 0, 0.2, 1) 0.04s 1 forwards;
   }
-  .hero-visual:has(.cost-ui-card:hover) .phone-mockup { filter: blur(3px); }
+  .hero-visual:has(.cost-ui-card:hover) .phone-mockup,
+  .hero:has(.cost-ui-card:hover) .hero-dot-grid { filter: blur(3px); }
 }
 
 .cost-ui-inner::before {
@@ -972,7 +919,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   letter-spacing: -0.01em;
   color: #6E6E73;
   white-space: nowrap;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.12s ease;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
@@ -1187,7 +1134,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   border: 1px solid #ccc; border-radius: 100px; font-family: var(--font-sans);
   font-weight: 700; letter-spacing: -0.01em; cursor: pointer;
   box-shadow: 2px 4px 0px rgba(0, 0, 0, 0.38);
-  transition: transform .15s, box-shadow 0.22s ease;
+  transition: none;
 }
 @media (hover: hover) and (min-width: 769px) {
   .msg-rp-btn:hover { transform: scale(1.04); box-shadow: 5px 10px 0px rgba(0, 0, 0, 0.28); }
@@ -1460,13 +1407,52 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   align-items: center;
   justify-content: flex-start;
   min-height: auto;
-  /* Pull up over intro wave; padding-top compensates so .wl-inner content stays aligned */
-  --wl-overlap-top: 56px;
+  /* Wave overlaps features section above; padding-top compensates for wave height */
+  --wl-wave-height: 56px;
+  --wl-overlap-top: var(--wl-wave-height);
   margin-top: calc(-1 * var(--wl-overlap-top));
   padding: calc(120px + var(--wl-overlap-top)) 24px 80px;
   overflow: hidden;
   text-align: center;
   box-sizing: border-box;
+}
+
+.waitlist-section .wl-wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  width: 100%;
+  height: var(--wl-wave-height);
+  line-height: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+.waitlist-section .wl-wave-track {
+  display: flex;
+  width: 200%;
+  height: 100%;
+  will-change: transform;
+  animation: wlWaveDrift 18s linear infinite;
+}
+.waitlist-section .wl-wave-track svg {
+  flex: 0 0 50%;
+  width: 50%;
+  height: 100%;
+  display: block;
+}
+.waitlist-section .wl-wave path { fill: var(--surface); }
+
+@keyframes wlWaveDrift {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waitlist-section .wl-wave-track {
+    animation: none;
+  }
 }
 
 .wl-inner {
@@ -1511,6 +1497,9 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   display: inline-block;
   margin-top: 24px;
   align-self: center;
+  transition-property: translate;
+  transition-duration: 0.32s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .wl-beta-badge {
@@ -1557,42 +1546,32 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   }
 }
 
-/* Desktop: match .hero-cta[data-reveal].in:hover scale(1.06) so Beta moves with the CTA */
-@media (hover: hover) and (min-width: 769px) {
-  .wl-cta-wrap:has(.cta.hero-cta:hover) .wl-beta-badge {
-    --wl-beta-nudge-y: -54%;
-    transform: translate(calc(var(--wl-beta-nudge-x) + 5px), var(--wl-beta-nudge-y)) scale(1.06);
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.28) inset,
-      0 4px 14px rgba(232, 72, 10, 0.45),
-      0 1px 2px rgba(0, 0, 0, 0.1);
-  }
-}
-
-/* Same component as hero CTA; accent fill for dark section */
-.waitlist-section .wl-cta-wrap .cta.hero-cta {
+/* WL CTA wrapper — Beta badge stacks above link */
+.wl-cta-wrap > a {
   position: relative;
   z-index: 1;
 }
 
-.waitlist-section .cta.hero-cta {
-  margin-top: 0;
-  font-weight: 600;
-  background-color: var(--wl-accent);
-  border-color: var(--wl-accent);
-  color: var(--wl-btn-text);
-}
-.waitlist-section .cta.hero-cta:active {
-  background-color: #2a2a2a;
-  color: var(--wl-accent);
-  border: 2px solid #000;
+@media (hover: hover) and (min-width: 769px) {
+  .wl-cta-wrap:has(.cta-btn:hover:not(:active)) {
+    translate: 0 -0.21em;
+  }
+  /* Lift wrapper once so Beta pill moves with the button; btn keeps shadow transition */
+  .wl-cta-wrap .cta-btn:hover:not(:active) {
+    translate: 0 0;
+    transition-property: box-shadow, background-color;
+    transition-duration: 0.32s, 0.32s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1), cubic-bezier(0.22, 1, 0.36, 1);
+  }
 }
 
-@media (hover: hover) and (min-width: 769px) {
-  .waitlist-section .cta.hero-cta:hover {
-    background-color: #fff;
-    border-color: #fff;
-    color: var(--wl-btn-text);
+@media (prefers-reduced-motion: reduce) {
+  .wl-cta-wrap {
+    transition-duration: 0.12s;
+    transition-timing-function: ease;
+  }
+  .wl-cta-wrap[data-reveal] {
+    transition-duration: 0.12s, 0.12s, 0.12s;
   }
 }
 
@@ -1649,12 +1628,6 @@ body.is-dragging .avatar { cursor: grabbing !important; }
     stroke-width: 2.25;
     stroke-linecap: round;
     stroke-linejoin: round;
-  }
-  .scroll-fab.scroll-fab--visible:active {
-    transform: translate3d(0, 2px, 0) scale(0.97);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
-    transition-duration: 0.14s;
-    transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
   }
   /* Beta / auth modal open: never stack above dialog */
   body:has(#betaModal:not([hidden])) .scroll-fab {
@@ -1755,20 +1728,6 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   .waitlist-section.waitlist-section--glow-in .wl-accent-glow {
     --wl-glow-opacity: 0.55;
     --wl-glow-blur: 22px;
-  }
-}
-@media (hover: hover) and (min-width: 769px) {
-  .waitlist-section.waitlist-section--glow-in:has(.cta.hero-cta:hover) .wl-accent-glow {
-    --wl-glow-y: calc(50% + 156px);
-    --wl-glow-scale: 1.09;
-    --wl-glow-opacity: 0.97;
-    --wl-glow-blur: 43px;
-  }
-}
-@media (prefers-reduced-transparency: reduce) and (hover: hover) and (min-width: 769px) {
-  .waitlist-section.waitlist-section--glow-in:has(.cta.hero-cta:hover) .wl-accent-glow {
-    --wl-glow-opacity: 0.62;
-    --wl-glow-blur: 26px;
   }
 }
 @media (max-width: 768px) {
@@ -1945,8 +1904,12 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   content: "";
   display: block;
   width: calc(100% - 50px);
-  margin: 0 auto 10px;
+  margin: 0 auto 4px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.faq-item[data-open] .faq-body-inner > p:first-of-type {
+  padding-top: 12px;
 }
 
 /* FAQ ANSWER — grid-template-rows 0fr → 1fr animation; NO max-height, NO opacity */
@@ -1983,7 +1946,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 .faq-item .faq-body-inner a,
 .faq-item .faq-body-inner a:visited,
 .faq-item .faq-body-inner a:hover,
-.faq-item .faq-body-inner a:active {
+.faq-item .faq-body-inner a:active:not(#installBounttTrigger) {
   color: #fff;
 }
 
@@ -2021,20 +1984,11 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.55) inset,
     0 2px 10px rgba(0, 0, 0, 0.18);
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.08s ease,
-    box-shadow 0.2s ease;
-}
-
-#installBounttTrigger:active {
-  background-color: #000;
-  border-color: #000;
-  color: #fff !important;
-  transform: translateY(1px);
-  box-shadow: none;
+  transition: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  #installBounttTrigger:hover {
+  #installBounttTrigger:hover:not(:active) {
     background-color: #fff;
     border-color: #fff;
     color: var(--copy-navy) !important;
@@ -2209,19 +2163,11 @@ body.is-dragging .avatar { cursor: grabbing !important; }
     background: #002A4C;
   }
 
-  /* Disable mobile tap active effects for FAQ taps */
+  /* Disable mobile tap highlight for FAQ taps */
   .faq-item,
   .faq-q,
   .faq-item a {
     -webkit-tap-highlight-color: transparent;
-  }
-
-  .faq-item:active,
-  .faq-q:active,
-  .faq-item a:active {
-    background-color: transparent;
-    color: inherit;
-    transform: none;
   }
 }
 
@@ -2298,22 +2244,46 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   letter-spacing: -0.03em;
 }
 
+/* Shared modal close icon (beta + install) */
+.bm-close,
 .im-close {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background: rgba(0,42,76,0.08);
   border: none;
+  border-radius: 50%;
   cursor: pointer;
-  color: rgba(0,42,76,0.75);
   flex-shrink: 0;
   transition: background 0.18s ease, color 0.18s ease;
 }
 
-.im-close:hover { background: rgba(0,42,76,0.16); color: #001d35; }
+.bm-close svg,
+.im-close svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.bm-close:focus-visible,
+.im-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.im-close {
+  background: rgba(0, 42, 76, 0.05);
+  color: var(--primary);
+}
+
+@media (hover: hover) {
+  .im-close:hover {
+    background: rgba(0, 42, 76, 0.12);
+    color: var(--primary-dark);
+  }
+}
 
 /* Scrollable body */
 .im-body {
@@ -2545,25 +2515,18 @@ img.im-step-img {
 
 .bm-close {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 22px;
+  right: 22px;
   z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.82);
-  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.82);
   opacity: 0;
   transform: scale(0.88);
   pointer-events: none;
   transition: opacity 0.26s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
-              background 0.18s ease, color 0.18s ease;
+              background 0.18s ease,
+              color 0.18s ease;
   /* Per-property delay: entrance staggers opacity/transform only — hover must not inherit 720ms. */
   transition-delay: 0s, 0s, 0s, 0s;
 }
@@ -2575,16 +2538,10 @@ img.im-step-img {
 }
 @media (hover: hover) and (min-width: 769px) {
   .bm-close:hover {
-    background: rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.12);
     color: #fff;
   }
 }
-.bm-close:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-.bm-close svg { width: 13px; height: 13px; stroke-width: 2.3; }
-
 .bm-card-wrap { position: relative; width: 100%; }
 
 .bm-glow {
@@ -2687,28 +2644,6 @@ img.im-step-img {
   filter: brightness(0) invert(1);
 }
 
-.bm-eyebrow {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: #fff;
-  margin-bottom: 18px;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.bm-modal.bm-revealing .bm-eyebrow {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0ms;
-}
-
-.bm-eyebrow-accent {
-  color: var(--accent);
-}
-
 .bm-headline {
   font-family: var(--font-sans);
   font-size: clamp(1.8rem, 4.5vw, 2.3rem);
@@ -2724,6 +2659,9 @@ img.im-step-img {
   transform: translateY(14px);
   transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bm-headline .bm-headline-accent {
+  color: var(--accent);
 }
 .bm-modal.bm-revealing .bm-headline .bm-line:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 18ms; }
 .bm-modal.bm-revealing .bm-headline .bm-line:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 58ms; }
@@ -2744,35 +2682,8 @@ img.im-step-img {
   transition-delay: 120ms;
 }
 
-.bm-btn-continue {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: #00192E;
-  background: var(--accent);
-  border: none;
-  border-radius: 100px;
-  padding: 11px 22px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.2s ease,
-              transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1),
-              box-shadow 0.2s ease;
-}
-@media (hover: hover) and (min-width: 769px) {
-  .bm-btn-continue:hover {
-    background: #fff;
-    transform: scale(1.04);
-    box-shadow: 0 6px 28px rgba(250, 240, 202, 0.25);
-  }
-  .bm-btn-continue:hover svg { transform: translateX(3px); }
-}
-.bm-btn-continue svg {
-  width: 13px; height: 13px; stroke-width: 2.2;
-  transition: transform 0.2s ease;
+.bm-actions .cta-btn {
+  padding: 1.2em 1.45em;
 }
 
 .bm-btn-back {
@@ -2785,7 +2696,12 @@ img.im-step-img {
   cursor: pointer;
   padding: 11px 14px;
   border-radius: 100px;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition: none;
+}
+@media (min-width: 769px) {
+  .bm-btn-back {
+    margin-left: 4px;
+  }
 }
 @media (hover: hover) and (min-width: 769px) {
   .bm-btn-back:hover {
@@ -2802,10 +2718,14 @@ img.im-step-img {
     --bm-char-max-w: 160px;
     --bm-char-width-pct: 48%;
     --bm-char-height: 140px;
-    --bm-char-right: 0px;
+    --bm-char-right: -15px;
     --bm-char-bottom: 0px;
   }
-  .bm-close { top: 12px; right: 12px; width: 34px; height: 34px; }
+  .bm-character img {
+    --bm-char-img-translate-x: 48px;
+    --bm-char-img-translate-y: 6px;
+  }
+  .bm-close { top: 18px; right: 18px; width: 34px; height: 34px; }
   .bm-content { padding-right: 36px; }
   .bm-headline { font-size: 1.65rem; margin-bottom: 30px; }
   .bm-actions { flex-wrap: wrap; gap: 4px; }
@@ -2819,19 +2739,34 @@ img.im-step-img {
 }
 [data-reveal].in { opacity: 1; transform: none; }
 
-.hero-cta[data-reveal] {
-  transition: opacity 0.78s cubic-bezier(0.22, 1, 0.36, 1), all 0.3s ease;
+/* WL CTA wrap: keep reveal + lift transitions (data-reveal shorthand drops translate) */
+.wl-cta-wrap[data-reveal] {
+  transition-property: opacity, transform, translate;
+  transition-duration: 0.78s, 0.78s, 0.32s;
+  transition-timing-function:
+    cubic-bezier(0.22, 1, 0.36, 1),
+    cubic-bezier(0.22, 1, 0.36, 1),
+    cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rd, 0ms), var(--rd, 0ms), 0s;
 }
-.hero-cta[data-reveal].in { transition-delay: 0ms; }
+.wl-cta-wrap[data-reveal].in {
+  transition-delay: 0ms, 0ms, 0s;
+}
 
-@media (hover: hover) and (min-width: 769px) {
-  .hero-cta[data-reveal].in:hover {
-    transform: scale(1.06);
-  }
-  /* WL CTA: reveal lives on .wl-cta-wrap, not on the anchor */
-  .waitlist-section .wl-cta-wrap[data-reveal].in .hero-cta:hover {
-    transform: scale(1.06);
-  }
+/* Hero CTA: keep reveal + 3D lift transitions (data-reveal shorthand drops translate/box-shadow) */
+.cta-btn[data-reveal] {
+  transition-property: opacity, transform, translate, box-shadow, background-color;
+  transition-duration: 0.78s, 0.78s, 0.32s, 0.32s, 0.12s;
+  transition-timing-function:
+    cubic-bezier(0.22, 1, 0.36, 1),
+    cubic-bezier(0.22, 1, 0.36, 1),
+    cubic-bezier(0.22, 1, 0.36, 1),
+    cubic-bezier(0.22, 1, 0.36, 1),
+    ease-out;
+  transition-delay: var(--rd, 0ms), var(--rd, 0ms), 0s, 0s, 0s;
+}
+.cta-btn[data-reveal].in {
+  transition-delay: 0ms, 0ms, 0s, 0s, 0s;
 }
 
 .intro-wave svg { display: block; width: 100%; }
@@ -2848,9 +2783,232 @@ img.im-step-img {
 }
 
 /* ══════════════════════════════════════════════════════════
+   FEATURES / HOW IT WORKS SECTION
+══════════════════════════════════════════════════════════ */
+.features-section {
+  --navy: #1a2744;
+  --orange: #E05000;
+  position: relative;
+  background: var(--surface);
+  overflow: hidden;
+  padding: 160px 48px 200px;
+}
+
+.feat-section-inner{max-width:1100px;margin:0 auto;}
+.feat-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);text-align:center;margin-bottom:14px;}
+.feat-headline{font-family:'Bringbold',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:400;line-height:1;letter-spacing:-.01em;color:var(--navy);text-align:center;margin-bottom:12px;}
+.feat-subline{font-size:16px;font-weight:500;color:rgba(26,39,68,.48);text-align:center;line-height:1.5;max-width:500px;margin:0 auto 72px;}
+
+.feat-layout{
+  display:grid;
+  grid-template-columns:auto auto;
+  gap:120px;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ── DECK (desktop default; scaled down at ≤995px) ── */
+.feat-deck-stage{display:flex;flex-direction:column;align-items:center;height:720px;position:relative;justify-content:center;}
+.feat-deck{position:relative;width:300px;height:652px;}
+
+.feat-phone{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  cursor:grab;touch-action:none;will-change:transform;
+}
+.feat-phone.dragging{cursor:grabbing;}
+
+.feat-frame{
+  width:100%;height:100%;border-radius:36px;position:relative;
+  border:1px solid rgba(0,0,0,.08);
+  background:#ececee;
+  display:flex;flex-direction:column;
+  box-shadow: 0 16px 32px -8px rgba(12, 12, 13, 0.40);
+}
+
+.feat-screen{
+  margin:10px;border-radius:26px;overflow:hidden;
+  flex:1;display:flex;align-items:stretch;justify-content:stretch;
+  background:#E2E2E2;position:relative;
+}
+.feat-screen-poster,
+.feat-screen-video{
+  width:100%;height:100%;object-fit:cover;display:block;
+  background:#e2e2e2;
+}
+.feat-screen-poster{position:relative;z-index:0;flex:1;min-height:0;align-self:stretch;}
+.feat-screen-video{position:absolute;inset:0;z-index:1;}
+.feat-phone.dragging .feat-screen-video{visibility:hidden;}
+@media (prefers-reduced-motion:reduce){
+  #feat-active-video{display:none;}
+}
+
+/* ── SWIPE HINT ── */
+.feat-hint{
+  display:flex;align-items:center;gap:8px;margin-top:28px;
+  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(26,39,68,.25);transition:opacity .5s ease;
+}
+.feat-hint.gone{opacity:0;pointer-events:none;}
+.feat-hint-icon{display:flex;flex-shrink:0;line-height:0;}
+.feat-hint-icon svg{width:28px;height:auto;display:block;}
+
+/* ── INFO PANEL ── */
+.feat-info{display:flex;flex-direction:column;gap:0;max-width:420px;}
+.feat-slides{margin-bottom:14px;position:relative;min-height:200px;}
+.feat-slide{
+  position:absolute;top:0;left:0;width:100%;
+  opacity:0;transform:translateY(12px);
+  transition:opacity .35s ease,transform .35s cubic-bezier(.22,1,.36,1);
+  pointer-events:none;
+}
+.feat-slide.on{opacity:1;transform:none;pointer-events:auto;position:relative;}
+.feat-lbl{
+  --feat-lbl-h:38px;
+  display:flex;
+  padding:0;
+  min-height:var(--feat-lbl-h);
+  align-items:stretch;
+  gap:10px;
+  border-radius:9px;
+  background:linear-gradient(to bottom right,#fff 0%,#e4e4e4 100%);
+  box-shadow:0 2px 4px 0 rgba(0,0,0,0.25) inset;
+  margin-bottom:18px;
+  font-family:var(--font-sans);
+  font-size:16px;
+  font-weight:700;
+  line-height:1;
+  letter-spacing:-0.01em;
+  color:#000;
+  text-transform:none;
+  width:fit-content;
+  box-sizing:border-box;
+}
+.feat-lbl-icon-slot{
+  overflow:hidden;
+  height:var(--feat-lbl-h);
+  width:22px;
+  flex-shrink:0;
+  padding:0;
+  margin:0 0 0 16px;
+  display:block;
+  align-self:stretch;
+  box-sizing:border-box;
+}
+.feat-lbl-icon-reel{
+  display:flex;
+  flex-direction:column;
+  padding:0;
+  margin:0;
+  width:100%;
+  will-change:transform;
+}
+.feat-lbl-icon-reel-item{
+  flex:0 0 var(--feat-lbl-line,var(--feat-lbl-h));
+  height:var(--feat-lbl-line,var(--feat-lbl-h));
+  min-height:var(--feat-lbl-line,var(--feat-lbl-h));
+  padding:0;
+  margin:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box;
+}
+.feat-lbl-icon-reel-item svg{
+  display:block;
+  height:18px;
+  width:auto;
+}
+.feat-lbl-slot{
+  overflow:hidden;
+  height:var(--feat-lbl-h);
+  padding:0;
+  margin:0 16px 0 0;
+  display:block;
+  min-width:0;
+  font-size:inherit;
+  align-self:stretch;
+  box-sizing:border-box;
+  transition:width 0.55s cubic-bezier(0.22,1,0.36,1);
+}
+.feat-lbl-reel{
+  display:flex;
+  flex-direction:column;
+  padding:0;
+  margin:0;
+  width:100%;
+  will-change:transform;
+}
+.feat-lbl-reel-item{
+  flex:0 0 var(--feat-lbl-line,var(--feat-lbl-h));
+  height:var(--feat-lbl-line,var(--feat-lbl-h));
+  min-height:var(--feat-lbl-line,var(--feat-lbl-h));
+  line-height:var(--feat-lbl-line,var(--feat-lbl-h));
+  padding:0;
+  margin:0;
+  display:flex;
+  align-items:center;
+  white-space:nowrap;
+  box-sizing:border-box;
+}
+.feat-stitle{font-size:22px;font-weight:700;line-height:1.25;letter-spacing:-.03em;color:var(--navy);margin-bottom:12px;}
+.feat-sdesc{font-size:15px;font-weight:400;line-height:1.7;color:rgba(26,39,68,.55);letter-spacing:-.01em;}
+
+/* nav row */
+.feat-nav-row{display:flex;align-items:center;gap:18px;}
+.feat-dots{display:flex;align-items:center;gap:7px;}
+.feat-dot{
+  height:8px;border-radius:4px;border:none;padding:0;cursor:pointer;
+  background:rgba(26,39,68,.18);transition:width .25s cubic-bezier(.22,1,.36,1),background .25s;
+  width:8px;
+}
+.feat-dot.on{width:26px;background:var(--navy);}
+.feat-arrows{display:flex;gap:8px;}
+.feat-arr{
+  width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(26,39,68,.15);
+  background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--navy);box-shadow:none;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:995px){
+  .features-section{padding:100px 24px 128px;}
+  .feat-layout{grid-template-columns:1fr;gap:18px;}
+  .feat-deck-stage{
+    height:auto;min-height:0;justify-content:flex-start;
+  }
+  .feat-deck{width:188px;height:407px;}
+  .feat-frame{border-radius:24px;}
+  .feat-screen{border-radius:16px;margin:6px;}
+  .feat-hint{
+    margin-top:24px;max-height:40px;overflow:hidden;
+    transition:opacity .5s ease,margin .45s ease,max-height .45s ease;
+  }
+  .feat-hint.gone{margin-top:0;max-height:0;}
+  .feat-info{align-items:center;text-align:center;max-width:420px;margin:0 auto;}
+  .feat-lbl{margin-top:20px;margin-bottom:20px;}
+  .feat-slides{margin-bottom:24px;min-height:168px;}
+  .feat-nav-row{justify-content:center;}
+  .feat-stitle{font-size:18px;}
+  .feat-layout:has(.feat-hint.gone){gap:14px;}
+}
+@media(max-width:768px){
+  .feat-layout{gap:14px;}
+  .feat-hint{margin-top:24px;max-height:36px;}
+  .feat-hint.gone{margin-top:0;max-height:0;}
+  .feat-lbl{margin-top:18px;margin-bottom:20px;}
+  .feat-slides{margin-bottom:24px;min-height:156px;}
+  .feat-layout:has(.feat-hint.gone){gap:12px;}
+}
+
+/* ══════════════════════════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
+  .waitlist-section {
+    --wl-wave-height: 48px;
+    padding: calc(88px + var(--wl-overlap-top)) 24px 64px;
+  }
+
   .intro-social-wrap { right: -80px; width: 200px; }
   .intro-reminder-wrap { right: -80px; width: 220px; }
   .intro-text-group { width: 180px; }
@@ -2860,7 +3018,24 @@ img.im-step-img {
 }
 
 @media (max-width: 768px) {
-  nav { padding: 16px 24px 12px; min-height: 64px; }
+  nav {
+    min-height: 64px;
+    padding: 16px 24px max(18px, calc(12px + env(safe-area-inset-bottom, 0px)));
+    background-color: rgba(238, 238, 238, 0.68);
+    -webkit-backdrop-filter: blur(20px) saturate(1.75);
+    backdrop-filter: blur(20px) saturate(1.75);
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.45);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.55) inset,
+      0 4px 24px rgba(0, 12, 30, 0.08);
+  }
+  nav.nav-on-dark {
+    background-color: rgba(0, 29, 53, 0.52);
+    border-bottom-color: rgba(255, 255, 255, 0.14);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.08) inset,
+      0 4px 24px rgba(0, 0, 0, 0.2);
+  }
   .nav-logo { font-size: 23px; margin-right: 0; letter-spacing: 0; }
   .wl-wordmark { letter-spacing: 0; }
   .nav-links { display: none; }
@@ -2868,8 +3043,6 @@ img.im-step-img {
   nav .nav-login { display: none; }
   .nav-cta-label--full { display: none; }
   .nav-cta-label--short { display: inline; }
-  nav .nav-cta.hero-cta { padding: 8px 14px; }
-
   .hero { padding-top: 100px; padding-bottom: 88px; padding-left: 24px; padding-right: 24px; min-height: auto; }
   .hero-title { font-size: 2.38rem; line-height: var(--hero-title-line-height); margin-top: 14px; margin-bottom: 12px; }
   .hero-body {
@@ -2881,18 +3054,15 @@ img.im-step-img {
     margin-right: auto;
     font-size: 0.92rem;
   }
-  .hero .hero-cta {
-    padding: 16px 32px;
-    font-size: 1.05rem;
-    min-height: 52px;
-  }
-  .waitlist-section .cta.hero-cta {
+  .hero .cta-btn {
     margin-top: 8px;
-    padding: 16px 32px;
-    font-size: 1.05rem;
-    min-height: 52px;
+    margin-bottom: 20px;
+  }
+  .wl-cta-wrap > a {
+    margin-top: 8px;
   }
   .hero-visual { width: 100%; height: 400px; margin-top: 22px; }
+  .hero-dot-grid { width: min(420px, 108vw); height: min(420px, 108vw); top: 82%; }
   .phone-mockup { width: 172px; }
   .cost-ui-card { width: 122px; top: 10px; }
   .cost-ui-card .flower-shapes { width: 40px; top: -18px; right: -12px; }
@@ -2957,8 +3127,7 @@ img.im-step-img {
   .intro-particle--bl { bottom: -36px; left: -16px; }
 
   .waitlist-section {
-    --wl-overlap-top: 40px;
-    margin-top: calc(-1 * var(--wl-overlap-top));
+    --wl-wave-height: 40px;
     padding: calc(64px + var(--wl-overlap-top)) 24px 48px;
   }
 
@@ -2983,14 +3152,42 @@ img.im-step-img {
   .site-footer-link { white-space: normal; text-align: center; }
 }
 
+@supports not ((-webkit-backdrop-filter: blur(0.5px)) or (backdrop-filter: blur(0.5px))) {
+  @media (max-width: 768px) {
+    nav {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background-color: rgba(238, 238, 238, 0.96);
+    }
+    nav.nav-on-dark {
+      background-color: rgba(0, 29, 53, 0.94);
+    }
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  @media (max-width: 768px) {
+    nav {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background-color: var(--surface);
+    }
+    nav.nav-on-dark {
+      background-color: var(--primary-dark);
+    }
+  }
+}
+
 @media (max-width: 500px) {
-  nav { padding: 14px 20px 10px; }
+  nav {
+    padding: 14px 20px max(18px, calc(10px + env(safe-area-inset-bottom, 0px)));
+  }
   nav .nav-right { gap: 8px; }
-  nav .nav-cta.hero-cta { padding: 8px 12px; }
   .hero { padding-top: 84px; padding-left: 20px; padding-right: 20px; }
   .hero-title { font-size: 2.52rem; line-height: var(--hero-title-line-height); }
   .hero-body { line-height: 1.36; font-size: 0.9rem; max-width: min(340px, 100%); }
   .hero-visual { margin-top: 42px; height: 352px; }
+  .hero-dot-grid { width: min(340px, 96vw); height: min(340px, 96vw); top: 84%; }
   .phone-mockup { width: 204px; }
   .cost-ui-card { left: 150px; width: 138px; }
   .avatar img { max-width: 54px; max-height: 54px; }
@@ -3009,77 +3206,18 @@ img.im-step-img {
   .intro-social-wrap { right: -12px; top: min(258px, 62vw); width: 180px; }
   .intro-reminder-wrap { top: -68px; right: -20px; width: 200px; }
   .waitlist-section {
-    --wl-overlap-top: 32px;
-    margin-top: calc(-1 * var(--wl-overlap-top));
+    --wl-wave-height: 32px;
     padding: calc(60px + var(--wl-overlap-top)) 20px 40px;
   }
   .wl-wordmark { font-size:22px; }
 }
 
 @media (max-width: 390px) {
-  nav .nav-cta.hero-cta {
-    font-size: 12px;
-    border-width: 2px;
-  }
-  .hero-cta {
-    border-width: 2px;
-    border-radius: 48px;
-    gap: 6px;
-  }
-  .hero .hero-cta { font-size: 15px; }
-  .waitlist-section .cta.hero-cta { font-size: 15px; }
   .hero-title { font-size: 2.32rem; }
-  .bm-btn-continue { padding: 9px 18px; font-size: 14px; }
 }
 </style>
 </head>
 <body>
-
-<!-- ══════════════════════════════════════════════════════════
-     SEO: HIDDEN CONTENT LAYER
-     Fully crawlable. NOT display:none.
-     Targets: expense splitting, roommates, group costs, Splitwise alternative
-══════════════════════════════════════════════════════════ -->
-<div class="seo-content" aria-hidden="true">
-  <h2>Bountt — The Free Expense Splitting App Built for Real Life</h2>
-  <p>Bountt is a free expense splitting app that helps groups, roommates, friends, and coworkers track and divide shared costs without spreadsheets, awkward conversations, or constant payment reminders.</p>
-  <p>Bountt is a free bill splitting app, expense sharing app, and cost splitting app that also works as a group expense tracker, making it easy to split bills with friends, roommates, and travel groups. As a shared expenses app with no download required, you can start splitting costs without downloading an app in seconds.</p>
-  <p>If you need an expense tracker friend group can actually use, or a simple way to split costs no app download, Bountt works directly in the browser.</p>
-
-  <h3>Split Bills With Roommates</h3>
-  <p>Tired of being the one who covers rent, hydro, wifi, and groceries every month? Bountt makes it easy to track shared household expenses with your roommates and figure out who owes what — without the tension. Log any bill in seconds, assign who split it, and Bountt calculates the balance automatically.</p>
-
-  <h3>Group Expense Tracking for Friends and Travel</h3>
-  <p>Going on a group trip? Splitting dinner with friends? Bountt tracks every shared cost across the group and suggests the simplest way to settle up — minimizing the number of transactions between people so nobody ends up with six separate Venmo requests.</p>
-
-  <h3>A Splitwise Alternative That Doesn't Feel Like a Bill Collector</h3>
-  <p>Looking for a Splitwise alternative? Bountt was built to feel less like debt management and more like a tool among friends. No aggressive reminders, no awkward debt screens — just a clear picture of where things stand, when you want to look.</p>
-
-  <h3>How to Split Shared Expenses With Your Group</h3>
-  <p>With Bountt: one person logs the expense, tags who was involved, and the app handles the rest. Everyone can see the running tally in a shared feed. Settle up whenever makes sense — not on the app's schedule.</p>
-
-  <h3>Features</h3>
-  <ul>
-    <li>Free expense splitting for groups, roommates, and friends</li>
-    <li>Real-time shared expense feed</li>
-    <li>Automatic balance calculation and settlement suggestions</li>
-    <li>Receipt logging and photo upload</li>
-    <li>No account required to join a group</li>
-    <li>Works for trips, shared housing, team lunches, and more</li>
-  </ul>
-
-  <h3>Frequently Asked Questions</h3>
-  <dl>
-    <dt>Is Bountt free?</dt>
-    <dd>Yes. Bountt is completely free. No credit card, no premium tier, no ads.</dd>
-    <dt>How is Bountt different from Splitwise?</dt>
-    <dd>Bountt is designed around the way close groups actually split costs — casually, without debt framing or nagging. It's built for roommates and friend groups, not corporate expense reports.</dd>
-    <dt>Can I use Bountt to split rent and utilities with roommates?</dt>
-    <dd>Yes. Bountt handles recurring bills like rent, hydro, wifi, and groceries alongside one-off expenses like takeout or household supplies.</dd>
-    <dt>Does Bountt work for group trips?</dt>
-    <dd>Yes. Log any shared cost during a trip — accommodation, transport, food, activities — and Bountt calculates everyone's share and suggests the simplest way to settle when you're back.</dd>
-  </dl>
-</div>
 
 <!-- ── NAVBAR ── -->
 <nav role="navigation" aria-label="Main navigation">
@@ -3098,7 +3236,7 @@ img.im-step-img {
         </svg>
       </span>
     </a>
-    <a href="https://app.bountt.com" class="nav-cta hero-cta">
+    <a href="https://app.bountt.com" class="cta-btn">
       <span class="nav-cta-label nav-cta-label--full">Sign up</span>
       <span class="nav-cta-label nav-cta-label--short">Get started</span>
       <svg class="btn-chevron" viewBox="0 0 16 16" aria-hidden="true">
@@ -3111,20 +3249,20 @@ img.im-step-img {
 <!-- ── HERO ── -->
 <section class="hero" id="hero" aria-labelledby="heroHeading">
 
+  <div class="hero-dot-grid" aria-hidden="true"></div>
   <div class="hero-gradient-float" aria-hidden="true"></div>
 
   <!-- FIX: h1 now has id for aria-labelledby, star image has descriptive alt -->
   <h1 class="hero-title" id="heroHeading" data-reveal style="--rd:80ms">
     Splitting expenses,<br>
-    just made <img class="star-img" src="img/star-shape.png" alt="" role="presentation" width="38" height="38"> <span class="cycle-word" id="cycleWord">smarter</span><span class="cycle-ghost" id="cycleGhost" aria-hidden="true">smarter</span>.
+    just made <img class="star-img" src="img/star-shape.png" alt="" role="presentation" width="38" height="38"> <span class="cycle-word" id="cycleWord">smarter</span><span class="cycle-ghost" id="cycleGhost" aria-hidden="true" data-nosnippet></span>.
   </h1>
 
   <p class="hero-body" data-reveal style="--rd:240ms">
-    Built for the group chat, not the spreadsheet.<br>
-    Log it, split it, forget it.
+    The free expense splitting app for friends, roommates, and travel groups. Log it, split it, forget it.
   </p>
 
-  <a href="https://app.bountt.com" class="cta hero-cta" id="heroCta" data-reveal style="--rd:380ms" aria-label="Start sharing expenses with Bountt — sign up or log in">
+  <a href="https://app.bountt.com" class="cta-btn" id="heroCta" data-reveal style="--rd:380ms" aria-label="Start sharing expenses with Bountt — sign up or log in">
     <span>Start sharing expenses</span>
     <svg class="btn-chevron" viewBox="0 0 16 16" aria-hidden="true">
       <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -3140,20 +3278,20 @@ img.im-step-img {
     </svg>
 
     <!-- FIX: descriptive alt text on meaningful images -->
-    <img class="phone-mockup" src="img/feed-mockup-2.png" alt="Bountt app showing a shared expense feed with group costs" width="280" height="560" />
+    <img class="phone-mockup" src="img/iphone-hero-mockup-2.png" alt="Bountt app showing a shared expense feed with group costs" width="340" height="634" fetchpriority="high" />
 
     <div class="cost-ui-card">
       <div class="cost-ui-3d">
         <div class="cost-ui-inner">
-          <img src="img/cost-ui.png" alt="Bountt smart cost matching and expense splitting interface" width="190" />
+          <img src="img/cost-ui.png" alt="Bountt smart cost matching and expense splitting interface" width="190" height="232" loading="lazy" />
         </div>
       </div>
-      <img class="flower-shapes" src="img/flower-shapes.png" alt="" role="presentation" width="58" height="58" />
+      <img class="flower-shapes" src="img/flower-shapes.png" alt="" role="presentation" width="58" height="58" loading="lazy" />
     </div>
 
-    <div class="avatar avatar-1" aria-hidden="true"><img src="img/people-avatar-1.png" alt="" role="presentation" width="80" height="80" /></div>
-    <div class="avatar avatar-2" aria-hidden="true"><img src="img/people-avatar-2.png" alt="" role="presentation" width="80" height="80" /></div>
-    <div class="avatar avatar-3" aria-hidden="true"><img src="img/people-avatar-3.png" alt="" role="presentation" width="80" height="80" /></div>
+    <div class="avatar avatar-1" aria-hidden="true"><img src="img/people-avatar-1.png" alt="" role="presentation" width="80" height="80" loading="lazy" /></div>
+    <div class="avatar avatar-2" aria-hidden="true"><img src="img/people-avatar-2.png" alt="" role="presentation" width="80" height="80" loading="lazy" /></div>
+    <div class="avatar avatar-3" aria-hidden="true"><img src="img/people-avatar-3.png" alt="" role="presentation" width="80" height="80" loading="lazy" /></div>
 
   </div>
 
@@ -3243,35 +3381,164 @@ img.im-step-img {
     <h2 class="intro-title" id="introHeading">Introducing <span class="intro-title-wrap"><span class="intro-title-bountt">Bountt.</span><svg class="intro-scribble" viewBox="0 0 240 22" preserveAspectRatio="none" aria-hidden="true"><path d="M3,13 C9,6 19,18 33,11 C45,5 56,17 70,10 C82,4 95,18 110,10 C123,3 137,17 152,10 C164,4 177,17 191,10 C203,4 214,16 224,11 C230,8 235,12 237,11"/></svg></span></h2>
 
     <div class="intro-stage">
-      <img class="intro-particle intro-particle--tr" src="img/element-particles-small.png" alt="" role="presentation" aria-hidden="true" width="68" height="68" />
-      <img class="intro-particle intro-particle--bl" src="img/element-particles-small.png" alt="" role="presentation" aria-hidden="true" width="68" height="68" />
+      <img class="intro-particle intro-particle--tr" src="img/element-particles-small.png" alt="" role="presentation" aria-hidden="true" width="68" height="68" loading="lazy" />
+      <img class="intro-particle intro-particle--bl" src="img/element-particles-small.png" alt="" role="presentation" aria-hidden="true" width="68" height="68" loading="lazy" />
 
-      <img class="intro-feed" src="img/feed-mockup.png" alt="Bountt shared expense feed showing group balance and recent costs" width="360" />
+      <img class="intro-feed" src="img/feed-mockup.png" alt="Bountt shared expense feed showing group balance and recent costs" width="360" height="869" loading="lazy" />
 
       <div class="intro-social-wrap">
-        <img class="intro-social" src="img/bountt-social-img.png" alt="Friends using Bountt to track shared expenses" width="264" />
+        <img class="intro-social" src="img/bountt-social-img.png" alt="Friends using Bountt to track shared expenses" width="264" height="283" loading="lazy" />
         <div class="intro-reminder-wrap">
           <div class="intro-reminder-3d">
             <div class="intro-reminder-tilt">
-              <img class="intro-reminder" src="img/bountt-smart-reminder.png" alt="Bountt smart settlement reminder notification" width="280" />
+              <img class="intro-reminder" src="img/bountt-smart-reminder.png" alt="Bountt smart settlement reminder notification" width="280" height="216" loading="lazy" />
             </div>
           </div>
         </div>
-        <img class="intro-star" src="img/element-star-small.png" alt="" role="presentation" aria-hidden="true" width="56" height="56" />
+        <img class="intro-star" src="img/element-star-small.png" alt="" role="presentation" aria-hidden="true" width="56" height="56" loading="lazy" />
       </div>
 
-      <div class="intro-text-group" aria-hidden="true">
+      <div class="intro-text-group">
         <p class="intro-tg-headline">Built for friends.<br>who want to<br><span class="intro-tg-accent">remain... friends.</span></p>
-        <p class="intro-tg-body">Bountt's algorithm is designed for settling when it makes sense, not for constant nagging.</p>
+        <p class="intro-tg-body">The expense splitting app for friend groups and roommates. Bountt settles when it makes sense — not on a debt collector's schedule.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
+     FEATURES / HOW IT WORKS SECTION
+     SEO targets: expense splitting app features, receipt scanning,
+     group expense tracker, bill splitting automation, splitwise alternative
+══════════════════════════════════════════════════════════ -->
+<section class="features-section" id="featuresSection" aria-labelledby="featuresHeading" data-reveal style="--rd:0ms">
+  <div class="feat-section-inner">
+  <h2 class="feat-headline" id="featuresHeading">Shared costs, minus the awkward.</h2>
+  <p class="feat-subline">Most bill splitting apps do the math. Bountt does the thinking — surfacing the right move so your group can settle up without the back and forth.</p>
+
+  <div class="feat-layout">
+
+    <!-- DECK -->
+    <div class="feat-deck-stage">
+      <div class="feat-deck" id="feat-deck">
+
+        <div class="feat-phone" data-i="3" style="z-index:1">
+          <div class="feat-frame">
+            <div class="feat-screen">
+              <img class="feat-screen-poster" src="img/feat/feat-graphs-poster.jpg" alt="" decoding="async" aria-hidden="true">
+            </div>
+          </div>
+        </div>
+
+        <div class="feat-phone" data-i="2" style="z-index:2">
+          <div class="feat-frame">
+            <div class="feat-screen">
+              <img class="feat-screen-poster" src="img/feat/feat-receiptscan-poster.jpg" alt="" decoding="async" aria-hidden="true">
+            </div>
+          </div>
+        </div>
+
+        <div class="feat-phone" data-i="1" style="z-index:3">
+          <div class="feat-frame">
+            <div class="feat-screen">
+              <img class="feat-screen-poster" src="img/feat/feat-smartmatch-poster.jpg" alt="" decoding="async" aria-hidden="true">
+            </div>
+          </div>
+        </div>
+
+        <div class="feat-phone" data-i="0" style="z-index:4">
+          <div class="feat-frame">
+            <div class="feat-screen">
+              <img class="feat-screen-poster" src="img/feat/feat-sharedfeed-poster.jpg" alt="" decoding="async" aria-hidden="true">
+            </div>
+          </div>
+        </div>
+
+        <video id="feat-active-video" class="feat-screen-video" muted playsinline loop disablepictureinpicture disableremoteplayback preload="none" aria-hidden="true" hidden></video>
+
+      </div>
+
+      <div class="feat-hint" id="feat-hint">
+        <span class="feat-hint-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="75" height="78" viewBox="0 0 75 78" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.821 18.9361C24.3132 16.3423 30.051 17.8814 32.645 22.3697L38.4692 32.4597C38.9302 33.2566 39.8403 33.6863 40.7465 33.53L50.7231 31.8425C56.8208 30.8113 62.7031 34.5769 64.3171 40.5456L68.1882 54.8546C69.6101 60.1124 67.3171 65.6666 62.6023 68.3896L49.4113 76.0068C45.5324 78.2451 40.7277 78.1396 36.9503 75.7295L16.7353 62.8345C14.9462 61.6939 14.2119 59.4478 14.9814 57.4673C16.9306 52.4634 21.833 49.5689 26.8404 49.8657L16.3874 31.7607C13.7936 27.2685 15.3327 21.5261 19.821 18.9361ZM27.2312 25.4947C26.368 23.9947 24.446 23.4791 22.946 24.3463C21.446 25.2135 20.9304 27.1315 21.7976 28.6354L35.8636 52.9944C37.6409 56.0725 34.3206 59.5725 31.1527 57.9592L28.7191 56.7209C26.1527 55.4123 23.1019 56.2405 21.4964 58.4592L40.3084 70.4592C42.1209 71.6154 44.4256 71.6662 46.285 70.592L59.476 62.9787C61.7377 61.6701 62.8354 59.006 62.1557 56.4865L58.2846 42.1775C57.5112 39.3142 54.6869 37.5095 51.7651 38.0056L41.7924 39.6931C38.308 40.283 34.8236 38.6462 33.058 35.5837L27.2312 25.4947Z" fill="currentColor"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.84 8.26014C6.53923 11.8968 4.37913 19.9511 8.01973 26.2521C10.8088 31.088 16.2033 33.4865 21.4177 32.6935L22.3591 38.8693C14.6872 40.0412 6.72614 36.5138 2.60514 29.3771C-2.75816 20.088 0.425445 8.20914 9.71454 2.84614C19.0036 -2.51716 30.8825 0.666441 36.2455 9.95554C40.0502 16.5493 39.5502 24.4395 35.6323 30.3775L30.4135 26.9361C33.0815 22.897 33.4096 17.5455 30.8314 13.0811C27.1947 6.78034 19.141 4.62344 12.84 8.26014Z" fill="currentColor"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M64.508 8.83114C55.3947 4.62024 44.719 5.61634 36.543 11.4405L33.5508 13.5733L29.9258 8.48354L32.9141 6.35074C42.9181 -0.778161 55.9801 -1.99696 67.1291 3.15934L72.2658 5.53434C73.8322 6.257 74.5158 8.11634 73.7931 9.68274C73.0666 11.2491 71.2111 11.9327 69.6447 11.2061L64.508 8.83114Z" fill="currentColor"/>
+          </svg>
+        </span>
+        Swipe to explore
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="feat-info">
+      <span class="feat-lbl" id="feat-lbl"></span>
+      <div class="feat-slides" id="feat-slides">
+
+        <div class="feat-slide on" data-i="0" data-label="Shared Expense Feed">
+          <h3 class="feat-stitle">Every cost, logged where the whole group can see.</h3>
+          <p class="feat-sdesc">Expenses flow into a shared feed as they're added. No more "wait, who paid for that?" — every split is in order, with receipts attached and balances updating in real time.</p>
+        </div>
+
+        <div class="feat-slide" data-i="1" data-label="Smart Match">
+          <h3 class="feat-stitle">"Kyle paid for Uber. You got dinner. Bountt noticed."</h3>
+          <p class="feat-sdesc">When two expenses roughly cancel each other out, Bountt surfaces a suggestion card — "want to just call it even?" One tap and the balance clears. No Venmo request, no awkward ask, no $3.47 hanging in the group chat forever.</p>
+        </div>
+
+        <div class="feat-slide" data-i="2" data-label="Receipt Scan">
+          <h3 class="feat-stitle">Point. Scan. Expense logged automatically.</h3>
+          <p class="feat-sdesc">Snap a photo of any receipt. Bountt reads it with full OCR — item names, amounts, the lot — and pre-fills the expense for you to review and edit before saving. The original stays attached so nobody can argue about what the total actually was.</p>
+        </div>
+
+        <div class="feat-slide" data-i="3" data-label="Group Balance View">
+          <h3 class="feat-stitle">See exactly who owes who. No spreadsheet required.</h3>
+          <p class="feat-sdesc">Every member is a node. Arrows show the direction, amounts show the balance. The full picture of your group's shared expenses — visualized, not listed.</p>
+        </div>
+
+      </div>
+
+      <div class="feat-nav-row">
+        <div class="feat-dots" id="feat-dots">
+          <button class="feat-dot on" data-i="0" aria-label="Feature 1"></button>
+          <button class="feat-dot" data-i="1" aria-label="Feature 2"></button>
+          <button class="feat-dot" data-i="2" aria-label="Feature 3"></button>
+          <button class="feat-dot" data-i="3" aria-label="Feature 4"></button>
+        </div>
+        <div class="feat-arrows">
+          <button class="feat-arr" id="feat-prev" aria-label="Previous feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="feat-arr" id="feat-next" aria-label="Next feature">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
      WAITLIST / FAQ SECTION
 ══════════════════════════════════════════════════════════ -->
 <section class="waitlist-section" id="waitlistSection" aria-labelledby="waitlistHeading">
+  <div class="wl-wave" aria-hidden="true">
+    <div class="wl-wave-track">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <g transform="scale(1,-1) translate(0,-120)">
+          <path d="M0,68 C133,48 267,88 400,68 C533,48 667,88 800,68 C933,48 1067,88 1200,68 L1200,120 L0,120 Z"/>
+        </g>
+      </svg>
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        <g transform="scale(1,-1) translate(0,-120)">
+          <path d="M0,68 C133,48 267,88 400,68 C533,48 667,88 800,68 C933,48 1067,88 1200,68 L1200,120 L0,120 Z"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
   <div class="wl-accent-glow" aria-hidden="true"></div>
 
   <div class="faq-grid">
@@ -3312,8 +3579,8 @@ img.im-step-img {
       </div>
 
       <div class="faq-avatars" aria-hidden="true">
-        <img src="img/wl-avatar-1.png" alt="" class="faq-av" width="48" height="48" />
-        <img src="img/wl-avatar-5.png" alt="" class="faq-av" width="48" height="48" />
+        <img src="img/wl-avatar-1.png" alt="" class="faq-av" width="48" height="48" loading="lazy" />
+        <img src="img/wl-avatar-5.png" alt="" class="faq-av" width="48" height="48" loading="lazy" />
       </div>
 
     </div>
@@ -3323,12 +3590,12 @@ img.im-step-img {
       <img
         class="wl-illustration"
         src="img/bountt-friends-table.svg"
-        alt="Friends celebrating around a table — no awkward bill splitting"
+        alt="Friends celebrating around a table — no awkward bill splitting" loading="lazy"
         width="240"
         height="200"
       />
       <div class="wl-content-zone">
-        <span class="wl-wordmark" aria-hidden="true">bountt.</span>
+        <span class="wl-wordmark">bountt.</span>
         <h2 class="wl-title" id="waitlistHeading">
           Last round<br>
           is on <span class="wl-title-accent">us.</span>
@@ -3338,7 +3605,7 @@ img.im-step-img {
           <span class="wl-beta-badge" role="status">Beta</span>
           <a
             href="https://app.bountt.com"
-            class="cta hero-cta"
+            class="cta-btn"
             aria-label="Start sharing expenses with Bountt — sign up or log in"
           >
             <span>Start sharing expenses</span>
@@ -3385,9 +3652,9 @@ img.im-step-img {
       </div>
 
       <div class="faq-avatars" aria-hidden="true">
-        <img src="img/wl-avatar-3.png" alt="" class="faq-av" width="48" height="48" />
-        <img src="img/wl-avatar-4.png" alt="" class="faq-av" width="48" height="48" />
-        <img src="img/wl-avatar-2.png" alt="" class="faq-av" width="48" height="48" />
+        <img src="img/wl-avatar-3.png" alt="" class="faq-av" width="48" height="48" loading="lazy" />
+        <img src="img/wl-avatar-4.png" alt="" class="faq-av" width="48" height="48" loading="lazy" />
+        <img src="img/wl-avatar-2.png" alt="" class="faq-av" width="48" height="48" loading="lazy" />
       </div>
 
     </div>
@@ -3397,6 +3664,7 @@ img.im-step-img {
 
 <footer class="site-footer" role="contentinfo" aria-label="Site footer">
   <div class="site-footer-inner">
+    <p class="site-footer-lead" style="font-size:13px;font-weight:400;color:rgba(240,234,214,0.35);max-width:460px;text-align:center;line-height:1.6;margin-bottom:12px;">Bountt is a free group expense splitting app for friends, roommates, and travel groups. Split bills, track shared costs, and settle up without the spreadsheet or the awkward money conversation.</p>
     <p class="site-footer-lead">© 2026 Bountt</p>
     <div class="site-footer-links">
       <a href="https://app.bountt.com/terms" class="site-footer-link" target="_blank" rel="noopener">Terms of Service</a>
@@ -3420,16 +3688,15 @@ img.im-step-img {
           <img src="img/character-figure.svg" alt="" width="82" height="86" decoding="async" />
         </div>
         <div class="bm-content">
-          <p class="bm-eyebrow">Bountt is still in <span class="bm-eyebrow-accent">Beta</span>.</p>
           <h2 class="bm-headline" id="bmTitle">
             <span class="bm-line">You are opening</span>
-            <span class="bm-line">an early version</span>
+            <span class="bm-line">early <span class="bm-headline-accent">beta</span> version</span>
             <span class="bm-line">of bountt.</span>
           </h2>
           <div class="bm-actions">
-            <a id="bmContinue" class="bm-btn-continue" role="button" tabindex="0">
+            <a id="bmContinue" class="cta-btn" role="button" tabindex="0">
               Open app anyway
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg class="btn-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M6 4l4 4-4 4"/>
               </svg>
             </a>
@@ -3437,8 +3704,8 @@ img.im-step-img {
           </div>
         </div>
         <button type="button" class="bm-close" id="bmClose" aria-label="Close dialog">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M18 6L6 18M6 6l12 12"/>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75" fill="none" aria-hidden="true">
+            <path d="M72.2513 16.0018L50.7536 37.4988L72.2513 58.9959C75.9162 62.6607 75.9162 68.593 72.2513 72.2491C70.4232 74.0771 68.0238 75 65.6245 75C63.2251 75 60.8258 74.086 58.9977 72.2491L37.5 50.7521L16.0023 72.2491C14.1742 74.0771 11.7749 75 9.37552 75C6.97617 75 4.57681 74.086 2.74872 72.2491C-0.916239 68.5842 -0.916239 62.6519 2.74872 58.9959L24.2464 37.4988L2.74872 16.0018C-0.916239 12.337 -0.916239 6.4047 2.74872 2.74863C6.41367 -0.916211 12.3461 -0.916211 16.0023 2.74863L37.5 24.2456L58.9977 2.74863C62.6626 -0.916211 68.5951 -0.916211 72.2513 2.74863C75.9162 6.41348 75.9162 12.337 72.2513 16.0018Z" fill="currentColor"/>
           </svg>
         </button>
       </div>
@@ -4105,16 +4372,17 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
   setInterval(cycleWord, 2200);
 })();
 
-/* ── NAV DARK MODE + hide on scroll down (mobile ≤768px only; desktop nav always visible) ── */
+/* ── NAV DARK MODE + mobile: hidden in hero; past hero, hide on scroll down ── */
 (function() {
-  const navEl=document.querySelector('nav'), introEl=document.getElementById('introSection');
+  const navEl=document.querySelector('nav'), heroEl=document.getElementById('hero');
+  const introEl=document.getElementById('introSection');
   const wlEl=document.getElementById('waitlistSection');
   if (!navEl) return;
   const mqMobile=window.matchMedia('(max-width: 768px)');
   let lastY=window.scrollY||0;
   let scrollHidden=navEl.classList.contains('nav-scroll-hidden');
   let rafPending=false;
-  const TOP_MAX=52, HIDE_AFTER=10, SHOW_AFTER=14;
+  const HIDE_AFTER=10, SHOW_AFTER=14;
   function checkNavTheme() {
     const navBottom=navEl.offsetHeight;
     function overlaps(rect) { return rect&&rect.top<navBottom&&rect.bottom>navBottom; }
@@ -4123,8 +4391,6 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
     const onDark=overlaps(introRect)||overlaps(wlRect);
     navEl.classList.toggle('nav-on-dark', onDark);
 
-    const inIntro=overlaps(introRect)||overlaps(wlRect);
-    navEl.classList.toggle('nav-in-intro', !!inIntro);
   }
   function applyScrollHide() {
     rafPending=false;
@@ -4137,8 +4403,9 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
       lastY=y;
       return;
     }
+    const pastHero=heroEl?heroEl.getBoundingClientRect().bottom<=0:true;
     let next=scrollHidden;
-    if (y<=TOP_MAX) next=false;
+    if (!pastHero) next=true;
     else if (y>lastY+HIDE_AFTER) next=true;
     else if (y<lastY-SHOW_AFTER) next=false;
     if (next!==scrollHidden) {
@@ -4400,6 +4667,552 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
   }
 })();
 
+/* ── FEATURES CARD DECK ── */
+document.addEventListener('DOMContentLoaded', function() {
+(function(){
+  const TOTAL = 4;
+  let current = 0;
+  let hasInteracted = false;
+
+  const deck = document.getElementById('feat-deck');
+  if (!deck) return;
+  const phones = Array.from(deck.querySelectorAll('.feat-phone'));
+
+  const featSection = document.getElementById('featuresSection');
+  const activeVideo = document.getElementById('feat-active-video');
+  const FEAT_SOURCES = [
+    'img/feat/feat-sharedfeed.mp4',
+    'img/feat/feat-smartmatch.mp4',
+    'img/feat/feat-receiptscan.mp4',
+    'img/feat/feat-graphs.mp4'
+  ];
+  const reducedMotionMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let sectionActive = false;
+  let videosWarmed = false;
+  let watchdogId = null;
+  let mountedFeatIdx = -1;
+
+  function frontFeatPhone() {
+    return phones.find(function(phone) {
+      return parseInt(phone.dataset.i, 10) === current;
+    });
+  }
+
+  function ensurePlaying(video) {
+    if (!video || reducedMotionMq.matches) return;
+    video.play().catch(function() {});
+  }
+
+  function detachActiveVideo() {
+    if (!activeVideo) return;
+    activeVideo.pause();
+    activeVideo.hidden = true;
+    if (activeVideo.parentElement !== deck) deck.appendChild(activeVideo);
+    mountedFeatIdx = -1;
+  }
+
+  function mountActiveVideo() {
+    if (!activeVideo) return;
+    const phone = frontFeatPhone();
+    if (!phone) return;
+    const screen = phone.querySelector('.feat-screen');
+    if (!screen) return;
+    const src = FEAT_SOURCES[current];
+    if (screen !== activeVideo.parentElement) screen.appendChild(activeVideo);
+    activeVideo.hidden = false;
+    if (mountedFeatIdx !== current) {
+      mountedFeatIdx = current;
+      activeVideo.src = src;
+      activeVideo.preload = 'auto';
+      activeVideo.load();
+    }
+  }
+
+  function clearFeatWatchdog() {
+    if (watchdogId) {
+      clearInterval(watchdogId);
+      watchdogId = null;
+    }
+  }
+
+  function startFeatWatchdog() {
+    clearFeatWatchdog();
+    watchdogId = setInterval(function() {
+      if (!sectionActive || reducedMotionMq.matches || !activeVideo) return;
+      if (activeVideo.paused && activeVideo.readyState >= 2) ensurePlaying(activeVideo);
+    }, 2000);
+  }
+
+  function warmFeatVideos() {
+    if (videosWarmed) return;
+    videosWarmed = true;
+    FEAT_SOURCES.forEach(function(src) {
+      const v = document.createElement('video');
+      v.muted = true;
+      v.preload = 'auto';
+      v.src = src;
+      v.load();
+    });
+    if (activeVideo) {
+      activeVideo.preload = 'auto';
+    }
+  }
+
+  function scheduleWarmFeatVideos() {
+    if (videosWarmed) return;
+    const run = function() { warmFeatVideos(); };
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(run, { timeout: 2000 });
+    } else {
+      setTimeout(run, 0);
+    }
+  }
+
+  if (document.readyState === 'complete') scheduleWarmFeatVideos();
+  else window.addEventListener('load', scheduleWarmFeatVideos);
+
+  function syncFeatVideos() {
+    if (!activeVideo) return;
+    if (reducedMotionMq.matches || !sectionActive) {
+      detachActiveVideo();
+      return;
+    }
+    mountActiveVideo();
+    ensurePlaying(activeVideo);
+  }
+
+  if (activeVideo) {
+    activeVideo.addEventListener('pause', function() {
+      if (!sectionActive || reducedMotionMq.matches || document.hidden) return;
+      if (activeVideo.parentElement === deck) return;
+      requestAnimationFrame(function() {
+        if (!sectionActive || reducedMotionMq.matches || activeVideo.parentElement === deck) return;
+        activeVideo.pause();
+        ensurePlaying(activeVideo);
+      });
+    });
+  }
+
+  if (featSection) {
+    const featIo = new IntersectionObserver(function(entries) {
+      const on = entries.some(function(e) { return e.isIntersecting; });
+      sectionActive = on;
+      if (on) {
+        warmFeatVideos();
+        syncFeatVideos();
+        startFeatWatchdog();
+      } else {
+        clearFeatWatchdog();
+        detachActiveVideo();
+      }
+    }, { threshold: 0.12, rootMargin: '50% 0px 50% 0px' });
+    featIo.observe(featSection);
+  }
+
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) detachActiveVideo();
+    else syncFeatVideos();
+  });
+  window.addEventListener('pageshow', syncFeatVideos);
+  if (reducedMotionMq.addEventListener) {
+    reducedMotionMq.addEventListener('change', syncFeatVideos);
+  } else if (reducedMotionMq.addListener) {
+    reducedMotionMq.addListener(syncFeatVideos);
+  }
+
+  const STACK_DESKTOP = [
+    {x:0,  y:0,  rot:0,   scale:1.00, z:4},
+    {x:8,  y:8,  rot:2.5, scale:0.96, z:3},
+    {x:12, y:14, rot:5,   scale:0.92, z:2},
+    {x:17, y:22, rot:7.5, scale:0.88, z:1},
+  ];
+  const STACK_MOBILE = [
+    {x:0,   y:0,  rot:0,   scale:1.00, z:4},
+    {x:6,   y:6,  rot:2.5, scale:0.96, z:3},
+    {x:10,  y:12, rot:5,   scale:0.92, z:2},
+    {x:14,  y:18, rot:7.5, scale:0.88, z:1},
+  ];
+  function featStack() {
+    return window.matchMedia('(max-width: 995px)').matches ? STACK_MOBILE : STACK_DESKTOP;
+  }
+
+  function applyStack(animated) {
+    phones.forEach(phone => {
+      const feat = parseInt(phone.dataset.i);
+      const pos = ((feat - current) + TOTAL) % TOTAL;
+      const s = featStack()[pos];
+      const tr = `translate(${s.x}px,${s.y}px) rotate(${s.rot}deg) scale(${s.scale})`;
+      if (animated) {
+        phone.style.transition = 'transform .45s cubic-bezier(.22,1,.36,1), z-index 0s';
+      } else {
+        phone.style.transition = 'none';
+      }
+      phone.style.transform = tr;
+      phone.style.zIndex = s.z;
+    });
+  }
+  applyStack(false);
+
+  const slides = Array.from(document.querySelectorAll('.feat-slide'));
+  const featLbl = document.getElementById('feat-lbl');
+  const dots = Array.from(document.querySelectorAll('.feat-dot'));
+  const FEAT_LABELS = slides.map(s => s.dataset.label).filter(Boolean);
+  const FEAT_ICONS = [
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 76" fill="none" aria-hidden="true"><path d="M35.4772 48.728C41.1119 49.091 46.8915 49.091 52.5178 48.728C54.9185 48.629 57.0305 50.4152 57.1873 52.8406C57.3399 55.2661 55.5001 57.3574 53.0747 57.5101C50.0717 57.6999 47.0441 57.7989 43.9956 57.7989C40.9432 57.7989 37.9154 57.6999 34.9165 57.5101C32.491 57.3575 30.6512 55.262 30.8039 52.8406C30.9648 50.4192 33.0764 48.6331 35.4772 48.728ZM87.0721 38.5022C86.2058 39.616 84.9064 40.2017 83.5947 40.2017C82.6542 40.2017 81.7013 39.9006 80.8969 39.2736L74.7713 34.5093C74.7754 34.93 74.8002 35.3838 74.8002 35.8004C74.8002 47.3509 73.4348 58.9785 70.7454 70.3631C70.3288 72.1163 68.885 73.4404 67.0989 73.7003C59.4141 74.8305 51.6381 75.3998 43.999 75.3998C36.36 75.3998 28.5879 74.8306 20.9034 73.7044C19.1214 73.4445 17.6735 72.1204 17.2611 70.3673C14.5674 58.9868 13.1979 47.3582 13.1979 35.8003C13.1979 35.3837 13.2227 34.93 13.2268 34.5092L7.10116 39.2735C5.18717 40.7543 2.41931 40.4202 0.926026 38.5021C-0.563137 36.584 -0.220679 33.8203 1.6974 32.327L15.1487 21.8619C15.161 21.8495 15.1775 21.8412 15.1899 21.8289L41.293 1.52527C42.877 0.291869 45.1087 0.291869 46.6926 1.52527L86.3009 32.3265C88.219 33.8198 88.5653 36.584 87.0721 38.5022ZM65.6882 27.447L43.9991 10.5754L22.31 27.447C22.1162 30.4871 22.0007 33.2426 22.0007 35.8001C22.0007 45.6877 23.0608 55.6285 25.1604 65.4007C37.7373 66.9971 50.2688 66.9971 62.8383 65.4007C64.9379 55.6204 66.0021 45.679 66.0021 35.8001C65.998 33.2303 65.882 30.4748 65.6882 27.447Z" fill="black"/></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 78 81" fill="none" aria-hidden="true"><path d="M2 76.4551H5.27344V78.4697H12.2734V76.4551H25.2734V79.1367H32.2734V76.4551H45.2734V79.1367H52.2734V77.0117H54.2266V76.4551H67.2266V77.0117H74.2266V76.4551H76C76.7381 76.4551 77.0642 76.6583 77.2295 76.8682C77.4151 77.1039 77.5 77.4726 77.5 78C77.5 78.5793 77.4932 79.2263 77.2871 79.7295C77.1896 79.9675 77.0553 80.15 76.8721 80.2764C76.6899 80.402 76.4193 80.5 76 80.5H2C1.41715 80.4999 1.06479 80.1896 0.829102 79.6934C0.581692 79.1723 0.5 78.5005 0.5 77.9775C0.500016 77.4499 0.585427 77.0895 0.768555 76.8604C0.93231 76.6555 1.25789 76.4551 2 76.4551ZM47.2266 76.4551V77.0117H51.2734V78.1367H46.2734V76.4551H47.2266ZM31.2734 76.4551V77.4697H26.2734V76.4551H31.2734ZM11.2734 76.4551V77.4697H6.27344V76.4551H11.2734ZM51.2734 75.4551H48.2266V42.4336C50.0552 43.5963 51.2734 45.6541 51.2734 48.0059V75.4551ZM32.7734 41.4277H44.7734C45.6413 41.4278 46.4692 41.6015 47.2266 41.9141V75.4551H46.2734V48.0059C46.2734 47.1795 45.6105 46.4954 44.7734 46.4951H32.7734C31.9413 46.4951 31.2735 47.1781 31.2734 48.0059V56.333C30.2181 54.4832 28.4131 53.124 26.2734 52.6855V48.0059C26.2735 44.3667 29.1914 41.4277 32.7734 41.4277ZM26.2734 53.7119C29.0329 54.3717 31.1162 56.8098 31.2646 59.7734L31.2734 60.1123V75.4551H26.2734V53.7119ZM12.7734 53.5342H24.7734C24.9417 53.5342 25.1084 53.5429 25.2734 53.5557V58.6885C25.1174 58.6329 24.9495 58.6016 24.7734 58.6016H12.7734C11.9414 58.6016 11.2736 59.2846 11.2734 60.1123V75.4551H6.27344V60.1123C6.27358 56.4732 9.1914 53.5342 12.7734 53.5342ZM52.2344 6.56738V10.0244C40.2098 23.5617 26.0881 32.0991 9.88965 35.5029C8.54369 35.7847 7.21677 34.9123 6.93555 33.5371V33.5361L6.89551 33.2793C6.76217 32.0009 7.60841 30.8087 8.87207 30.54L8.87305 30.541C23.9528 27.3754 37.1763 19.4283 48.5762 6.56738H52.2344ZM43.5029 0.5H54.9336C56.7532 0.500211 58.2341 1.99256 58.2344 3.84277V15.4004C58.2344 16.804 57.1091 17.9344 55.7344 17.9346C54.3595 17.9346 53.2344 16.8042 53.2344 15.4004V10.4033C53.3489 10.2734 53.4659 10.1455 53.5801 10.0146C54.8181 8.59797 54.725 6.45821 53.4023 5.1543L53.2705 5.03027C51.8201 3.73505 49.6071 3.87527 48.3271 5.33984V5.34082C48.2607 5.41699 48.1926 5.49156 48.126 5.56738H43.5029C42.1282 5.56723 41.0029 4.43689 41.0029 3.0332C41.0031 1.62964 42.1283 0.500157 43.5029 0.5ZM53.2344 6.64355C53.5234 7.29828 53.5289 8.05644 53.2344 8.71875V6.64355ZM49.5732 5.56738C50.4006 5.01087 51.4892 5.00031 52.3311 5.56738H49.5732ZM52.2734 48.0059C52.2734 45.0811 50.632 42.5423 48.2266 41.2793V31.8271C48.2267 28.1882 51.1448 25.2493 54.7266 25.249H66.7266C70.3123 25.249 73.2264 28.1879 73.2266 31.8271V75.4551H68.2266V31.8271C68.2264 31.0008 67.5638 30.3164 66.7266 30.3164H54.7266C53.8947 30.3167 53.2267 30.9996 53.2266 31.8271V75.4551H52.2734V48.0059Z" fill="black"/></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 73 85" fill="none" aria-hidden="true"><path d="M70.4746 12.8593C70.459 12.8281 70.4434 12.7968 70.4317 12.7695C69.7559 11.4765 68.9083 10.1757 67.9629 8.99608C67.8652 8.85546 67.7558 8.71483 67.6347 8.5742C67.5254 8.44139 67.416 8.31639 67.3027 8.19529L67.2207 8.10545C67.1074 7.9492 66.9589 7.75779 66.7324 7.53123C66.6582 7.4531 66.58 7.37498 66.5058 7.30076C65.8574 6.61326 65.1308 5.89056 64.2441 5.21876C63.7363 4.80079 63.1894 4.36329 62.5488 3.96876C62.4746 3.91017 62.3926 3.85548 62.3144 3.80079C62.2051 3.72266 62.0879 3.64845 61.9707 3.58204L61.6191 3.37892C61.291 3.18751 60.9629 3.00001 60.6387 2.82814C59.5996 2.21876 58.502 1.73044 57.2793 1.33984C57.1621 1.29687 57.0527 1.26562 56.955 1.23828C56.2246 0.98047 55.4902 0.77734 54.7245 0.61719C53.0643 0.20703 51.3104 0 49.5018 0C44.6268 0 39.9823 1.4688 36.0568 4.2422C35.5842 4.5547 35.1272 4.90626 34.6701 5.2734C32.4357 5.10934 30.1974 4.99996 28.0021 4.99996C22.7951 4.99996 17.5101 5.45699 12.2991 6.35936C9.63504 6.8203 7.15465 8.02736 5.12335 9.85156C3.11165 11.6563 1.61165 13.9922 0.791345 16.6016C0.267905 18.2461 0.00228672 19.9532 0.00228672 21.668C0.00228672 24.1563 0.564786 26.6446 1.62339 28.8516L2.2523 30.1719C2.94761 31.6328 3.8617 32.961 4.9711 34.1211L6.4594 35.6797C9.9789 39.3672 14.018 42.5117 18.3934 45C14.0184 47.4883 9.9793 50.6328 6.4634 54.3164L4.9712 55.8828C3.8657 57.043 2.9517 58.3711 2.2564 59.8281L1.62749 61.1406C-0.204515 64.9804 -0.501414 69.3359 0.795456 73.4026C2.50246 78.7737 6.90876 82.6917 12.2955 83.6326C17.5025 84.5466 22.7525 85.0037 28.0025 85.0037C33.2525 85.0037 38.5025 84.5466 43.7135 83.6404C49.1002 82.6989 53.5065 78.7771 55.2135 73.4104C56.5065 69.3401 56.2135 64.9846 54.3814 61.1444L53.7564 59.8319C53.0572 58.371 52.1431 57.0428 51.0376 55.8827L49.5415 54.3163C46.0298 50.6366 41.9946 47.496 37.6235 45.0077C38.0376 44.7733 38.4438 44.5116 38.854 44.2616C42.1313 45.9491 45.772 46.8397 49.502 46.8397C55.2168 46.8397 60.682 44.7967 64.83 41.1405C70.0214 36.7343 73.0019 30.2735 73.0019 23.4175C73.0019 19.7691 72.1347 16.1284 70.4902 12.8945C70.4863 12.8828 70.4785 12.871 70.4746 12.8593ZM12.2446 30.1563L10.7563 28.5977C10.2446 28.0587 9.79929 27.4102 9.47112 26.7266L8.83832 25.3985C8.29144 24.2579 8.00237 22.9688 8.00237 21.668C8.00237 20.7735 8.1391 19.8789 8.41644 19.0078C8.81097 17.7578 9.51803 16.6523 10.4594 15.8047C11.3735 14.9844 12.4828 14.4414 13.6625 14.2383C18.4242 13.418 23.2484 13 28.0025 13H28.4478C28.4166 13.0586 28.3932 13.1211 28.3658 13.1797C28.3189 13.2774 28.276 13.3789 28.2291 13.4766C27.9947 13.9727 27.7799 14.4766 27.5807 14.9883C27.5416 15.0859 27.4986 15.1836 27.4635 15.2852C27.2525 15.8555 27.065 16.4375 26.8971 17.0235C26.8619 17.1485 26.8306 17.2735 26.7955 17.3985C26.651 17.9414 26.5221 18.4923 26.4166 19.0508C26.4049 19.1211 26.3853 19.1914 26.3736 19.2617C26.2642 19.8672 26.1861 20.4805 26.1236 21.0976C26.108 21.2421 26.0963 21.3828 26.0846 21.5273C26.0377 22.1562 26.0025 22.7851 26.0025 23.4179C26.0025 24.2734 26.0533 25.1132 26.1549 25.9218C26.315 27.664 26.6744 29.3046 27.2213 30.8163C27.2877 31.0624 27.3775 31.3046 27.4908 31.5311C27.5259 31.6171 27.565 31.7069 27.608 31.7889C28.108 33.1991 28.8189 34.6092 29.733 35.992C30.1783 36.742 30.6392 37.3592 31.0533 37.91C31.1236 37.9999 31.1939 38.0897 31.272 38.1757C31.4752 38.4061 31.6861 38.6366 31.9048 38.871C31.9322 38.9022 31.9595 38.9335 31.9869 38.9647C30.6861 39.6288 29.358 40.2225 28.0064 40.742C22.1275 38.4647 16.7016 34.8243 12.2446 30.1563ZM43.7566 59.8363L45.2488 61.4027C45.7684 61.9496 46.2019 62.5785 46.534 63.2777L47.159 64.5902C48.0965 66.559 48.2567 68.891 47.5887 70.9808C46.7879 73.5003 44.7723 75.3285 42.3309 75.7542C32.8192 77.4144 23.1749 77.4144 13.6629 75.7542C11.2215 75.3284 9.20982 73.4964 8.40512 70.9769C7.73715 68.8831 7.8973 66.555 8.8348 64.5863L9.4598 63.2738C9.79183 62.5785 10.2254 61.9496 10.745 61.4027L12.2372 59.8363C16.6942 55.1801 22.1161 51.5433 28.0032 49.2623C33.8899 51.5435 39.3116 55.1803 43.7566 59.8363ZM37.2761 37.4693L37.5417 37.2154L37.2917 37.4889L37.2761 37.4693ZM59.5961 35.0904C56.8539 37.5084 53.268 38.8404 49.5021 38.8404C46.6193 38.8404 43.8146 38.0396 41.4513 36.5552L40.9669 36.2505C40.5099 35.9498 40.0802 35.6255 39.6583 35.2662C39.5685 35.188 39.4708 35.1138 39.3771 35.0474C39.338 35.0123 39.3029 34.9771 39.2638 34.9419C38.9005 34.6177 38.6037 34.3247 38.299 33.9849C38.256 33.938 38.2091 33.8912 38.1623 33.8443C37.8693 33.5513 37.6076 33.2583 37.3498 32.9732C37.049 32.5709 36.7873 32.2154 36.5802 31.856C36.5412 31.7857 36.4982 31.7193 36.4552 31.6529C35.8185 30.6958 35.3654 29.7896 35.0763 28.8873C35.006 28.6646 34.9123 28.4498 34.8068 28.2467C34.4513 27.3287 34.2248 26.2858 34.1232 25.1412C34.1193 25.0865 34.1115 25.0318 34.1037 24.9771C34.0334 24.481 34.0021 23.9615 34.0021 23.4185C34.0021 19.6802 35.338 16.1177 37.7951 13.3485C38.1037 12.993 38.4592 12.618 38.881 12.2157C38.9943 12.1063 39.1115 11.993 39.1974 11.9149C39.6232 11.5282 40.0685 11.1805 40.5294 10.8758C40.5685 10.8524 40.6075 10.825 40.6427 10.7977C43.213 8.96959 46.2755 8.00079 49.5021 8.00079C50.6662 8.00079 51.8263 8.13751 52.8498 8.39923C52.9162 8.41486 52.9826 8.43048 53.049 8.44611C53.4748 8.53204 53.8615 8.63752 54.2638 8.77814C54.4552 8.85235 54.6271 8.90705 54.7755 8.9422C55.4748 9.16486 56.088 9.43439 56.6427 9.76642C56.717 9.80939 56.7951 9.85235 56.8732 9.89533C57.1193 10.0203 57.3615 10.1649 57.6115 10.3094L57.7873 10.4109C57.8068 10.4266 57.8302 10.4383 57.8498 10.4539C57.9904 10.5594 58.1349 10.6609 58.2873 10.7469C58.549 10.8992 58.9435 11.2274 59.2052 11.4422C59.2599 11.4891 59.3185 11.532 59.3771 11.575C59.8185 11.9031 60.2482 12.3328 60.756 12.8719C60.8029 12.9227 60.8498 12.9696 60.9006 13.0203C60.9279 13.0555 60.9552 13.0868 60.9826 13.1258C61.1154 13.2899 61.2482 13.4383 61.381 13.5868L61.4123 13.6219C61.4631 13.6961 61.5177 13.7664 61.5763 13.8368C62.2404 14.6414 62.8575 15.5712 63.3185 16.454C63.3185 16.4579 63.3224 16.4657 63.3263 16.4696C63.3342 16.4891 63.3459 16.5047 63.3537 16.5204C64.4475 18.6649 65.0021 20.9892 65.0021 23.4188C65.0021 27.9227 63.0531 32.1567 59.5961 35.0904Z" fill="black"/><path d="M52.7516 21.5783V17.6291C52.7516 15.4221 50.9586 13.6291 48.7516 13.6291C46.5446 13.6291 44.7516 15.4221 44.7516 17.6291V23.2424C44.7516 24.3049 45.1774 25.3244 45.9274 26.0744L50.2594 30.3908C51.0407 31.1682 52.0602 31.5588 53.0836 31.5588C54.1109 31.5588 55.1344 31.1643 55.9156 30.383C57.4742 28.8166 57.4703 26.2853 55.9039 24.7268L52.7516 21.5783Z" fill="black"/></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="M77.2896 3.29612C67.7701 -6.96588 24.7116 9.94453 22.8796 10.675C-0.0424194 19.7648 -0.0114206 24.745 0.000579411 26.866C0.0708914 37.276 16.5596 40.636 28.6026 43.085C30.8018 43.5342 32.6612 43.9053 33.9112 44.2569C34.7627 44.4952 35.3409 44.6554 35.7706 44.8663C35.9307 44.9874 36.0909 45.0968 36.2589 45.1944C36.7589 45.6554 36.9503 46.3936 37.298 47.9561C42.0792 69.7181 44.2589 79.6471 52.06 79.9871H52.3607C55.4388 79.9871 59.2591 77.7566 65.8607 63.4871C70.3021 53.8777 86.3097 12.9671 77.3017 3.27613L77.2896 3.29612ZM71.5708 21.1161C68.1489 40.9951 56.8598 67.6161 52.0828 72.0771C49.8719 69.706 47.2625 57.8271 44.7312 46.3271C44.3601 44.6357 43.9031 43.249 43.3015 42.0888L54.1415 31.2488C55.6298 29.7605 55.6298 27.3504 54.1415 25.8582C52.6532 24.3699 50.2431 24.3699 48.7509 25.8582L37.2819 37.3272C36.86 37.1866 36.4303 37.046 35.9733 36.9171C34.6022 36.5382 32.5514 36.1085 30.1335 35.6163C16.0315 32.7452 8.49248 29.9366 7.70348 27.2647C11.4535 22.5342 40.5555 10.6747 60.3635 8.05366C69.6135 6.83486 71.6445 8.41304 71.7155 8.47554C71.7858 8.56539 73.3561 10.7763 71.5866 21.1045L71.5708 21.1161Z" fill="black"/></svg>'
+  ];
+  let lblSpinToken = 0;
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function ensureFeatLblIconSlot(lbl, iconIndex, lineH) {
+    let reel = lbl.querySelector('.feat-lbl-icon-reel');
+    if (reel) return reel;
+    const itemStyle = featLblItemStyle(lineH);
+    const slot = document.createElement('span');
+    slot.className = 'feat-lbl-icon-slot';
+    slot.setAttribute('aria-hidden', 'true');
+    reel = document.createElement('span');
+    reel.className = 'feat-lbl-icon-reel';
+    reel.innerHTML = '<span class="feat-lbl-icon-reel-item" style="' + itemStyle + '">' + FEAT_ICONS[iconIndex] + '</span>';
+    slot.appendChild(reel);
+    lbl.insertBefore(slot, lbl.firstChild);
+    return reel;
+  }
+
+  function ensureFeatLblSlot(lbl, text) {
+    let reel = lbl.querySelector('.feat-lbl-reel');
+    if (reel) return reel;
+    Array.from(lbl.childNodes).forEach(function(node) {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) node.remove();
+    });
+    const slot = document.createElement('span');
+    slot.className = 'feat-lbl-slot';
+    reel = document.createElement('span');
+    reel.className = 'feat-lbl-reel';
+    reel.innerHTML = '<span class="feat-lbl-reel-item">' + escapeHtml(text) + '</span>';
+    slot.appendChild(reel);
+    lbl.appendChild(slot);
+    return reel;
+  }
+
+  function buildOrderedFeatSequence(fromIdx, toIdx, items) {
+    const n = items.length;
+    if (fromIdx === toIdx) return [items[toIdx]];
+    const forward = ((toIdx - fromIdx + n) % n) <= n / 2;
+    const step = forward ? 1 : -1;
+    const seq = [];
+    let i = fromIdx;
+    while (true) {
+      i = (i + step + n) % n;
+      seq.push(items[i]);
+      if (i === toIdx) break;
+    }
+    return seq;
+  }
+
+  function buildReelSequence(fromIdx, target) {
+    return buildOrderedFeatSequence(fromIdx, FEAT_LABELS.indexOf(target), FEAT_LABELS);
+  }
+
+  function buildIconReelSequence(fromIdx, targetIndex) {
+    const iconIdxSeq = buildOrderedFeatSequence(fromIdx, targetIndex, FEAT_ICONS.map(function(_, i) { return i; }));
+    return iconIdxSeq;
+  }
+
+  function featLblIconReelItemHtml(iconIndex, itemStyle) {
+    return '<span class="feat-lbl-icon-reel-item" style="' + itemStyle + '">' + FEAT_ICONS[iconIndex] + '</span>';
+  }
+
+  function featLblTextReelItemHtml(text, itemStyle) {
+    return '<span class="feat-lbl-reel-item" style="' + itemStyle + '">' + escapeHtml(text) + '</span>';
+  }
+
+  function clearFeatLblReelSpin(reel) {
+    if (reel._featLblSpinEnd) {
+      reel.removeEventListener('transitionend', reel._featLblSpinEnd);
+      reel._featLblSpinEnd = null;
+    }
+  }
+
+  function runFeatLblReelSpin(reel, opts) {
+    clearFeatLblReelSpin(reel);
+    const scroll = (opts.seqLen - 1) * opts.lineH;
+    const easing = 'cubic-bezier(0.11, 0.94, 0.16, 1)';
+
+    if (opts.invert) {
+      reel.style.transition = 'none';
+      reel.style.transform = 'translate3d(0,' + (-scroll) + 'px,0)';
+      void reel.offsetHeight;
+      reel.style.transition = 'transform ' + opts.duration + 'ms ' + easing;
+      reel.style.transform = 'translate3d(0,0,0)';
+    } else {
+      reel.style.transition = 'transform ' + opts.duration + 'ms ' + easing;
+      reel.style.transform = 'translate3d(0,' + (-scroll) + 'px,0)';
+    }
+
+    function onEnd(e) {
+      if (e.target !== reel || e.propertyName !== 'transform') return;
+      clearFeatLblReelSpin(reel);
+      if (opts.token !== lblSpinToken) return;
+      reel.style.transition = 'none';
+      reel.innerHTML = opts.finalHtml;
+      reel.style.transform = 'translate3d(0,0,0)';
+    }
+    reel._featLblSpinEnd = onEnd;
+    reel.addEventListener('transitionend', onEnd);
+  }
+
+  function featLblLineHeight(lbl) {
+    const slot = lbl.querySelector('.feat-lbl-slot');
+    if (slot && slot.offsetHeight > 0) return slot.offsetHeight;
+    const h = getComputedStyle(lbl).getPropertyValue('--feat-lbl-h').trim();
+    const n = parseFloat(h);
+    return Number.isFinite(n) && n > 0 ? n : 38;
+  }
+
+  function featLblItemStyle(lineH) {
+    return 'flex:0 0 ' + lineH + 'px;height:' + lineH + 'px;min-height:' + lineH + 'px;line-height:' + lineH + 'px';
+  }
+
+  function measureFeatLblTextWidth(lbl, text, lineH) {
+    const slot = lbl.querySelector('.feat-lbl-slot');
+    if (!slot) return 0;
+    const el = document.createElement('span');
+    el.className = 'feat-lbl-reel-item';
+    el.setAttribute('style', featLblItemStyle(lineH) + ';position:absolute;left:0;top:0;visibility:hidden;pointer-events:none;white-space:nowrap;');
+    el.textContent = text;
+    slot.appendChild(el);
+    const w = Math.ceil(el.getBoundingClientRect().width);
+    el.remove();
+    return w;
+  }
+
+  function setFeatLblSlotWidth(lbl, widthPx, animate, durationMs) {
+    const slot = lbl.querySelector('.feat-lbl-slot');
+    if (!slot) return;
+    const dur = durationMs || 550;
+    if (!animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      slot.style.transition = 'none';
+      slot.style.width = widthPx + 'px';
+      return;
+    }
+    slot.style.transition = 'width ' + dur + 'ms cubic-bezier(0.22, 1, 0.36, 1)';
+    slot.style.width = widthPx + 'px';
+  }
+
+  function spinFeatLbl(slide, instant, fromIdx) {
+    const lbl = featLbl;
+    const target = slide && slide.dataset.label;
+    const targetIdx = slide ? parseInt(slide.dataset.i, 10) : 0;
+    const prevIdx = Number.isFinite(fromIdx) ? fromIdx : targetIdx;
+    if (!lbl || !target || !Number.isFinite(targetIdx)) return;
+
+    clearFeatLblReelSpin(lbl.querySelector('.feat-lbl-reel'));
+    clearFeatLblReelSpin(lbl.querySelector('.feat-lbl-icon-reel'));
+
+    const token = ++lblSpinToken;
+    const lineH = featLblLineHeight(lbl);
+    const itemStyle = featLblItemStyle(lineH);
+    lbl.style.setProperty('--feat-lbl-line', lineH + 'px');
+
+    const textReel = ensureFeatLblSlot(lbl, target);
+    const iconReel = ensureFeatLblIconSlot(lbl, targetIdx, lineH);
+    const textSlot = lbl.querySelector('.feat-lbl-slot');
+    const targetW = measureFeatLblTextWidth(lbl, target, lineH);
+    const finalTextHtml = featLblTextReelItemHtml(target, itemStyle);
+    const finalIconHtml = featLblIconReelItemHtml(targetIdx, itemStyle);
+
+    if (instant || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      textReel.style.transition = 'none';
+      textReel.innerHTML = finalTextHtml;
+      textReel.style.transform = 'translate3d(0,0,0)';
+      iconReel.style.transition = 'none';
+      iconReel.innerHTML = finalIconHtml;
+      iconReel.style.transform = 'translate3d(0,0,0)';
+      setFeatLblSlotWidth(lbl, targetW, false);
+      return;
+    }
+
+    const textSeq = buildReelSequence(prevIdx, target);
+    const iconSeq = buildIconReelSequence(prevIdx, targetIdx);
+    const startW = textSlot ? textSlot.offsetWidth : targetW;
+    const duration = 1280 + Math.floor(Math.random() * 280);
+
+    if (textSlot) {
+      textSlot.style.transition = 'none';
+      textSlot.style.width = startW + 'px';
+    }
+
+    const textItemsHtml = textSeq.map(function(t) {
+      return featLblTextReelItemHtml(t, itemStyle);
+    }).join('');
+    const iconItemsHtml = iconSeq.map(function(i) {
+      return featLblIconReelItemHtml(i, itemStyle);
+    }).join('');
+
+    textReel.style.transition = 'none';
+    textReel.innerHTML = textItemsHtml;
+    textReel.style.transform = 'translate3d(0,0,0)';
+    iconReel.style.transition = 'none';
+    iconReel.innerHTML = iconItemsHtml;
+    iconReel.style.transform = 'translate3d(0,' + (-(iconSeq.length - 1) * lineH) + 'px,0)';
+    void textReel.offsetHeight;
+
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        if (token !== lblSpinToken) return;
+        setFeatLblSlotWidth(lbl, targetW, true, duration);
+        runFeatLblReelSpin(textReel, {
+          lineH: lineH,
+          duration: duration,
+          token: token,
+          finalHtml: finalTextHtml,
+          seqLen: textSeq.length
+        });
+        runFeatLblReelSpin(iconReel, {
+          lineH: lineH,
+          invert: true,
+          duration: duration,
+          token: token,
+          finalHtml: finalIconHtml,
+          seqLen: iconSeq.length
+        });
+      });
+    });
+  }
+
+  (function initFeatLbl() {
+    const initial = slides.find(function(s) { return parseInt(s.dataset.i, 10) === current; }) || slides[0];
+    if (!featLbl || !initial || !initial.dataset.label) return;
+    const idx = parseInt(initial.dataset.i, 10);
+    if (!Number.isFinite(idx)) return;
+    ensureFeatLblSlot(featLbl, initial.dataset.label);
+    const lineH = featLblLineHeight(featLbl);
+    featLbl.style.setProperty('--feat-lbl-line', lineH + 'px');
+    ensureFeatLblIconSlot(featLbl, idx, lineH);
+    setFeatLblSlotWidth(featLbl, measureFeatLblTextWidth(featLbl, initial.dataset.label, lineH), false);
+  })();
+
+  function goTo(idx, animated) {
+    const prev = current;
+    const next = ((idx % TOTAL) + TOTAL) % TOTAL;
+    const changed = next !== current;
+    current = next;
+    applyStack(animated !== false);
+    slides.forEach(s => s.classList.toggle('on', parseInt(s.dataset.i, 10) === current));
+    dots.forEach(d => d.classList.toggle('on', parseInt(d.dataset.i, 10) === current));
+    const activeSlide = slides.find(s => parseInt(s.dataset.i, 10) === current);
+    if (activeSlide && changed) spinFeatLbl(activeSlide, false, prev);
+    if (!hasInteracted) {
+      hasInteracted = true;
+      document.getElementById('feat-hint').classList.add('gone');
+    }
+    syncFeatVideos();
+  }
+
+  document.getElementById('feat-prev').addEventListener('click', () => goTo(current - 1, true));
+  document.getElementById('feat-next').addEventListener('click', () => goTo(current + 1, true));
+  dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.i), true)));
+
+  const THROW_THRESH = 80;
+  const ROT_FACTOR   = 0.08;
+
+  let drag = null;
+
+  function pointerDown(e) {
+    const phone = e.currentTarget;
+    if (parseInt(phone.dataset.i) !== current) return;
+    e.preventDefault();
+    const pt = e.touches ? e.touches[0] : e;
+    drag = {
+      phone,
+      startX: pt.clientX,
+      startY: pt.clientY,
+      baseTransform: (function() {
+        const s = featStack()[0];
+        return {x: s.x, y: s.y, rot: s.rot, scale: s.scale};
+      })(),
+      dx: 0, dy: 0,
+      velX: 0, prevX: pt.clientX,
+      lastT: Date.now(),
+    };
+    phone.classList.add('dragging');
+    phone.style.transition = 'none';
+  }
+
+  function pointerMove(e) {
+    if (!drag) return;
+    e.preventDefault();
+    const pt = e.touches ? e.touches[0] : e;
+    const now = Date.now();
+    const dt = Math.max(1, now - drag.lastT);
+    drag.velX = (pt.clientX - drag.prevX) / dt * 16;
+    drag.prevX = pt.clientX;
+    drag.lastT = now;
+    drag.dx = pt.clientX - drag.startX;
+    drag.dy = pt.clientY - drag.startY;
+
+    const rot = drag.baseTransform.rot + drag.dx * ROT_FACTOR;
+    const lift = Math.min(Math.abs(drag.dx) * 0.04, 8);
+    drag.phone.style.transform =
+      `translate(${drag.dx}px,${drag.dy - lift}px) rotate(${rot}deg) scale(${drag.baseTransform.scale})`;
+  }
+
+  function pointerUp() {
+    if (!drag) return;
+    const phone = drag.phone;
+    phone.classList.remove('dragging');
+
+    const dx = drag.dx;
+    const vel = drag.velX;
+    const thrown = Math.abs(dx) > THROW_THRESH || Math.abs(vel) > 0.6;
+
+    if (thrown) {
+      /* Swipe left = next feature (0→1→2→3); swipe right = previous — matches arrows/dots */
+      const nextDelta = dx < 0 ? 1 : -1;
+      const flyDir = dx < 0 ? -1 : 1;
+      const flyX = flyDir * (window.innerWidth * 0.6 + Math.abs(vel) * 80);
+      const flyRot = drag.baseTransform.rot + dx * ROT_FACTOR + flyDir * 20;
+      phone.style.transition = 'transform .38s cubic-bezier(.4,0,1,1)';
+      phone.style.transform = `translate(${flyX}px,${drag.dy}px) rotate(${flyRot}deg) scale(${drag.baseTransform.scale})`;
+
+      setTimeout(() => {
+        goTo(current + nextDelta, true);
+      }, 260);
+    } else {
+      phone.style.transition = 'transform .52s cubic-bezier(.34,1.4,.64,1)';
+      const b = drag.baseTransform;
+      phone.style.transform = `translate(${b.x}px,${b.y}px) rotate(${b.rot}deg) scale(${b.scale})`;
+    }
+
+    drag = null;
+  }
+
+  phones.forEach(phone => {
+    phone.addEventListener('mousedown',  pointerDown);
+    phone.addEventListener('touchstart', pointerDown, {passive:false});
+  });
+  document.addEventListener('mousemove',  pointerMove);
+  document.addEventListener('touchmove',  pointerMove, {passive:false});
+  document.addEventListener('mouseup',    pointerUp);
+  document.addEventListener('touchend',   pointerUp);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  goTo(current - 1, true);
+    if (e.key === 'ArrowRight') goTo(current + 1, true);
+  });
+
+})();
+});
+
 </script>
 
 <!-- ── INSTALL MODAL ── -->
@@ -4410,15 +5223,15 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
     <div class="im-head">
       <h2 class="im-title" id="imTitle">How to install Bountt</h2>
       <button class="im-close" id="imClose" type="button" aria-label="Close install guide">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-          <path d="M14 4L4 14M4 4l10 10"/>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75" fill="none" aria-hidden="true">
+          <path d="M72.2513 16.0018L50.7536 37.4988L72.2513 58.9959C75.9162 62.6607 75.9162 68.593 72.2513 72.2491C70.4232 74.0771 68.0238 75 65.6245 75C63.2251 75 60.8258 74.086 58.9977 72.2491L37.5 50.7521L16.0023 72.2491C14.1742 74.0771 11.7749 75 9.37552 75C6.97617 75 4.57681 74.086 2.74872 72.2491C-0.916239 68.5842 -0.916239 62.6519 2.74872 58.9959L24.2464 37.4988L2.74872 16.0018C-0.916239 12.337 -0.916239 6.4047 2.74872 2.74863C6.41367 -0.916211 12.3461 -0.916211 16.0023 2.74863L37.5 24.2456L58.9977 2.74863C62.6626 -0.916211 68.5951 -0.916211 72.2513 2.74863C75.9162 6.41348 75.9162 12.337 72.2513 16.0018Z" fill="currentColor"/>
         </svg>
       </button>
     </div>
 
     <div class="im-body">
 
-      <section class="im-platform">
+      <section class="im-platform" aria-label="iOS installation steps">
         <div class="im-platform-label">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
             <rect x="4" y="1" width="10" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/>
