@@ -407,7 +407,7 @@ nav .nav-right { gap: 16px; }
   transition: transform 0.62s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-@media (hover: hover) and (min-width: 769px) {
+@media (hover: hover) and (pointer: fine) and (min-width: 769px) {
   .hero:has(.cta-btn:hover:not(:active)) .hero-title .star-img {
     transform: rotate(360deg);
   }
@@ -511,7 +511,7 @@ nav .nav-right { gap: 16px; }
   }
 }
 
-@media (hover: hover) and (min-width: 769px) {
+@media (hover: hover) and (pointer: fine) and (min-width: 769px) {
   .cta-btn:hover:not(:active) {
     translate: 0 -0.21em;
     box-shadow:
@@ -552,6 +552,45 @@ nav .cta-btn {
   z-index: 999;
   margin-top: 12px;
   margin-bottom: 12px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero .cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    128deg,
+    rgba(172, 172, 172, 0.26) 0%,
+    rgba(61, 96, 125, 0.16) 24%,
+    rgba(255, 255, 255, 0.03) 42%,
+    transparent 62%
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero .cta-btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 769px) {
+  .hero .cta-btn:hover:not(:active) {
+    background-color: #004878;
+  }
+
+  .hero .cta-btn:hover:not(:active)::before {
+    opacity: 1;
+  }
+}
+
+.hero .cta-btn:active::before {
+  opacity: 0;
 }
 
 /* Waitlist CTA — accent fill, primary copy */
@@ -3063,7 +3102,7 @@ img.im-step-img {
   nav .nav-login { display: none; }
   .nav-cta-label--full { display: none; }
   .nav-cta-label--short { display: inline; }
-  .hero { padding-top: 80px; padding-bottom: 88px; padding-left: 24px; padding-right: 24px; min-height: auto; }
+  .hero { padding-top: 70px; padding-bottom: 88px; padding-left: 24px; padding-right: 24px; min-height: auto; }
   .hero-title { font-size: 2.38rem; line-height: var(--hero-title-line-height); margin-top: 14px; margin-bottom: 12px; }
   .hero-body {
     margin-bottom: 18px;
@@ -3203,7 +3242,7 @@ img.im-step-img {
     padding: 14px 20px max(18px, calc(10px + env(safe-area-inset-bottom, 0px)));
   }
   nav .nav-right { gap: 8px; }
-  .hero { padding-top: 64px; padding-left: 20px; padding-right: 20px; }
+  .hero { padding-top: 54px; padding-left: 20px; padding-right: 20px; }
   .hero-title { font-size: 2.52rem; line-height: var(--hero-title-line-height); }
   .hero-body { line-height: 1.36; font-size: 0.9rem; max-width: min(340px, 100%); }
   .hero-visual { margin-top: 42px; height: 352px; }
@@ -4600,6 +4639,7 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
 /* ── BETA MODAL ── */
 (function() {
   var AUTH_URL    = 'https://app.bountt.com';
+  var SEEN_KEY    = 'bountt_beta_modal_seen_v1';
   var modal       = document.getElementById('betaModal');
   var overlay     = document.getElementById('bmOverlay');
   var closeBtn    = document.getElementById('bmClose');
@@ -4608,11 +4648,21 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
   var targetUrl   = AUTH_URL;
   var prevFocus   = null;
 
+  function hasSeenModal() {
+    try { return localStorage.getItem(SEEN_KEY) === '1'; }
+    catch (e) { return false; }
+  }
+
+  function markSeenModal() {
+    try { localStorage.setItem(SEEN_KEY, '1'); } catch (e) {}
+  }
+
   function openModal(url) {
     targetUrl = url || AUTH_URL;
     prevFocus = document.activeElement;
     modal.removeAttribute('hidden');
     document.body.style.overflow = 'hidden';
+    markSeenModal();
     requestAnimationFrame(function() {
       requestAnimationFrame(function() {
         modal.classList.add('bm-open');
@@ -4637,7 +4687,10 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
   /* Intercept all auth CTAs */
   document.addEventListener('click', function(e) {
     var a = e.target.closest('a[href="' + AUTH_URL + '"]');
-    if (a) { e.preventDefault(); openModal(a.href); }
+    if (!a) return;
+    if (hasSeenModal()) return; /* allow normal navigation */
+    e.preventDefault();
+    openModal(a.href);
   });
 
   overlay.addEventListener('click', closeModal);
