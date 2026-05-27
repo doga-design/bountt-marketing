@@ -1842,8 +1842,9 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 }
 
 .faq-item {
+  --faq-fill: #1A507C;
   width: auto;
-  background: #1A507C;
+  background-color: var(--faq-fill);
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
@@ -1861,8 +1862,9 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 #faqR2 { --faq-tilt: 1.08deg; --faq-origin: 18% 52%; }
 
 .faq-item[data-open] {
+  --faq-fill: #002A4C;
   width: 100%;
-  background: #002A4C;
+  background-color: var(--faq-fill);
   border-radius: 20px;
   transform: none;
 }
@@ -1888,8 +1890,9 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   }
 
   .faq-col .faq-item:not([data-open]):hover {
+    --faq-fill: #002A4C;
     transform: rotate(var(--faq-tilt, 0.75deg));
-    background-color: #002A4C;
+    background-color: var(--faq-fill);
     box-shadow:
       0 10px 28px rgba(0, 0, 0, 0.22),
       0 2px 8px rgba(0, 0, 0, 0.12);
@@ -2201,13 +2204,10 @@ body.is-dragging .avatar { cursor: grabbing !important; }
     bottom: -7px;
     width: 14px;
     height: 14px;
-    background: #1A507C;
+    background-color: var(--faq-fill);
     transform: translateX(-50%) rotate(45deg);
     border-radius: 3px;
-  }
-
-  #faqR2[data-open]::after {
-    background: #002A4C;
+    transition: background-color 0.3s ease;
   }
 
   /* Disable mobile tap highlight for FAQ taps */
