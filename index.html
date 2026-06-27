@@ -3137,13 +3137,6 @@ img.im-step-img {
   opacity: 1;
   transform: translateY(0);
 }
-.feat-loader-copy {
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--primary);
-}
 .feat-screen.is-video-loading .feat-screen-video,
 .feat-screen.is-video-loading .feat-screen-poster {
   filter: blur(8px);
@@ -5370,7 +5363,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const featLoader = document.createElement('div');
   featLoader.className = 'feat-loader-overlay';
   featLoader.setAttribute('aria-hidden', 'true');
-  featLoader.innerHTML = '<span class="loader feat-loader" aria-hidden="true">Loading</span><span class="feat-loader-copy">Video is loading</span>';
+  featLoader.innerHTML = '<span class="loader feat-loader" aria-hidden="true">Loading</span>';
 
   function clearFeatLoading() {
     deck.querySelectorAll('.feat-screen.is-video-loading').forEach(function(screen) {
@@ -5393,9 +5386,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  var featGestureEvents = ['touchstart', 'pointerdown', 'click', 'keydown', 'scroll'];
+  var featGestureBound = false;
+
+  function bindFeatGestureKick() {
+    if (featGestureBound) return;
+    featGestureBound = true;
+    featGestureEvents.forEach(function(ev) {
+      window.addEventListener(ev, featGestureKick, { once: true, passive: true });
+    });
+  }
+  function unbindFeatGestureKick() {
+    featGestureBound = false;
+    featGestureEvents.forEach(function(ev) {
+      window.removeEventListener(ev, featGestureKick);
+    });
+  }
+  function featGestureKick() {
+    unbindFeatGestureKick();
+    if (sectionActive) ensurePlaying(activeVideo);
+  }
+
   function ensurePlaying(video) {
     if (!video || reducedMotionMq.matches) return;
-    video.play().catch(function() {});
+    /* Re-assert autoplay prerequisites (iOS may need these set in JS too). */
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    var p = video.play();
+    if (p && p.catch) {
+      /* Blocked (e.g. iOS Low Power Mode) — retry on first user interaction. */
+      p.catch(function() { bindFeatGestureKick(); });
+    }
   }
 
   function detachActiveVideo() {
