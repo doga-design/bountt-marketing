@@ -23,11 +23,8 @@
 <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
 <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
 <link rel="icon" type="image/svg+xml" href="/img/favicon-bountt.svg">
-<link rel="preload" as="image" href="img/iphone-hero-mockup-2.png" fetchpriority="high">
-<link rel="preload" as="video" href="img/feat/feat-sharedfeed.mp4" type="video/mp4">
-<link rel="preload" as="video" href="img/feat/feat-smartmatch.mp4" type="video/mp4">
-<link rel="preload" as="video" href="img/feat/feat-receiptscan.mp4" type="video/mp4">
-<link rel="preload" as="video" href="img/feat/feat-graphs.mp4" type="video/mp4">
+<link rel="preload" as="image" href="img/demo-vids/bountt-marketing-demo-poster.webp" fetchpriority="high">
+<link rel="preload" as="video" href="img/demo-vids/bountt-marketing-demo.mp4" type="video/mp4" fetchpriority="high">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
 <!-- ══════════════════════════
@@ -726,19 +723,56 @@ nav .cta-btn {
   100% { transform: translateX(25%) translateY(0px)   rotate(3deg);    }
 }
 
-.phone-mockup {
+/* ── Hero clay phone mockup ── */
+.hero-phone {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 340px;
-  height: auto; /* FIX: explicit height prevents CLS */
+  width: 300px;
+  padding: 10px;
+  border-radius: 42px;
+  background: linear-gradient(158deg, var(--primary) 0%, var(--primary) 52%, var(--primary) 100%);
+  box-shadow:
+    0 34px 60px -22px rgba(0, 40, 76, 0.42),
+    0 14px 26px -16px rgba(0, 0, 0, 0.22),
+    inset 0 3px 5px rgba(255, 255, 255, 0.95),
+    inset 0 -10px 16px rgba(0, 40, 76, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55);
   z-index: 2;
-  object-fit: contain;
   transform-origin: center bottom;
   animation: floatPhone 6.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
   will-change: transform;
   transition: filter 0.35s ease;
 }
+
+.hero-phone__screen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1170 / 2532; /* native video aspect — no cropping */
+  border-radius: 35px; /* concentric with frame: outer radius − padding */
+  overflow: hidden;
+  background: #0a0f14;
+  box-shadow: inset 0 0 0 1px rgba(0, 40, 76, 0.14);
+}
+
+.hero-phone__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* box already matches native aspect, so this never distorts */
+  display: block;
+}
+
+.hero-phone__poster { z-index: 1; }
+
+.hero-phone__video {
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.hero-phone__video.is-ready { opacity: 1; }
 
 @keyframes cardSweep {
   0%   { left: -90%; opacity: 0; }
@@ -792,7 +826,7 @@ nav .cta-btn {
   .cost-ui-card:hover .cost-ui-inner::before {
     animation: cardSweep 0.62s cubic-bezier(0.8, 0, 0.2, 1) 0.04s 1 forwards;
   }
-  .hero-visual:has(.cost-ui-card:hover) .phone-mockup,
+  .hero-visual:has(.cost-ui-card:hover) .hero-phone,
   .hero:has(.cost-ui-card:hover) .hero-dot-grid { filter: blur(3px); }
 }
 
@@ -876,6 +910,72 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   padding: 140px 20px 160px;
   background: var(--surface);
   overflow: hidden;
+}
+
+/* Desktop-only tilted screenshot marquee background */
+.msg-marquee {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  display: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+
+@media (min-width: 992px) {
+  .msg-marquee { display: block; }
+}
+
+.msg-marquee-rotate {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  width: 150%;
+  transform: translate(-50%, -50%) rotate(-6deg);
+}
+
+.msg-marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: msgMarqueeDrift 200s linear infinite;
+}
+
+.msg-marquee-item {
+  flex: 0 0 auto;
+  width: 200px;
+  height: auto;
+  margin-right: 28px;
+  border-radius: 22px;
+  display: block;
+  pointer-events: auto;
+  box-shadow:
+    0 1px 2px rgba(0, 23, 48, 0.06),
+    0 6px 14px -6px rgba(0, 23, 48, 0.12),
+    0 18px 40px -16px rgba(0, 23, 48, 0.18);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+  box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.msg-marquee-item:hover {
+  transform: translateY(-12px);
+  box-shadow:
+    0 2px 4px rgba(0, 23, 48, 0.07),
+    0 14px 28px -10px rgba(0, 23, 48, 0.16),
+    0 36px 70px -22px rgba(0, 23, 48, 0.26);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+  box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes msgMarqueeDrift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .msg-marquee-track { animation: none; }
 }
 
 .msg-deco-left, .msg-deco-right {
@@ -1049,12 +1149,20 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   height: 480px;
   overflow: hidden;
   position: relative;
-  border-radius: 0;
+  border-radius: 0 0 24px 24px;
   background: linear-gradient(to bottom, #ffffff 0%, var(--surface) 100%);
   padding: 10px 0px 10px 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.08);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 100%);
+}
+
+@media (min-width: 992px) {
+  .msg-win {
+    border-radius: 24px;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
 
 .msg-inner { padding: 16px 6px 24px; display: flex; flex-direction: column; }
@@ -1180,11 +1288,10 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   padding: 11px 22px; background: var(--surface); color: #333;
   border: 1px solid #ccc; border-radius: 100px; font-family: var(--font-sans);
   font-weight: 700; letter-spacing: -0.01em; cursor: pointer;
-  box-shadow: 2px 4px 0px rgba(0, 0, 0, 0.38);
   transition: none;
 }
 @media (hover: hover) and (min-width: 769px) {
-  .msg-rp-btn:hover { transform: scale(1.04); box-shadow: 5px 10px 0px rgba(0, 0, 0, 0.28); }
+  .msg-rp-btn:hover { transform: scale(1.04); }
 }
 
 @keyframes msgRowIn  { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
@@ -2858,7 +2965,7 @@ img.im-step-img {
 
 /* ── DECK (desktop default; scaled down at ≤995px) ── */
 .feat-deck-stage{display:flex;flex-direction:column;align-items:center;height:720px;position:relative;justify-content:center;}
-.feat-deck{position:relative;width:300px;height:652px;}
+.feat-deck{position:relative;width:300px;height:630px;}
 
 .feat-phone{
   position:absolute;top:0;left:0;width:100%;height:100%;
@@ -2886,9 +2993,109 @@ img.im-step-img {
 }
 .feat-screen-poster{position:relative;z-index:0;flex:1;min-height:0;align-self:stretch;}
 .feat-screen-video{position:absolute;inset:0;z-index:1;}
+.feat-screen-poster,
+.feat-screen-video{
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
 .feat-phone.dragging .feat-screen-video{visibility:hidden;}
+
+/* Feature video loading overlay */
+.feat-loader-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.feat-screen.is-video-loading .feat-loader-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+.feat-loader-copy {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+.feat-screen.is-video-loading .feat-screen-video,
+.feat-screen.is-video-loading .feat-screen-poster {
+  filter: blur(8px);
+  transform: scale(1.02);
+}
+.loader.feat-loader {
+  color: #fff;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  text-indent: -9999em;
+  animation: mulShdSpin 1.3s infinite linear;
+  transform: translateZ(0);
+  flex-shrink: 0;
+  margin-top: 1.5em;
+}
+@keyframes mulShdSpin {
+  0%,
+  100% {
+    box-shadow: 0 -3em 0 0.2em,
+      2em -2em 0 0em, 3em 0 0 -1em,
+      2em 2em 0 -1em, 0 3em 0 -1em,
+      -2em 2em 0 -1em, -3em 0 0 -1em,
+      -2em -2em 0 0;
+  }
+  12.5% {
+    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em,
+      3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em,
+      -2em 2em 0 -1em, -3em 0 0 -1em,
+      -2em -2em 0 -1em;
+  }
+  25% {
+    box-shadow: 0 -3em 0 -0.5em,
+      2em -2em 0 0, 3em 0 0 0.2em,
+      2em 2em 0 0, 0 3em 0 -1em,
+      -2em 2em 0 -1em, -3em 0 0 -1em,
+      -2em -2em 0 -1em;
+  }
+  37.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em,
+      3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em,
+      -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  50% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em,
+      3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em,
+      -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  62.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em,
+      3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0,
+      -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+  }
+  75% {
+    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em,
+      3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em,
+      -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em,
+      3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em,
+      -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+  }
+}
+
 @media (prefers-reduced-motion:reduce){
   #feat-active-video{display:none;}
+  .feat-loader-overlay{display:none;}
 }
 
 /* ── SWIPE HINT ── */
@@ -3018,6 +3225,23 @@ img.im-step-img {
   width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(26,39,68,.15);
   background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;
   color:var(--navy);box-shadow:none;
+  transition:background-color .25s cubic-bezier(.22,1,.36,1),
+             border-color .25s cubic-bezier(.22,1,.36,1),
+             color .25s cubic-bezier(.22,1,.36,1),
+             transform .25s cubic-bezier(.22,1,.36,1);
+}
+@media (hover:hover) and (min-width:769px){
+  .feat-arr:hover{
+    background:var(--primary);
+    border-color:var(--primary);
+    color:#fff;
+  }
+}
+.feat-arr:active{
+  background:var(--primary-dark);
+  border-color:var(--primary-dark);
+  color:#fff;
+  transform:scale(.94);
 }
 
 /* ── RESPONSIVE ── */
@@ -3027,7 +3251,7 @@ img.im-step-img {
   .feat-deck-stage{
     height:auto;min-height:0;justify-content:flex-start;
   }
-  .feat-deck{width:min(248px,72vw);height:539px;}
+  .feat-deck{width:min(248px,72vw);height:518px;}
   .feat-frame{border-radius:24px;}
   .feat-screen{border-radius:16px;margin:6px;}
   .feat-hint{
@@ -3045,7 +3269,7 @@ img.im-step-img {
 @media(max-width:768px){
   .feat-subline{margin-bottom:40px;}
   .feat-layout{gap:14px;}
-  .feat-deck{width:min(280px,80vw);height:591px;}
+  .feat-deck{width:min(280px,80vw);height:588px;}
   .feat-info{max-width:min(360px,100%);}
   .feat-stitle{font-size:20px;}
   .feat-sdesc{font-size:15px;}
@@ -3120,9 +3344,10 @@ img.im-step-img {
   .wl-cta-wrap > a {
     margin-top: 8px;
   }
-  .hero-visual { width: 100%; height: 400px; margin-top: 22px; }
+  .hero-visual { width: 100%; height: 440px; margin-top: 22px; }
   .hero-dot-grid { width: min(420px, 108vw); height: min(420px, 108vw); top: 82%; }
-  .phone-mockup { width: 172px; }
+  .hero-phone { width: 184px; padding: 5px; border-radius: 28px; }
+  .hero-phone__screen { border-radius: 23px; }
   .cost-ui-card { width: 122px; top: 10px; }
   .cost-ui-card .flower-shapes { width: 40px; top: -18px; right: -12px; }
   .avatar-1 { left: 1%; top: 110px; }
@@ -3245,9 +3470,10 @@ img.im-step-img {
   .hero { padding-top: 54px; padding-left: 20px; padding-right: 20px; }
   .hero-title { font-size: 2.52rem; line-height: var(--hero-title-line-height); }
   .hero-body { line-height: 1.36; font-size: 0.9rem; max-width: min(340px, 100%); }
-  .hero-visual { margin-top: 42px; height: 352px; }
+  .hero-visual { margin-top: 42px; height: 452px; }
   .hero-dot-grid { width: min(340px, 96vw); height: min(340px, 96vw); top: 84%; }
-  .phone-mockup { width: 204px; }
+  .hero-phone { width: 200px; padding: 6px; border-radius: 32px; }
+  .hero-phone__screen { border-radius: 26px; }
   .cost-ui-card { left: 150px; width: 138px; }
   .avatar img { max-width: 54px; max-height: 54px; }
   .avatar-1 { left: 2%; top: 76px; }
@@ -3255,7 +3481,7 @@ img.im-step-img {
   .avatar-3 { right: 0%; top: 280px; }
   .msg-section { padding: 82px 20px 74px; }
   .msg-headline { font-size: 2.1rem; line-height: 1; }
-  .msg-win { height: 360px; border-radius: 18px; }
+  .msg-win { height: 360px; border-radius: 0; }
   .msg-b { padding: 9px 12px; }
   .intro-section .intro-content { margin-left: -8px; }
   .intro-particle--bl { bottom: -40px; left: 35px; }
@@ -3340,8 +3566,21 @@ img.im-step-img {
       <path id="line3" fill="none" stroke="#666" stroke-width="1.5" stroke-dasharray="5,5" stroke-linecap="round" opacity="0.42" d="M 849,194 C 790,140 660,60 450,-44"/>
     </svg>
 
-    <!-- FIX: descriptive alt text on meaningful images -->
-    <img class="phone-mockup" src="img/iphone-hero-mockup-2.png" alt="Bountt app showing a shared expense feed with group costs" width="340" height="634" fetchpriority="high" />
+    <!-- Hero clay phone: autoplaying demo video at native aspect; poster image is the instant fallback (shown until the video can play / if it fails) -->
+    <div class="hero-phone">
+      <div class="hero-phone__screen">
+        <img class="hero-phone__media hero-phone__poster" src="img/demo-vids/bountt-marketing-demo-poster.webp" alt="Bountt app showing a shared expense feed with group costs" width="1170" height="2532" fetchpriority="high" />
+        <video
+          class="hero-phone__media hero-phone__video"
+          id="heroDemoVideo"
+          src="img/demo-vids/bountt-marketing-demo.mp4"
+          poster="img/demo-vids/bountt-marketing-demo-poster.webp"
+          width="1170" height="2532"
+          autoplay muted loop playsinline preload="auto"
+          disablepictureinpicture disableremoteplayback
+          aria-hidden="true"></video>
+      </div>
+    </div>
 
     <div class="cost-ui-card">
       <div class="cost-ui-3d">
@@ -3360,10 +3599,74 @@ img.im-step-img {
 
 </section>
 
+<script>
+/* Hero demo video — force instant autoplay, reveal over PNG fallback once ready */
+(function() {
+  var v = document.getElementById('heroDemoVideo');
+  if (!v) return;
+  function reveal() { v.classList.add('is-ready'); }
+  if (v.readyState >= 2) reveal();
+  v.addEventListener('loadeddata', reveal, { once: true });
+  v.addEventListener('canplay', reveal, { once: true });
+  function tryPlay() {
+    var p = v.play();
+    if (p && p.catch) p.catch(function() {});
+  }
+  tryPlay();
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) tryPlay();
+  });
+}());
+</script>
+
 <!-- ══════════════════════════════════════════════════════════
      MESSAGE ANIMATION SECTION
 ══════════════════════════════════════════════════════════ -->
 <section class="msg-section" id="msgSection" aria-label="How Bountt solves expense splitting problems">
+  <div class="msg-marquee" aria-hidden="true">
+    <div class="msg-marquee-rotate">
+      <div class="msg-marquee-track">
+        <!-- Half A: clay1-6 x3 -->
+        <img class="msg-marquee-item" src="img/clay1.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay2.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay3.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay4.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay5.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay6.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay1.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay2.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay3.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay4.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay5.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay6.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay1.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay2.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay3.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay4.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay5.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay6.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <!-- Half B: exact duplicate of Half A for seamless loop -->
+        <img class="msg-marquee-item" src="img/clay1.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay2.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay3.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay4.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay5.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay6.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay1.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay2.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay3.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay4.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay5.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay6.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay1.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay2.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay3.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay4.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay5.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+        <img class="msg-marquee-item" src="img/clay6.webp" width="200" height="425" alt="" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
   <div class="msg-deco-left" aria-hidden="true">
     <svg width="290" height="714" viewBox="0 0 290 714" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M-31.88 42.4998C61.08 42.7598 247 86.2179 247 257.97C247 429.722 -14.3333 607.886 -145 675.5" stroke-width="85" class="svg-elem-1"/>
@@ -3487,7 +3790,7 @@ img.im-step-img {
         <div class="feat-phone" data-i="3" style="z-index:1">
           <div class="feat-frame">
             <div class="feat-screen">
-              <img class="feat-screen-poster" src="img/feat/feat-graphs-poster.jpg" alt="" decoding="async" aria-hidden="true">
+              <img class="feat-screen-poster" src="img/demo-vids/demo-groupbalanceview-poster.jpg" alt="" decoding="async" aria-hidden="true">
             </div>
           </div>
         </div>
@@ -3495,7 +3798,7 @@ img.im-step-img {
         <div class="feat-phone" data-i="2" style="z-index:2">
           <div class="feat-frame">
             <div class="feat-screen">
-              <img class="feat-screen-poster" src="img/feat/feat-receiptscan-poster.jpg" alt="" decoding="async" aria-hidden="true">
+              <img class="feat-screen-poster" src="img/demo-vids/demo-receiptscan-new-poster.jpg" alt="" decoding="async" aria-hidden="true">
             </div>
           </div>
         </div>
@@ -3503,7 +3806,7 @@ img.im-step-img {
         <div class="feat-phone" data-i="1" style="z-index:3">
           <div class="feat-frame">
             <div class="feat-screen">
-              <img class="feat-screen-poster" src="img/feat/feat-smartmatch-poster.jpg" alt="" decoding="async" aria-hidden="true">
+              <img class="feat-screen-poster" src="img/demo-vids/demo-smartmatch-poster.jpg" alt="" decoding="async" aria-hidden="true">
             </div>
           </div>
         </div>
@@ -3511,7 +3814,7 @@ img.im-step-img {
         <div class="feat-phone" data-i="0" style="z-index:4">
           <div class="feat-frame">
             <div class="feat-screen">
-              <img class="feat-screen-poster" src="img/feat/feat-sharedfeed-poster.jpg" alt="" decoding="async" aria-hidden="true">
+              <img class="feat-screen-poster" src="img/demo-vids/demo-sharedexpensefeed-poster.jpg" alt="" decoding="async" aria-hidden="true">
             </div>
           </div>
         </div>
@@ -4860,16 +5163,42 @@ document.addEventListener('DOMContentLoaded', function() {
   const featSection = document.getElementById('featuresSection');
   const activeVideo = document.getElementById('feat-active-video');
   const FEAT_SOURCES = [
-    'img/feat/feat-sharedfeed.mp4',
-    'img/feat/feat-smartmatch.mp4',
-    'img/feat/feat-receiptscan.mp4',
-    'img/feat/feat-graphs.mp4'
+    'img/demo-vids/demo-sharedexpensefeed.mp4',
+    'img/demo-vids/demo-smartmatch.mp4',
+    'img/demo-vids/demo-receiptscan-new.mp4',
+    'img/demo-vids/demo-groupbalanceview.mp4'
+  ];
+  const FEAT_POSTERS = [
+    'img/demo-vids/demo-sharedexpensefeed-poster.jpg',
+    'img/demo-vids/demo-smartmatch-poster.jpg',
+    'img/demo-vids/demo-receiptscan-new-poster.jpg',
+    'img/demo-vids/demo-groupbalanceview-poster.jpg'
   ];
   const reducedMotionMq = window.matchMedia('(prefers-reduced-motion: reduce)');
   let sectionActive = false;
   let videosWarmed = false;
   let watchdogId = null;
   let mountedFeatIdx = -1;
+
+  const featLoader = document.createElement('div');
+  featLoader.className = 'feat-loader-overlay';
+  featLoader.setAttribute('aria-hidden', 'true');
+  featLoader.innerHTML = '<span class="loader feat-loader" aria-hidden="true">Loading</span><span class="feat-loader-copy">Video is loading</span>';
+
+  function clearFeatLoading() {
+    deck.querySelectorAll('.feat-screen.is-video-loading').forEach(function(screen) {
+      screen.classList.remove('is-video-loading');
+    });
+  }
+
+  function showFeatLoading(screen) {
+    if (reducedMotionMq.matches || !screen) return;
+    clearFeatLoading();
+    if (featLoader.parentElement !== screen) screen.appendChild(featLoader);
+    screen.classList.remove('is-video-loading');
+    void screen.offsetHeight;
+    screen.classList.add('is-video-loading');
+  }
 
   function frontFeatPhone() {
     return phones.find(function(phone) {
@@ -4884,6 +5213,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function detachActiveVideo() {
     if (!activeVideo) return;
+    clearFeatLoading();
     activeVideo.pause();
     activeVideo.hidden = true;
     if (activeVideo.parentElement !== deck) deck.appendChild(activeVideo);
@@ -4901,8 +5231,10 @@ document.addEventListener('DOMContentLoaded', function() {
     activeVideo.hidden = false;
     if (mountedFeatIdx !== current) {
       mountedFeatIdx = current;
+      activeVideo.poster = FEAT_POSTERS[current] || '';
       activeVideo.src = src;
       activeVideo.preload = 'auto';
+      showFeatLoading(screen);
       activeVideo.load();
     }
   }
@@ -4961,6 +5293,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   if (activeVideo) {
+    activeVideo.addEventListener('playing', clearFeatLoading);
+    activeVideo.addEventListener('canplay', function() {
+      if (!activeVideo.paused) clearFeatLoading();
+    });
     activeVideo.addEventListener('pause', function() {
       if (!sectionActive || reducedMotionMq.matches || document.hidden) return;
       if (activeVideo.parentElement === deck) return;
