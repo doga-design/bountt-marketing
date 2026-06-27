@@ -220,6 +220,11 @@ nav.nav-on-dark .nav-login {
   color: #fff;
 }
 
+/* Transparent over the (light) hero so the god-rays show through; keep dark text */
+nav.nav-on-hero {
+  background-color: transparent;
+}
+
 .nav-logo {
   font-family: 'Bringbold', var(--font-sans);
   font-size: 28px;
@@ -377,6 +382,64 @@ nav .nav-right { gap: 16px; }
   75%      { transform: translate(-50%, -50%) translate(2%, 2%) scale(1.01); }
 }
 
+/* ── Hero god-rays / aurora (adapted from Charm UI CSS god rays) ── */
+.hero-godrays {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.34;
+}
+
+.hero-godrays .jumbo {
+  --stripes: repeating-linear-gradient(
+    100deg,
+    #fff 0%,
+    #fff 7%,
+    transparent 10%,
+    transparent 12%,
+    #fff 16%
+  );
+  --rainbow: repeating-linear-gradient(
+    100deg,
+    #005ea6 10%,
+    #FAF0CA 15%,
+    #BFD4E6 20%,
+    #6E96B6 25%,
+    #2681c6 30%
+  );
+  position: absolute;
+  inset: -10px;
+  background-image: var(--stripes), var(--rainbow);
+  background-size: 300%, 200%;
+  background-position: 50% 50%, 50% 50%;
+  filter: blur(10px) invert(100%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 40%, transparent 72%);
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 40%, transparent 72%);
+  pointer-events: none;
+}
+
+.hero-godrays .jumbo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--stripes), var(--rainbow);
+  background-size: 200%, 100%;
+  background-attachment: fixed;
+  mix-blend-mode: difference;
+  animation: heroJumbo 60s linear infinite;
+}
+
+@keyframes heroJumbo {
+  from { background-position: 50% 50%, 50% 50%; }
+  to   { background-position: 350% 50%, 350% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-godrays .jumbo::after { animation: none; }
+}
+
 .hero-title {
   font-family: 'Bringbold', serif;
   font-size: 3.2rem;
@@ -444,6 +507,36 @@ nav .nav-right { gap: 16px; }
   position: relative;
   max-width: 400px;
   z-index: 10;
+}
+
+.hero-body-lead {
+  display: block;
+  color: var(--primary-dark);
+  text-wrap: balance;
+  font-size: 1em;
+}
+
+.hero-body-tag {
+  display: block;
+  margin-top: 0.25em;
+  font-weight: 700;
+  font-size: 1.08em;
+  letter-spacing: -0.015em;
+  color: var(--primary);
+}
+
+/* Desktop-only: tighter top spacing + larger hero copy */
+@media (min-width: 769px) {
+  .hero {
+    padding-top: 120px;
+  }
+  .hero-title {
+    font-size: 3rem;
+  }
+  .hero-body {
+    font-size: 1rem;
+    max-width: 460px;
+  }
 }
 
 /* Marketing CTA — 3D navy fill (adapted from Uiverse mahiatlinux) */
@@ -549,45 +642,21 @@ nav .cta-btn {
   z-index: 999;
   margin-top: 12px;
   margin-bottom: 12px;
-  overflow: hidden;
-  isolation: isolate;
 }
 
-.hero .cta-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    128deg,
-    rgba(172, 172, 172, 0.26) 0%,
-    rgba(61, 96, 125, 0.16) 24%,
-    rgba(255, 255, 255, 0.03) 42%,
-    transparent 62%
-  );
-  opacity: 0;
-  pointer-events: none;
-  z-index: 0;
-  transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.hero .cta-btn > * {
-  position: relative;
-  z-index: 1;
+@media (min-width: 769px) {
+  .hero .cta-btn {
+    font-size: 1.06rem;
+    padding: 1.4em 2.8em;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) and (min-width: 769px) {
   .hero .cta-btn:hover:not(:active) {
     background-color: #004878;
   }
-
-  .hero .cta-btn:hover:not(:active)::before {
-    opacity: 1;
-  }
-}
-
-.hero .cta-btn:active::before {
-  opacity: 0;
 }
 
 /* Waitlist CTA — accent fill, primary copy */
@@ -731,18 +800,20 @@ nav .cta-btn {
   width: 300px;
   padding: 10px;
   border-radius: 42px;
-  background: linear-gradient(158deg, var(--primary) 0%, var(--primary) 52%, var(--primary) 100%);
-  box-shadow:
+  background: linear-gradient(158deg, var(--primary) 0%, var(--primary) 52%, var(--primary) 100%);  box-shadow:
     0 34px 60px -22px rgba(0, 40, 76, 0.42),
-    0 14px 26px -16px rgba(0, 0, 0, 0.22),
-    inset 0 3px 5px rgba(255, 255, 255, 0.95),
-    inset 0 -10px 16px rgba(0, 40, 76, 0.12),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+    0 14px 26px -16px rgba(0, 0, 0, 0.22);
   z-index: 2;
   transform-origin: center bottom;
   animation: floatPhone 6.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
   will-change: transform;
   transition: filter 0.35s ease;
+}
+
+@media (min-width: 996px) {
+  .hero-phone {
+    width: 348px;
+  }
 }
 
 .hero-phone__screen {
@@ -1285,7 +1356,7 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 .msg-rp-wrap.vis { opacity: 1; transform: translateY(0); pointer-events: auto; }
 .msg-rp-btn {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 11px 22px; background: var(--surface); color: #333;
+  padding: 11px 22px; background: transparent; color: #333;
   border: 1px solid #ccc; border-radius: 100px; font-family: var(--font-sans);
   font-weight: 700; letter-spacing: -0.01em; cursor: pointer;
   transition: none;
@@ -2923,6 +2994,48 @@ img.im-step-img {
   transition-delay: 0ms, 0ms, 0s, 0s, 0s;
 }
 
+/* ── Premium hero entrance: gentle slide + fade, smooth Apple/Stripe-like easing ── */
+.hero-title[data-reveal],
+.hero-body[data-reveal],
+.hero-visual[data-reveal] {
+  transform: translateY(30px);
+  transition:
+    opacity 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rd, 0ms);
+  will-change: opacity, transform;
+}
+.hero-title[data-reveal].in,
+.hero-body[data-reveal].in,
+.hero-visual[data-reveal].in {
+  transform: none;
+}
+
+.hero .cta-btn[data-reveal] {
+  transition-property: opacity, transform, translate, box-shadow, background-color;
+  transition-duration: 1.15s, 1.15s, 0.32s, 0.32s, 0.12s;
+  transition-timing-function:
+    cubic-bezier(0.22, 1, 0.36, 1),
+    cubic-bezier(0.22, 1, 0.36, 1),
+    cubic-bezier(0.22, 1, 0.36, 1),
+    cubic-bezier(0.22, 1, 0.36, 1),
+    ease-out;
+  transition-delay: var(--rd, 0ms), var(--rd, 0ms), 0s, 0s, 0s;
+}
+.hero .cta-btn[data-reveal].in {
+  transition-delay: var(--rd, 0ms), var(--rd, 0ms), 0s, 0s, 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title[data-reveal],
+  .hero-body[data-reveal],
+  .hero-visual[data-reveal],
+  .hero .cta-btn[data-reveal] {
+    transform: none;
+    transition: opacity 0.4s ease;
+  }
+}
+
 .intro-wave svg { display: block; width: 100%; }
 .wave-path-1 { animation: waveMove1 6s ease-in-out infinite; }
 .wave-path-2 { animation: waveMove2 8s ease-in-out infinite; opacity: 0.4; }
@@ -3319,6 +3432,13 @@ img.im-step-img {
       0 1px 0 rgba(255, 255, 255, 0.08) inset,
       0 4px 24px rgba(0, 0, 0, 0.2);
   }
+  nav.nav-on-hero {
+    background-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-bottom-color: transparent;
+    box-shadow: none;
+  }
   .nav-logo { font-size: 23px; margin-right: 0; letter-spacing: 0; }
   .wl-wordmark { letter-spacing: 0; }
   .nav-links { display: none; }
@@ -3505,7 +3625,7 @@ img.im-step-img {
 <body>
 
 <!-- ── NAVBAR ── -->
-<nav role="navigation" aria-label="Main navigation">
+<nav class="nav-on-hero" role="navigation" aria-label="Main navigation">
   <a href="#hero" class="nav-logo" aria-label="Bountt home">bountt.</a>
   <ul class="nav-links">
     <li><a href="#msgSection">The problem</a></li>
@@ -3534,20 +3654,24 @@ img.im-step-img {
 <!-- ── HERO ── -->
 <section class="hero" id="hero" aria-labelledby="heroHeading">
 
+  <div class="hero-godrays" aria-hidden="true">
+    <div class="jumbo"></div>
+  </div>
   <div class="hero-dot-grid" aria-hidden="true"></div>
   <div class="hero-gradient-float" aria-hidden="true"></div>
 
   <!-- FIX: h1 now has id for aria-labelledby, star image has descriptive alt -->
-  <h1 class="hero-title" id="heroHeading" data-reveal style="--rd:80ms">
+  <h1 class="hero-title" id="heroHeading" data-reveal style="--rd:150ms">
     Splitting expenses,<br>
     just made <img class="star-img" src="img/star-shape.png" alt="" role="presentation" width="38" height="38"> <span class="cycle-word" id="cycleWord">smarter</span><span class="cycle-ghost" id="cycleGhost" aria-hidden="true" data-nosnippet></span>.
   </h1>
 
-  <p class="hero-body" data-reveal style="--rd:240ms">
-    The free expense splitting app for friends, roommates, and travel groups. Log it, split it, forget it.
+  <p class="hero-body" data-reveal style="--rd:400ms">
+    <span class="hero-body-lead">The free expense splitting app for friends, roommates, and group trips.</span>
+    <span class="hero-body-tag">Split bills, not bonds.</span>
   </p>
 
-  <a href="https://app.bountt.com" class="cta-btn" id="heroCta" data-reveal style="--rd:380ms" aria-label="Start sharing expenses with Bountt — sign up or log in">
+  <a href="https://app.bountt.com" class="cta-btn" id="heroCta" data-reveal style="--rd:650ms" aria-label="Start sharing expenses with Bountt — sign up or log in">
     <svg class="cta-btn-icon" viewBox="0 0 95 86" fill="none" aria-hidden="true">
       <path d="M76.1905 13.3326C76.1905 4.57874 62.7765 0 49.5234 0C37.2093 0 24.7599 3.95728 23.0603 11.5433C11.089 12.2969 0 16.8042 0 24.7617V26.6653V49.5234C0 57.4165 13.392 60.9524 26.667 60.9524C40.2322 60.9524 24.5 39 55.5 25C57.0361 22.6146 73.3138 26.6719 74.2668 24.2844C75.5011 21.1919 76.1905 18.1396 76.1905 15.2363V13.3326ZM7.62133 34.3616C12.7033 36.8295 19.7069 38.0974 26.6671 38.0974C33.6274 38.0974 32.5 39 34.5 36.0891C34.5 42.1358 33.8508 41.9048 26.6671 41.9048C15.2818 41.9048 8.74313 39.0975 7.62133 37.7725V34.3616ZM68.5693 13.3326C68.5693 14.7399 62.5446 18.6829 51.0522 19.015C47.4451 14.897 39.9915 12.4183 31.9131 11.6719C34.4631 9.87898 40.4022 7.61813 49.5235 7.61813C62.0232 7.61813 68.5693 11.8647 68.5693 13.3326ZM26.6671 19.0472C39.1668 19.0472 45.7129 23.2937 45.7129 24.7617C45.7129 26.2296 39.1631 30.4762 26.6671 30.4762C14.1674 30.4762 7.62133 26.2296 7.62133 24.7617C7.62133 23.2937 14.1676 19.0472 26.6671 19.0472ZM7.62133 49.2015V46.4799C12.6998 48.5479 19.6996 49.5229 26.6671 49.5229C33.6347 49.5229 29.4213 50.2754 34.5 48.2075V50.929C33.3821 52.2541 31.5 53.5 26.6671 53.3338C15.2818 53.3338 8.74313 50.5265 7.62133 49.2015Z" fill="currentColor"/>
       <path d="M59.9999 39.3334V62.6667M48.3333 51H71.6666M89.1666 51C89.1666 67.1083 76.1082 80.1667 59.9999 80.1667C43.8916 80.1667 30.8333 67.1083 30.8333 51C30.8333 34.8917 43.8916 21.8334 59.9999 21.8334C76.1082 21.8334 89.1666 34.8917 89.1666 51Z" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -3558,7 +3682,7 @@ img.im-step-img {
     </svg>
   </a>
 
-  <div class="hero-visual" id="heroVisual" data-reveal style="--rd:520ms" role="img" aria-label="Bountt expense splitting app interface showing group cost tracking">
+  <div class="hero-visual" id="heroVisual" data-reveal style="--rd:900ms" role="img" aria-label="Bountt expense splitting app interface showing group cost tracking">
 
     <svg class="hero-svg" id="heroSvg" aria-hidden="true">
       <path id="line1" fill="none" stroke="#666" stroke-width="1.5" stroke-dasharray="5,5" stroke-linecap="round" opacity="0.42" d="M 51,327 C 30,220 120,120 450,-44"/>
@@ -4818,6 +4942,8 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
     const wlRect = wlEl ? wlEl.getBoundingClientRect() : null;
     const onDark = overlaps(introRect) || overlaps(wlRect);
     navEl.classList.toggle('nav-on-dark', onDark);
+    const heroRect = heroEl ? heroEl.getBoundingClientRect() : null;
+    navEl.classList.toggle('nav-on-hero', !onDark && overlaps(heroRect));
   }
 
   function applyScrollHide() {
