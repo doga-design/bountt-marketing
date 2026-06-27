@@ -388,6 +388,7 @@ nav .nav-right { gap: 16px; }
   inset: 0;
   overflow: hidden;
   pointer-events: none;
+  display: block;
   z-index: 0;
   opacity: 0.34;
 }
@@ -438,6 +439,10 @@ nav .nav-right { gap: 16px; }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-godrays .jumbo::after { animation: none; }
+}
+
+@media (max-width: 768px) {
+  .hero-godrays { display: none; }
 }
 
 .hero-title {
@@ -520,7 +525,7 @@ nav .nav-right { gap: 16px; }
   display: block;
   margin-top: 0.25em;
   font-weight: 700;
-  font-size: 1.08em;
+  font-size: 1em;
   letter-spacing: -0.015em;
   color: var(--primary);
 }
@@ -536,6 +541,7 @@ nav .nav-right { gap: 16px; }
   .hero-body {
     font-size: 1rem;
     max-width: 460px;
+    margin-bottom: 24px;
   }
 }
 
@@ -3087,7 +3093,7 @@ img.im-step-img {
 .feat-phone.dragging{cursor:grabbing;}
 
 .feat-frame{
-  width:100%;height:100%;border-radius:36px;position:relative;
+  width:100%;height:100%;border-radius:42px;position:relative;
   border:none;
   background:white;
   display:flex;flex-direction:column;
@@ -3095,7 +3101,7 @@ img.im-step-img {
 }
 
 .feat-screen{
-  margin:8px;border-radius:25px;overflow:hidden;
+  margin:8px;border-radius:35px;overflow:hidden;
   flex:1;display:flex;align-items:stretch;justify-content:stretch;
   background:#E2E2E2;position:relative;
 }
@@ -3121,7 +3127,7 @@ img.im-step-img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 22px;
+  gap: 8px;
   pointer-events: none;
   opacity: 0;
   transform: translateY(10px);
@@ -3136,8 +3142,7 @@ img.im-step-img {
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: #fff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  color: var(--primary);
 }
 .feat-screen.is-video-loading .feat-screen-video,
 .feat-screen.is-video-loading .feat-screen-poster {
@@ -3145,7 +3150,7 @@ img.im-step-img {
   transform: scale(1.02);
 }
 .loader.feat-loader {
-  color: #fff;
+  color: var(--primary);
   font-size: 10px;
   width: 1em;
   height: 1em;
@@ -3365,8 +3370,6 @@ img.im-step-img {
     height:auto;min-height:0;justify-content:flex-start;
   }
   .feat-deck{width:min(248px,72vw);height:518px;}
-  .feat-frame{border-radius:24px;}
-  .feat-screen{border-radius:16px;margin:6px;}
   .feat-hint{
     margin-top:24px;max-height:40px;overflow:hidden;
     transition:opacity .5s ease,margin .45s ease,max-height .45s ease;
@@ -3383,6 +3386,8 @@ img.im-step-img {
   .feat-subline{margin-bottom:40px;}
   .feat-layout{gap:14px;}
   .feat-deck{width:min(280px,80vw);height:588px;}
+  .feat-frame{border-radius:28px;}
+  .feat-screen{border-radius:23px;margin:6px;}
   .feat-info{max-width:min(360px,100%);}
   .feat-stitle{font-size:20px;}
   .feat-sdesc{font-size:15px;}
@@ -3594,6 +3599,8 @@ img.im-step-img {
   .hero-dot-grid { width: min(340px, 96vw); height: min(340px, 96vw); top: 84%; }
   .hero-phone { width: 200px; padding: 6px; border-radius: 32px; }
   .hero-phone__screen { border-radius: 26px; }
+  .feat-frame { border-radius: 32px; }
+  .feat-screen { border-radius: 26px; margin: 6px; }
   .cost-ui-card { left: 150px; width: 138px; }
   .avatar img { max-width: 54px; max-height: 54px; }
   .avatar-1 { left: 2%; top: 76px; }
@@ -3724,22 +3731,76 @@ img.im-step-img {
 </section>
 
 <script>
-/* Hero demo video — force instant autoplay, reveal over PNG fallback once ready */
+/* Hero demo video — force autoplay, resilient to iOS Low Power Mode (which blocks
+   autoplay until a user gesture). Reveal over the poster fallback once ready. */
 (function() {
   var v = document.getElementById('heroDemoVideo');
   if (!v) return;
+
   function reveal() { v.classList.add('is-ready'); }
   if (v.readyState >= 2) reveal();
   v.addEventListener('loadeddata', reveal, { once: true });
   v.addEventListener('canplay', reveal, { once: true });
-  function tryPlay() {
-    var p = v.play();
-    if (p && p.catch) p.catch(function() {});
+
+  /* Autoplay prerequisites — re-assert in case the attributes were stripped. */
+  v.muted = true;
+  v.defaultMuted = true;
+  v.playsInline = true;
+  v.setAttribute('muted', '');
+  v.setAttribute('playsinline', '');
+
+  var gestureEvents = ['touchstart', 'pointerdown', 'click', 'keydown', 'scroll'];
+  var gestureBound = false;
+
+  function bindGestureKick() {
+    if (gestureBound) return;
+    gestureBound = true;
+    gestureEvents.forEach(function(ev) {
+      window.addEventListener(ev, gestureKick, { once: true, passive: true });
+    });
   }
+  function unbindGestureKick() {
+    gestureBound = false;
+    gestureEvents.forEach(function(ev) {
+      window.removeEventListener(ev, gestureKick);
+    });
+  }
+  function gestureKick() {
+    unbindGestureKick();
+    v.muted = true;
+    tryPlay();
+  }
+
+  function tryPlay() {
+    if (!v.paused) return;
+    var p = v.play();
+    if (p && p.catch) {
+      /* Blocked (e.g. Low Power Mode) — wait for the first user interaction. */
+      p.catch(function() { bindGestureKick(); });
+    }
+  }
+
   tryPlay();
+
+  /* Low Power Mode can pause the video after it starts — resume while visible. */
+  v.addEventListener('pause', function() {
+    if (document.hidden) return;
+    setTimeout(function() {
+      if (!document.hidden && v.paused) tryPlay();
+    }, 120);
+  });
+
   document.addEventListener('visibilitychange', function() {
     if (!document.hidden) tryPlay();
   });
+
+  /* Kick playback whenever the hero video scrolls into view. */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) tryPlay(); });
+    }, { threshold: 0.2 });
+    io.observe(v);
+  }
 }());
 </script>
 
