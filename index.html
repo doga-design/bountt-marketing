@@ -99,7 +99,7 @@
       "name": "Can I download Bountt on my phone?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Bountt is a web app so there is no download required. You can install it to your home screen on iOS or Android directly from your browser in a few taps — no app store needed."
+        "text": "Yes. Bountt is on the App Store for iPhone. You can also use it free in your browser at app.bountt.com — no download required."
       }
     },
     {
@@ -453,7 +453,7 @@ nav .nav-right { gap: 16px; }
   color: var(--copy-navy);
   letter-spacing: -0.01em;
   text-align: center;
-  margin-top: 28px;
+  margin-top: 6px;
   margin-bottom: 18px;
   position: relative;
   z-index: 10;
@@ -644,18 +644,66 @@ nav .cta-btn {
   padding: .9em 1em .9em 1.5em;
 }
 
-.hero .cta-btn {
+.hero-cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
   z-index: 999;
   margin-top: 12px;
   margin-bottom: 12px;
 }
 
+.hero .cta-btn {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.hero-app-store-badge {
+  display: inline-flex;
+  line-height: 0;
+  border-radius: 6px;
+  position: relative;
+  z-index: 10;
+  margin-top: 28px;
+  margin-bottom: 12px;
+  transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-app-store-badge img {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+
+.hero-app-store-badge:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-app-store-badge:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+}
+
 @media (min-width: 769px) {
+  .hero-cta-group {
+    gap: 16px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
   .hero .cta-btn {
     font-size: 1.06rem;
     padding: 1.4em 2.8em;
-    margin-top: 10px;
-    margin-bottom: 20px;
+  }
+  .hero-app-store-badge {
+    margin-bottom: 16px;
+  }
+  .hero-app-store-badge img {
+    height: 44px;
   }
 }
 
@@ -720,7 +768,6 @@ nav .cta-btn {
 :is(
   button:active:not(.sct-btn):not(.faq-q):not(.feat-dot):not(.feat-arr):not(.nav-login),
   a[role="button"]:active:not(.cta-btn),
-  #installBounttTrigger:active,
   .scroll-fab:active
 ) {
   border-radius: var(--btn-active-radius);
@@ -2180,55 +2227,43 @@ body.is-dragging .avatar { cursor: grabbing !important; }
 .faq-item .faq-body-inner a,
 .faq-item .faq-body-inner a:visited,
 .faq-item .faq-body-inner a:hover,
-.faq-item .faq-body-inner a:active:not(#installBounttTrigger) {
+.faq-item .faq-body-inner a:active {
   color: #fff;
 }
 
-/* Install CTA row: no gap above, full-bleed width inside bubble */
-.faq-body-inner:has(#installBounttTrigger) > p:first-of-type {
+.faq-body-inner:has(.faq-app-store-badge) > p:first-of-type {
   padding-bottom: 20px;
 }
 
-.faq-body-inner p:has(#installBounttTrigger) {
+.faq-body-inner p.faq-app-store-row {
   padding: 0 25px 22px 25px;
   margin: 0;
+  text-align: center;
 }
 
-#installBounttTrigger {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  max-width: none;
-  box-sizing: border-box;
-  min-height: 48px;
-  padding: 12px 22px;
-  border-radius: 999px;
-  border: 2px solid rgba(255, 255, 255, 0.55);
-  background-color: var(--accent);
-  text-decoration: none;
-  color: var(--copy-navy) !important;
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-  touch-action: manipulation;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.55) inset,
-    0 2px 10px rgba(0, 0, 0, 0.18);
-  transition: none;
+.faq-app-store-badge {
+  display: inline-flex;
+  line-height: 0;
+  border-radius: 6px;
+  transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-app-store-badge img {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+
+.faq-app-store-badge:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  #installBounttTrigger:hover:not(:active) {
-    background-color: #fff;
-    border-color: #fff;
-    color: var(--copy-navy) !important;
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.85) inset,
-      0 4px 18px rgba(0, 0, 0, 0.16);
+  .faq-app-store-badge:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
   }
 }
 
@@ -2399,234 +2434,6 @@ body.is-dragging .avatar { cursor: grabbing !important; }
   .faq-q,
   .faq-item a {
     -webkit-tap-highlight-color: transparent;
-  }
-}
-
-/* ══════════════════════════
-   INSTALL MODAL
-══════════════════════════ */
-.im-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px 16px;
-  box-sizing: border-box;
-}
-
-.im-modal[hidden] { display: none; }
-
-.im-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 10, 20, 0.72);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.im-modal.im-open .im-backdrop { opacity: 1; }
-
-.im-sheet {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 500px;
-  max-height: 88vh;
-  background: #fff;
-  border: 1px solid rgba(0, 42, 76, 0.14);
-  box-shadow: 0 24px 56px rgba(0, 10, 24, 0.2);
-  border-radius: 26px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transform: translateY(24px);
-  opacity: 0;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-}
-
-.im-modal.im-open .im-sheet {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* Fixed header */
-.im-head {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 22px 24px;
-  border-bottom: 1px solid rgba(0,42,76,0.1);
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-.im-title {
-  font-family: var(--font-sans);
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--primary);
-  margin: 0;
-  letter-spacing: -0.03em;
-}
-
-/* Shared modal close icon (beta + install) */
-.bm-close,
-.im-close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.18s ease, color 0.18s ease;
-}
-
-.bm-close svg,
-.im-close svg {
-  width: 15px;
-  height: 15px;
-  display: block;
-  flex-shrink: 0;
-}
-
-.bm-close:focus-visible,
-.im-close:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.im-close {
-  background: rgba(0, 42, 76, 0.05);
-  color: var(--primary);
-}
-
-@media (hover: hover) {
-  .im-close:hover {
-    background: rgba(0, 42, 76, 0.12);
-    color: var(--primary-dark);
-  }
-}
-
-/* Scrollable body */
-.im-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 30px 24px 34px;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0,42,76,0.2) transparent;
-}
-
-.im-body::-webkit-scrollbar { width: 4px; }
-.im-body::-webkit-scrollbar-track { background: transparent; }
-.im-body::-webkit-scrollbar-thumb { background: rgba(0,42,76,0.2); border-radius: 4px; }
-
-.im-platform { display: block; }
-
-.im-platform-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(0,42,76,0.52);
-  margin-bottom: 20px;
-}
-
-.im-divider {
-  height: 1px;
-  background: rgba(0,42,76,0.1);
-  margin: 28px 0;
-}
-
-.im-steps {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.im-step {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.im-step-text {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.im-step-num {
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: rgba(0,42,76,0.08);
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 700;
-  color: #001d35;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 0;
-}
-
-.im-step-text p {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.42;
-  color: rgba(0,29,53,0.82);
-  letter-spacing: -0.01em;
-}
-
-.im-step-text strong { color: #001d35; font-weight: 700; }
-
-.im-step-text a,
-.im-step-text a:visited {
-  color: var(--accent);
-  text-decoration-color: var(--accent);
-  text-underline-offset: 2px;
-}
-
-.im-step-img {
-  width: 100%;
-  height: 160px;
-  background: rgba(0,42,76,0.06);
-  border-radius: 14px;
-  border: 1px solid rgba(0,42,76,0.14);
-}
-
-img.im-step-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  background: transparent;
-  border-radius: 14px;
-  border: 1px solid rgba(0,42,76,0.14);
-}
-
-@media (max-width: 860px) {
-  body.install-modal-open .scroll-fab {
-    display: none !important;
   }
 }
 
@@ -3001,8 +2808,10 @@ img.im-step-img {
 }
 
 /* ── Premium hero entrance: gentle slide + fade, smooth Apple/Stripe-like easing ── */
+.hero-app-store-badge[data-reveal],
 .hero-title[data-reveal],
 .hero-body[data-reveal],
+.hero-cta-group[data-reveal],
 .hero-visual[data-reveal] {
   transform: translateY(30px);
   transition:
@@ -3011,13 +2820,15 @@ img.im-step-img {
   transition-delay: var(--rd, 0ms);
   will-change: opacity, transform;
 }
+.hero-app-store-badge[data-reveal].in,
 .hero-title[data-reveal].in,
 .hero-body[data-reveal].in,
+.hero-cta-group[data-reveal].in,
 .hero-visual[data-reveal].in {
   transform: none;
 }
 
-.hero .cta-btn[data-reveal] {
+.hero-cta-group[data-reveal] .cta-btn {
   transition-property: opacity, transform, translate, box-shadow, background-color;
   transition-duration: 1.15s, 1.15s, 0.32s, 0.32s, 0.12s;
   transition-timing-function:
@@ -3028,15 +2839,16 @@ img.im-step-img {
     ease-out;
   transition-delay: var(--rd, 0ms), var(--rd, 0ms), 0s, 0s, 0s;
 }
-.hero .cta-btn[data-reveal].in {
+.hero-cta-group[data-reveal].in .cta-btn {
   transition-delay: var(--rd, 0ms), var(--rd, 0ms), 0s, 0s, 0s;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-app-store-badge[data-reveal],
   .hero-title[data-reveal],
   .hero-body[data-reveal],
-  .hero-visual[data-reveal],
-  .hero .cta-btn[data-reveal] {
+  .hero-cta-group[data-reveal],
+  .hero-visual[data-reveal] {
     transform: none;
     transition: opacity 0.4s ease;
   }
@@ -3445,7 +3257,8 @@ img.im-step-img {
   .nav-cta-label--full { display: none; }
   .nav-cta-label--short { display: inline; }
   .hero { padding-top: 70px; padding-bottom: 88px; padding-left: 24px; padding-right: 24px; min-height: auto; }
-  .hero-title { font-size: 2.38rem; line-height: var(--hero-title-line-height); margin-top: 14px; margin-bottom: 12px; }
+  .hero-title { font-size: 2.38rem; line-height: var(--hero-title-line-height); margin-top: 0; margin-bottom: 12px; }
+  .hero-app-store-badge { margin-top: 14px; margin-bottom: 10px; }
   .hero-body {
     margin-bottom: 18px;
     padding: 0 12px;
@@ -3455,7 +3268,7 @@ img.im-step-img {
     margin-right: auto;
     font-size: 0.92rem;
   }
-  .hero .cta-btn {
+  .hero-cta-group {
     margin-top: 8px;
     margin-bottom: 20px;
   }
@@ -3660,6 +3473,25 @@ img.im-step-img {
   <div class="hero-dot-grid" aria-hidden="true"></div>
   <div class="hero-gradient-float" aria-hidden="true"></div>
 
+  <a
+    href="https://apps.apple.com/us/app/bountt/id6784439632"
+    class="hero-app-store-badge"
+    data-reveal
+    style="--rd:80ms"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Download Bountt on the App Store"
+  >
+    <img
+      src="img/download-on-the-app-store.svg"
+      alt=""
+      width="120"
+      height="40"
+      loading="eager"
+      decoding="async"
+    />
+  </a>
+
   <!-- FIX: h1 now has id for aria-labelledby, star image has descriptive alt -->
   <h1 class="hero-title" id="heroHeading" data-reveal style="--rd:150ms">
     Splitting expenses,<br>
@@ -3667,20 +3499,22 @@ img.im-step-img {
   </h1>
 
   <p class="hero-body" data-reveal style="--rd:400ms">
-    <span class="hero-body-lead">The free expense splitting app for friends, roommates, and group trips.</span>
+    <span class="hero-body-lead">The free expense splitting app for friends, roommates, and group trips—on iPhone or the web.</span>
     <span class="hero-body-tag">Built around how friends handle money.</span>
   </p>
 
-  <a href="https://app.bountt.com" class="cta-btn" id="heroCta" data-reveal style="--rd:650ms" aria-label="Start sharing expenses with Bountt — sign up or log in">
-    <svg class="cta-btn-icon" viewBox="0 0 95 86" fill="none" aria-hidden="true">
-      <path d="M76.1905 13.3326C76.1905 4.57874 62.7765 0 49.5234 0C37.2093 0 24.7599 3.95728 23.0603 11.5433C11.089 12.2969 0 16.8042 0 24.7617V26.6653V49.5234C0 57.4165 13.392 60.9524 26.667 60.9524C40.2322 60.9524 24.5 39 55.5 25C57.0361 22.6146 73.3138 26.6719 74.2668 24.2844C75.5011 21.1919 76.1905 18.1396 76.1905 15.2363V13.3326ZM7.62133 34.3616C12.7033 36.8295 19.7069 38.0974 26.6671 38.0974C33.6274 38.0974 32.5 39 34.5 36.0891C34.5 42.1358 33.8508 41.9048 26.6671 41.9048C15.2818 41.9048 8.74313 39.0975 7.62133 37.7725V34.3616ZM68.5693 13.3326C68.5693 14.7399 62.5446 18.6829 51.0522 19.015C47.4451 14.897 39.9915 12.4183 31.9131 11.6719C34.4631 9.87898 40.4022 7.61813 49.5235 7.61813C62.0232 7.61813 68.5693 11.8647 68.5693 13.3326ZM26.6671 19.0472C39.1668 19.0472 45.7129 23.2937 45.7129 24.7617C45.7129 26.2296 39.1631 30.4762 26.6671 30.4762C14.1674 30.4762 7.62133 26.2296 7.62133 24.7617C7.62133 23.2937 14.1676 19.0472 26.6671 19.0472ZM7.62133 49.2015V46.4799C12.6998 48.5479 19.6996 49.5229 26.6671 49.5229C33.6347 49.5229 29.4213 50.2754 34.5 48.2075V50.929C33.3821 52.2541 31.5 53.5 26.6671 53.3338C15.2818 53.3338 8.74313 50.5265 7.62133 49.2015Z" fill="currentColor"/>
-      <path d="M59.9999 39.3334V62.6667M48.3333 51H71.6666M89.1666 51C89.1666 67.1083 76.1082 80.1667 59.9999 80.1667C43.8916 80.1667 30.8333 67.1083 30.8333 51C30.8333 34.8917 43.8916 21.8334 59.9999 21.8334C76.1082 21.8334 89.1666 34.8917 89.1666 51Z" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <span>Start sharing expenses</span>
-    <svg class="btn-chevron" viewBox="0 0 16 16" aria-hidden="true">
-      <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </a>
+  <div class="hero-cta-group" data-reveal style="--rd:650ms">
+    <a href="https://app.bountt.com" class="cta-btn" id="heroCta" aria-label="Start sharing expenses with Bountt — sign up or log in">
+      <svg class="cta-btn-icon" viewBox="0 0 95 86" fill="none" aria-hidden="true">
+        <path d="M76.1905 13.3326C76.1905 4.57874 62.7765 0 49.5234 0C37.2093 0 24.7599 3.95728 23.0603 11.5433C11.089 12.2969 0 16.8042 0 24.7617V26.6653V49.5234C0 57.4165 13.392 60.9524 26.667 60.9524C40.2322 60.9524 24.5 39 55.5 25C57.0361 22.6146 73.3138 26.6719 74.2668 24.2844C75.5011 21.1919 76.1905 18.1396 76.1905 15.2363V13.3326ZM7.62133 34.3616C12.7033 36.8295 19.7069 38.0974 26.6671 38.0974C33.6274 38.0974 32.5 39 34.5 36.0891C34.5 42.1358 33.8508 41.9048 26.6671 41.9048C15.2818 41.9048 8.74313 39.0975 7.62133 37.7725V34.3616ZM68.5693 13.3326C68.5693 14.7399 62.5446 18.6829 51.0522 19.015C47.4451 14.897 39.9915 12.4183 31.9131 11.6719C34.4631 9.87898 40.4022 7.61813 49.5235 7.61813C62.0232 7.61813 68.5693 11.8647 68.5693 13.3326ZM26.6671 19.0472C39.1668 19.0472 45.7129 23.2937 45.7129 24.7617C45.7129 26.2296 39.1631 30.4762 26.6671 30.4762C14.1674 30.4762 7.62133 26.2296 7.62133 24.7617C7.62133 23.2937 14.1676 19.0472 26.6671 19.0472ZM7.62133 49.2015V46.4799C12.6998 48.5479 19.6996 49.5229 26.6671 49.5229C33.6347 49.5229 29.4213 50.2754 34.5 48.2075V50.929C33.3821 52.2541 31.5 53.5 26.6671 53.3338C15.2818 53.3338 8.74313 50.5265 7.62133 49.2015Z" fill="currentColor"/>
+        <path d="M59.9999 39.3334V62.6667M48.3333 51H71.6666M89.1666 51C89.1666 67.1083 76.1082 80.1667 59.9999 80.1667C43.8916 80.1667 30.8333 67.1083 30.8333 51C30.8333 34.8917 43.8916 21.8334 59.9999 21.8334C76.1082 21.8334 89.1666 34.8917 89.1666 51Z" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Start sharing expenses</span>
+      <svg class="btn-chevron" viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M6 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
 
   <div class="hero-visual" id="heroVisual" data-reveal style="--rd:900ms" role="img" aria-label="Bountt expense splitting app interface showing group cost tracking">
 
@@ -4100,8 +3934,25 @@ img.im-step-img {
         </button>
         <div class="faq-body" id="faqL2-body" role="region" aria-labelledby="faqL2-btn">
           <div class="faq-body-inner">
-            <p>Bountt is a progressive web app, so there is no need to download it. But if you want to still, you can do so with these steps:</p>
-            <p><a href="#" id="installBounttTrigger">How to install Bountt</a></p>
+            <p>Yes — Bountt is on the App Store for iPhone. Prefer the web? Open <a href="https://app.bountt.com" target="_blank" rel="noopener noreferrer">app.bountt.com</a> in any browser, no install needed.</p>
+            <p class="faq-app-store-row">
+              <a
+                href="https://apps.apple.com/us/app/bountt/id6784439632"
+                class="faq-app-store-badge"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Download Bountt on the App Store"
+              >
+                <img
+                  src="img/download-on-the-app-store.svg"
+                  alt=""
+                  width="120"
+                  height="40"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+            </p>
           </div>
         </div>
       </div>
@@ -5268,67 +5119,6 @@ document.querySelectorAll('.avatar').forEach(makeDraggable);
   });
 })();
 
-/* ── INSTALL MODAL ── */
-(function() {
-  var modal;
-  var backdrop;
-  var closeBtn;
-  var trigger;
-  var prevFocus;
-
-  function initInstallModal() {
-    modal = document.getElementById('installModal');
-    backdrop = document.getElementById('imBackdrop');
-    closeBtn = document.getElementById('imClose');
-    trigger = document.getElementById('installBounttTrigger');
-
-    if (!modal || !backdrop || !closeBtn || !trigger) return;
-
-    trigger.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      openModal();
-    });
-
-    backdrop.addEventListener('click', closeModal);
-    closeBtn.addEventListener('click', closeModal);
-  }
-
-  function openModal() {
-    prevFocus = document.activeElement;
-    modal.removeAttribute('hidden');
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() {
-        modal.classList.add('im-open');
-        closeBtn.focus();
-      });
-    });
-    document.body.style.overflow = 'hidden';
-    document.body.classList.add('install-modal-open');
-  }
-
-  function closeModal() {
-    modal.classList.remove('im-open');
-    document.body.style.overflow = '';
-    document.body.classList.remove('install-modal-open');
-    setTimeout(function() {
-      modal.setAttribute('hidden', '');
-      if (prevFocus) prevFocus.focus();
-    }, 300);
-  }
-
-  document.addEventListener('keydown', function(e) {
-    if (!modal || modal.hasAttribute('hidden')) return;
-    if (e.key === 'Escape') closeModal();
-  });
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initInstallModal);
-  } else {
-    initInstallModal();
-  }
-})();
-
 /* ── FEATURES CARD DECK ── */
 document.addEventListener('DOMContentLoaded', function() {
 (function(){
@@ -6009,66 +5799,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
-
-<!-- ── INSTALL MODAL ── -->
-<div id="installModal" class="im-modal" hidden role="dialog" aria-modal="true" aria-labelledby="imTitle">
-  <div class="im-backdrop" id="imBackdrop"></div>
-  <div class="im-sheet">
-
-    <div class="im-head">
-      <h2 class="im-title" id="imTitle">How to install Bountt</h2>
-      <button class="im-close" id="imClose" type="button" aria-label="Close install guide">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75" fill="none" aria-hidden="true">
-          <path d="M72.2513 16.0018L50.7536 37.4988L72.2513 58.9959C75.9162 62.6607 75.9162 68.593 72.2513 72.2491C70.4232 74.0771 68.0238 75 65.6245 75C63.2251 75 60.8258 74.086 58.9977 72.2491L37.5 50.7521L16.0023 72.2491C14.1742 74.0771 11.7749 75 9.37552 75C6.97617 75 4.57681 74.086 2.74872 72.2491C-0.916239 68.5842 -0.916239 62.6519 2.74872 58.9959L24.2464 37.4988L2.74872 16.0018C-0.916239 12.337 -0.916239 6.4047 2.74872 2.74863C6.41367 -0.916211 12.3461 -0.916211 16.0023 2.74863L37.5 24.2456L58.9977 2.74863C62.6626 -0.916211 68.5951 -0.916211 72.2513 2.74863C75.9162 6.41348 75.9162 12.337 72.2513 16.0018Z" fill="currentColor"/>
-        </svg>
-      </button>
-    </div>
-
-    <div class="im-body">
-
-      <section class="im-platform" aria-label="iOS installation steps">
-        <div class="im-platform-label">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <rect x="4" y="1" width="10" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/>
-            <circle cx="9" cy="14" r="1" fill="currentColor"/>
-          </svg>
-          iOS
-        </div>
-        <ol class="im-steps">
-          <li class="im-step">
-            <div class="im-step-text">
-              <span class="im-step-num">1</span>
-              <p>Open the app at <a href="https://app.bountt.com" target="_blank" rel="noopener"><strong>app.bountt.com</strong></a> in Safari and tap the three dot menu in the address bar.</p>
-            </div>
-            <img class="im-step-img" src="img/install-iphone-step-1.png" alt="Safari address bar showing app.bountt.com and the three-dot menu highlighted." width="1024" height="396" />
-          </li>
-          <li class="im-step">
-            <div class="im-step-text">
-              <span class="im-step-num">2</span>
-              <p>Tap <strong>Share</strong> at the top of the menu.</p>
-            </div>
-            <img class="im-step-img" src="img/install-iphone-step-2.png" alt="Safari menu with Share highlighted at the top." width="797" height="1060" />
-          </li>
-          <li class="im-step">
-            <div class="im-step-text">
-              <span class="im-step-num">3</span>
-              <p>Scroll down and tap <strong>Add to Home Screen</strong>.</p>
-            </div>
-            <img class="im-step-img" src="img/install-iphone-step-3.png" alt="Share sheet with Add to Home Screen highlighted." width="811" height="1024" />
-          </li>
-          <li class="im-step">
-            <div class="im-step-text">
-              <span class="im-step-num">4</span>
-              <p>Bountt now <strong>lives on your home screen</strong>.</p>
-            </div>
-            <img class="im-step-img" src="img/install-iphone-step-4.png" alt="Home screen showing Bountt icon installed." width="1024" height="768" />
-          </li>
-        </ol>
-      </section>
-
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
